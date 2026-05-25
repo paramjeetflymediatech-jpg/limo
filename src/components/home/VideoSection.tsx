@@ -70,7 +70,7 @@ export default function VideoSection() {
             className="w-full h-full object-cover cursor-pointer brightness-[0.7] group-hover:brightness-[0.8] transition-all duration-500"
           >
             <source
-              src="https://assets.mixkit.co/videos/preview/mixkit-chauffeur-opening-the-door-of-a-luxury-car-34407-large.mp4"
+              src="/vid1.mp4"
               type="video/mp4"
             />
           </video>

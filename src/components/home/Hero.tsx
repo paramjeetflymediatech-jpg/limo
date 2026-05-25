@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import BookingForm from "../BookingForm";
 
 export default function Hero() {
+  const [viewMode, setViewMode] = useState<"exterior" | "interior">("exterior");
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -21,21 +22,50 @@ export default function Hero() {
       onMouseMove={handleMouseMove}
       className="relative min-h-[95vh] lg:min-h-screen flex flex-col justify-center items-center overflow-hidden pt-12"
     >
-      {/* Video Background */}
+      {/* Video Backgrounds */}
       <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="object-cover w-full h-full scale-105 filter brightness-50 transition-transform duration-1000"
-          poster="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=1920"
+        {/* Exterior Video */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${
+            viewMode === "exterior" ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
         >
-          <source
-            src="https://assets.mixkit.co/videos/preview/mixkit-luxury-black-car-driving-through-the-city-at-night-42295-large.mp4"
-            type="video/mp4"
-          />
-        </video>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="object-cover w-full h-full scale-105 filter brightness-50 transition-transform duration-1000"
+            poster="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=1920"
+          >
+            <source
+              src="https://assets.mixkit.co/videos/preview/mixkit-luxury-black-car-driving-through-the-city-at-night-42295-large.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+
+        {/* Interior Video */}
+        <div
+          className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${
+            viewMode === "interior" ? "opacity-100" : "opacity-0 pointer-events-none"
+          }`}
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="object-cover w-full h-full scale-105 filter brightness-[0.4] transition-transform duration-1000"
+            poster="/images/limo_interior.png"
+          >
+            <source
+              src="https://assets.mixkit.co/videos/preview/mixkit-interior-of-a-modern-luxury-car-42297-large.mp4"
+              type="video/mp4"
+            />
+          </video>
+        </div>
+
         {/* Dark overlays with gold tint gradients */}
         <div className="absolute inset-0 bg-gradient-to-t from-matte-black via-matte-black/60 to-transparent" />
         <div className="absolute inset-0 bg-gradient-to-r from-matte-black/80 via-transparent to-matte-black/80" />
@@ -52,6 +82,41 @@ export default function Hero() {
       {/* Gold neon top line divider animation */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-luxury-gold/50 to-transparent animate-pulse-slow" />
 
+      {/* Floating Spec Panel for Interior Cabin */}
+      <AnimatePresence>
+        {viewMode === "interior" && (
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -40 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="absolute left-8 bottom-32 hidden xl:flex flex-col gap-4 p-6 glass-panel border border-luxury-gold/30 rounded-lg max-w-xs text-left z-20 shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
+          >
+            <h4 className="text-luxury-gold font-serif font-bold text-sm uppercase tracking-wider flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-luxury-gold animate-ping" />
+              VIP Cabin Lounge
+            </h4>
+            <p className="text-xs text-gray-300 font-light leading-relaxed">
+              Step inside the sound-insulated executive rear compartment featuring climate-regulated massage seating and tailored amenities.
+            </p>
+            <ul className="flex flex-col gap-2 text-[10px] uppercase tracking-widest text-white/90">
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-luxury-gold rounded-full" />
+                Starlight Headliner
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-luxury-gold rounded-full" />
+                Champagne Bar & Glassware
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="w-1.5 h-1.5 bg-luxury-gold rounded-full" />
+                Acoustic Privacy Partition
+              </li>
+            </ul>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Hero Content */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col items-center text-center relative z-10 pt-20 pb-12 lg:pb-24">
         {/* Decorative Badge */}
@@ -65,6 +130,35 @@ export default function Hero() {
           <span className="text-[10px] uppercase tracking-[0.3em] text-luxury-gold font-semibold">
             First-Class Chauffeur Service
           </span>
+        </motion.div>
+
+        {/* View Mode Toggle */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.15 }}
+          className="flex gap-2 p-1.5 bg-matte-black/75 backdrop-blur-md border border-luxury-gold/25 rounded-full mb-8 z-20"
+        >
+          <button
+            onClick={() => setViewMode("exterior")}
+            className={`px-5 py-2 rounded-full text-[10px] uppercase tracking-widest font-medium transition-all duration-500 cursor-pointer ${
+              viewMode === "exterior"
+                ? "bg-luxury-gold text-matte-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+                : "text-white hover:text-luxury-gold"
+            }`}
+          >
+            Exterior Cruise
+          </button>
+          <button
+            onClick={() => setViewMode("interior")}
+            className={`px-5 py-2 rounded-full text-[10px] uppercase tracking-widest font-medium transition-all duration-500 cursor-pointer ${
+              viewMode === "interior"
+                ? "bg-luxury-gold text-matte-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+                : "text-white hover:text-luxury-gold"
+            }`}
+          >
+            VIP Cabin Interior
+          </button>
         </motion.div>
 
         {/* Heading */}
