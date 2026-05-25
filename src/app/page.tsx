@@ -21,14 +21,14 @@ export default function Home() {
       {/* 3. Luxury Fleet Showcase */}
       <FleetShowcase />
 
+      {/* Cinematic Preview Video Section */}
+      <VideoSection />
+
       {/* 4. Capabilities & Services Section */}
       <Services />
 
       {/* 5. Why Choose Us Section */}
       <WhyChooseUs />
-
-      {/* Cinematic Preview Video Section */}
-      <VideoSection />
 
       {/* 6. Testimonial Endorsements Slider */}
       <Testimonials />
