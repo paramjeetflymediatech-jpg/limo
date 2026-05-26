@@ -3,19 +3,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { 
-  Compass, 
-  Clock, 
-  BadgeCheck, 
-  ShieldAlert, 
-  Check, 
-  Shield, 
-  Briefcase, 
-  Award, 
-  Sparkles, 
-  Heart,
-  Star
-} from "lucide-react";
+import { Check } from "lucide-react";
+
 import DynamicChauffeurDetailsClient from "./DynamicChauffeurDetailsClient";
 
 export const dynamic = "force-dynamic";
@@ -30,7 +19,7 @@ interface RouteParams {
 export async function generateMetadata({ params }: RouteParams): Promise<Metadata> {
   await initDb();
   const { slug } = await params;
-  
+
   const service = await LocationService.findOne({
     where: { slug, available: true }
   });
@@ -98,17 +87,13 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
     ];
   }
 
-  // Map icons dynamically based on index and naming
-  const iconList = [Compass, Clock, BadgeCheck, ShieldAlert, Shield, Briefcase, Award, Sparkles, Heart, Star];
+  // Map icon names (strings) so they can safely cross the Server→Client boundary
+  const iconNames = ["Compass", "Clock", "BadgeCheck", "ShieldAlert", "Shield", "Briefcase", "Award", "Sparkles", "Heart", "Star"];
 
-  const processedFeatures = featuresGridList.map((feat, idx) => {
-    // Pick an icon based on index or fallback
-    const IconComponent = iconList[idx % iconList.length];
-    return {
-      ...feat,
-      icon: IconComponent
-    };
-  });
+  const processedFeatures = featuresGridList.map((feat, idx) => ({
+    ...feat,
+    icon: iconNames[idx % iconNames.length],
+  }));
 
   return (
     <div className="bg-matte-black min-h-screen py-16 md:py-24 relative overflow-hidden">

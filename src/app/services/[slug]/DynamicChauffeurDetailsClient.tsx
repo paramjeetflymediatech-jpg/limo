@@ -1,12 +1,40 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { LucideIcon } from "lucide-react";
+import {
+  Compass,
+  Clock,
+  BadgeCheck,
+  ShieldAlert,
+  Check,
+  Shield,
+  Briefcase,
+  Award,
+  Sparkles,
+  Heart,
+  Star,
+  type LucideIcon,
+} from "lucide-react";
+
+// Icon lookup map — only serialisable strings cross the server→client boundary
+const ICON_MAP: Record<string, LucideIcon> = {
+  Compass,
+  Clock,
+  BadgeCheck,
+  ShieldAlert,
+  Check,
+  Shield,
+  Briefcase,
+  Award,
+  Sparkles,
+  Heart,
+  Star,
+};
 
 interface GridFeature {
   title: string;
   description: string;
-  icon: LucideIcon;
+  icon: string; // icon name string, resolved here
 }
 
 interface DynamicChauffeurDetailsClientProps {
@@ -17,7 +45,7 @@ export default function DynamicChauffeurDetailsClient({ features }: DynamicChauf
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       {features.map((feature, index) => {
-        const Icon = feature.icon;
+        const Icon = ICON_MAP[feature.icon] ?? Compass;
         return (
           <motion.div
             key={feature.title}
