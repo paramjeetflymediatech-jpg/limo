@@ -113,18 +113,18 @@ export default function Footer() {
           <ul className="flex flex-col gap-4 text-sm text-gray-400">
             <li className="flex flex-col">
               <span className="text-xs uppercase text-gray-500 tracking-wider">Address</span>
-              <span>100 VIP Boulevard, Suite 500, Dubai, UAE</span>
+              <span>Vancouver, BC, Canada</span>
             </li>
             <li className="flex flex-col">
               <span className="text-xs uppercase text-gray-500 tracking-wider">Phone</span>
-              <a href="tel:+1234567890" className="hover:text-white transition-colors">
-                +1 (234) 567-890
+              <a href="tel:+13062404000" className="hover:text-white transition-colors">
+                +1 (306) 240-4000
               </a>
             </li>
             <li className="flex flex-col">
               <span className="text-xs uppercase text-gray-500 tracking-wider">Email</span>
-              <a href="mailto:concierge@fantasticlimo.com" className="hover:text-white transition-colors">
-                concierge@fantasticlimo.com
+              <a href="mailto:info@fantasticlimo.ca" className="hover:text-white transition-colors">
+                info@fantasticlimo.ca
               </a>
             </li>
           </ul>

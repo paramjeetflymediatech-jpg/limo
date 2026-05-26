@@ -59,9 +59,9 @@ export default function ContactClient() {
             {/* Support Details */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {[
-                { icon: Phone, title: "Phone", details: "+1 (234) 567-890", href: "tel:+1234567890" },
-                { icon: Mail, title: "Email", details: "concierge@fantasticlimo.com", href: "mailto:concierge@fantasticlimo.com" },
-                { icon: MapPin, title: "Address", details: "100 VIP Boulevard, Dubai, UAE", href: "#" },
+                { icon: Phone, title: "Phone", details: "+1 (306) 240‑4000", href: "tel:+1234567890" },
+                { icon: Mail, title: "Email", details: "info@fantasticlimo.ca", href: "mailto: info@fantasticlimo.ca" },
+                { icon: MapPin, title: "Address", details: "Vancouver", href: "#" },
                 { icon: Clock, title: "Hours", details: "24/7 Dispatch Availability", href: "#" },
               ].map(({ icon: Icon, title, details, href }) => (
                 <div key={title} className="glass-panel p-6 rounded-lg border border-luxury-gold/10">
@@ -82,9 +82,10 @@ export default function ContactClient() {
 
             {/* Google Maps Embed */}
             <div className="relative rounded-lg overflow-hidden border border-luxury-gold/20 shadow-[0_0_30px_rgba(212,175,55,0.08)]" style={{ height: "320px" }}>
+             
               <iframe
                 title="FantasticLimo Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.9823069!2d55.2707828!3d25.2047605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2s!4v1716000000000!5m2!1sen!2s"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d74647.56209391438!2d-123.123904!3d49.25773545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548673f143a94fb3%3A0xbb9196ea9b81f38b!2sVancouver%2C%20BC%2C%20Canada!5e1!3m2!1sen!2sin!4v1779789010405!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) saturate(0.8) brightness(0.85)" }}
@@ -95,10 +96,10 @@ export default function ContactClient() {
               {/* Gold overlay badge */}
               <div className="absolute bottom-3 left-3 bg-matte-black/80 backdrop-blur-sm border border-luxury-gold/30 rounded px-3 py-1.5 flex items-center gap-2 pointer-events-none">
                 <MapPin className="w-3.5 h-3.5 text-luxury-gold shrink-0" />
-                <span className="text-[10px] uppercase tracking-widest text-gray-300 font-medium">FantasticLimo Dubai Hub</span>
+                <span className="text-[10px] uppercase tracking-widest text-gray-300 font-medium">FantasticLimo Vancouver Hub</span>
               </div>
               <a
-                href="https://maps.google.com/?q=Dubai,UAE"
+                href="https://maps.google.com/?q=Vancouver"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute top-3 right-3 bg-matte-black/80 backdrop-blur-sm border border-luxury-gold/30 rounded px-3 py-1.5 text-[10px] uppercase tracking-widest text-luxury-gold hover:bg-luxury-gold hover:text-matte-black transition-all duration-200"
