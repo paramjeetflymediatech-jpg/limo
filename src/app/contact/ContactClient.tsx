@@ -80,15 +80,31 @@ export default function ContactClient() {
               ))}
             </div>
 
-            {/* Embedded Map Visualizer */}
-            <div className="h-64 rounded-lg bg-dark-gray border border-luxury-gold/10 overflow-hidden relative flex items-center justify-center group">
-              <div className="absolute inset-0 bg-[radial-gradient(#1e1e1e_1px,transparent_1px)] [background-size:16px_16px] opacity-30" />
-              <div className="relative z-10 flex flex-col items-center">
-                <MapPin className="w-8 h-8 text-luxury-gold animate-bounce mb-2" />
-                <span className="text-xs uppercase tracking-widest text-gray-300 font-semibold">FantasticLimo Dubai Hub</span>
-                <span className="text-[10px] text-gray-500 mt-1">25.2048° N, 55.2708° E</span>
+            {/* Google Maps Embed */}
+            <div className="relative rounded-lg overflow-hidden border border-luxury-gold/20 shadow-[0_0_30px_rgba(212,175,55,0.08)]" style={{ height: "320px" }}>
+              <iframe
+                title="FantasticLimo Location"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3609.9823069!2d55.2707828!3d25.2047605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f43496ad9c645%3A0xbde66e5084295162!2sDubai%20-%20United%20Arab%20Emirates!5e0!3m2!1sen!2s!4v1716000000000!5m2!1sen!2s"
+                width="100%"
+                height="100%"
+                style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) saturate(0.8) brightness(0.85)" }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              {/* Gold overlay badge */}
+              <div className="absolute bottom-3 left-3 bg-matte-black/80 backdrop-blur-sm border border-luxury-gold/30 rounded px-3 py-1.5 flex items-center gap-2 pointer-events-none">
+                <MapPin className="w-3.5 h-3.5 text-luxury-gold shrink-0" />
+                <span className="text-[10px] uppercase tracking-widest text-gray-300 font-medium">FantasticLimo Dubai Hub</span>
               </div>
-              <div className="absolute inset-0 bg-gradient-to-t from-matte-black via-transparent to-transparent pointer-events-none" />
+              <a
+                href="https://maps.google.com/?q=Dubai,UAE"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute top-3 right-3 bg-matte-black/80 backdrop-blur-sm border border-luxury-gold/30 rounded px-3 py-1.5 text-[10px] uppercase tracking-widest text-luxury-gold hover:bg-luxury-gold hover:text-matte-black transition-all duration-200"
+              >
+                Open in Maps ↗
+              </a>
             </div>
           </div>
 
