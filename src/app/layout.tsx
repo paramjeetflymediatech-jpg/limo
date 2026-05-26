@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
-import WhatsAppButton from "@/components/WhatsAppButton";
+import LayoutWrapper from "@/components/LayoutWrapper";
 import LoadingScreen from "@/components/LoadingScreen";
-import SmoothScroll from "@/components/SmoothScroll";
-import ParticlesBackground from "@/components/ParticlesBackground";
+import ConditionalParticles from "@/components/ConditionalParticles";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -57,31 +53,14 @@ export default function RootLayout({
         {/* Loading Screen */}
         <LoadingScreen />
 
-        {/* Cinematic 3D Particles */}
-        <ParticlesBackground />
+        {/* Cinematic 3D Particles — hidden on /admin */}
+        <ConditionalParticles />
 
         {/* Cinematic Film Grain / Noise Overlay */}
         <div className="noise-overlay" />
         
-        {/* Custom Cursor */}
-        <CustomCursor />
-        
-        {/* Navigation bar */}
-        <Navbar />
-        
-        {/* Smooth momentum scrolling wrapper */}
-        <SmoothScroll>
-          <div className="flex flex-col min-h-screen">
-            {/* Main Content Area */}
-            <main className="flex-grow pt-[88px]">{children}</main>
-            
-            {/* Footer */}
-            <Footer />
-          </div>
-        </SmoothScroll>
-        
-        {/* Floating WhatsApp Button */}
-        <WhatsAppButton />
+        {/* Conditional Layout Wrapper */}
+        <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>
   );

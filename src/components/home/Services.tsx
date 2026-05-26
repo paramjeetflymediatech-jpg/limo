@@ -2,54 +2,31 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Plane, Building2, Heart, Shield, Star, Compass, Milestone, ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin, Star } from "lucide-react";
 
-export const services = [
-  {
-    icon: Plane,
-    title: "Airport Transfers",
-    description: "Flawless transitions from runway to final destination. Flight tracking and meet-and-greet included.",
-    href: "/services/airport-transfers",
-  },
-  {
-    icon: Milestone,
-    title: "Corporate Chauffeur",
-    description: "A mobile office experience for busy executives. Rely on absolute punctuality and complete confidentiality.",
-    href: "/services/corporate-travel",
-  },
-  {
-    icon: Heart,
-    title: "Wedding Luxury Cars",
-    description: "Make your special day timeless. Meticulously detailed vehicles, professional chauffeurs, and customized ribbons.",
-    href: "/services/wedding-chauffeur",
-  },
-  {
-    icon: Star,
-    title: "VIP Event Transport",
-    description: "Arrive in red carpet style. Tailored group logistical support for galas, award shows, and VIP parties.",
-    href: "/services",
-  },
-  {
-    icon: Building2,
-    title: "Hotel Transfers",
-    description: "Seamless travel between premium five-star resorts, private villas, and corporate offices.",
-    href: "/services",
-  },
-  {
-    icon: Compass,
-    title: "Celebrity Transport",
-    description: "Discreet and premium logistics tailored for public figures, artists, and dignitaries.",
-    href: "/services",
-  },
-  {
-    icon: Shield,
-    title: "Security Escort Service",
-    description: "Close protection and armoring solutions for diplomats, celebrities, and high-net-worth individuals.",
-    href: "/services",
-  },
-];
+interface LocationService {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  location: string;
+  price: string;
+  available: boolean;
+}
 
-export default function Services() {
+interface ServicesProps {
+  services: LocationService[];
+}
+
+export default function Services({ services }: ServicesProps) {
+  // If there are no services, show a fallback message
+  if (!services || services.length === 0) {
+    return null;
+  }
+
+  // Display only the first 8 active services on the home page for clean layout
+  const displayedServices = services.slice(0, 8);
+
   return (
     <section className="bg-matte-black py-24 relative overflow-hidden">
       {/* Glow Backdrop */}
@@ -68,7 +45,7 @@ export default function Services() {
           </div>
           <Link
             href="/services"
-            className="group flex items-center gap-2 text-xs uppercase tracking-widest text-luxury-gold hover:text-white font-semibold transition-colors duration-300"
+            className="group flex items-center gap-2 text-xs uppercase tracking-widest text-luxury-gold hover:text-white font-semibold transition-colors duration-300 shrink-0"
           >
             <span>View All Services</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -77,39 +54,60 @@ export default function Services() {
 
         {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {services.map((service, index) => {
-            const Icon = service.icon;
-            return (
-              <motion.div
-                key={service.title}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.6, delay: index * 0.08 }}
-                className="glass-panel p-6 md:p-8 rounded-lg flex flex-col justify-between group hover:border-luxury-gold/30 hover:shadow-[0_0_25px_rgba(212,175,55,0.1)] hover:bg-dark-gray/40 transition-all duration-300 h-full"
-              >
-                <div>
-                  <div className="w-12 h-12 rounded-lg bg-luxury-gold/5 flex items-center justify-center text-luxury-gold mb-6 border border-luxury-gold/10 group-hover:scale-110 transition-transform duration-300">
-                    <Icon className="w-5 h-5" />
+          {displayedServices.map((service, index) => (
+            <motion.div
+              key={service.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: index * 0.08 }}
+              className="glass-panel rounded-lg overflow-hidden border border-luxury-gold/10 hover:border-luxury-gold/30 hover:shadow-[0_0_25px_rgba(212,175,55,0.1)] hover:bg-dark-gray/40 transition-all duration-300 flex flex-col justify-between h-full group"
+            >
+              {/* Card Thumbnail Image */}
+              <div className="relative h-44 bg-matte-black overflow-hidden border-b border-luxury-gold/10 shrink-0">
+                <img
+                  src={service.image}
+                  alt={service.name}
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 brightness-[0.8] group-hover:brightness-95"
+                />
+                <div className="absolute top-3 left-3 bg-matte-black/80 backdrop-blur-sm px-2.5 py-0.5 border border-luxury-gold/25 rounded-full text-[9px] uppercase tracking-widest text-luxury-gold font-bold flex items-center gap-1">
+                  <MapPin className="w-2.5 h-2.5 text-luxury-gold" />
+                  <span>{service.location}</span>
+                </div>
+                {service.price && (
+                  <div className="absolute top-3 right-3 bg-luxury-gold text-matte-black font-bold text-[10px] px-2 py-0.5 rounded shadow">
+                    {service.price}
                   </div>
-                  <h3 className="text-lg font-serif text-white mb-3 group-hover:text-luxury-gold transition-colors duration-300">
-                    {service.title}
+                )}
+              </div>
+
+              {/* Card content */}
+              <div className="p-6 flex-grow flex flex-col justify-between gap-6">
+                <div>
+                  <h3 className="text-md font-serif text-white mb-2 group-hover:text-luxury-gold transition-colors duration-300 font-bold">
+                    {service.name}
                   </h3>
-                  <p className="text-white/95 text-xs md:text-sm leading-relaxed font-light mb-6">
+                  <p className="text-gray-400 text-xs leading-relaxed font-light line-clamp-3">
                     {service.description}
                   </p>
                 </div>
 
-                <Link
-                  href={service.href}
-                  className="text-xs uppercase tracking-widest text-luxury-gold group-hover:text-white font-semibold flex items-center gap-1.5 mt-auto transition-colors"
-                >
-                  <span>Learn More</span>
-                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </motion.div>
-            );
-          })}
+                <div className="flex items-center justify-between border-t border-luxury-gold/5 pt-4 mt-auto">
+                  <span className="text-[8px] uppercase tracking-widest text-gray-600 font-bold flex items-center gap-1">
+                    <Star className="w-3 h-3 text-luxury-gold fill-luxury-gold" />
+                    Bespoke Chauffeur
+                  </span>
+                  <Link
+                    href={`/booking?service=${encodeURIComponent(service.name)}&location=${encodeURIComponent(service.location)}`}
+                    className="text-[10px] uppercase tracking-widest text-luxury-gold group-hover:text-white font-bold flex items-center gap-1 transition-colors"
+                  >
+                    <span>Reserve</span>
+                    <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

@@ -121,7 +121,23 @@ function TiltCard({
   );
 }
 
-export default function FleetShowcase() {
+interface ShowcaseFleetItem {
+  id: string;
+  name: string;
+  category: string;
+  image: string;
+  description: string;
+  price: string;
+  passengers: number;
+  luggage: number;
+  available?: boolean;
+}
+
+export default function FleetShowcase({ fleet }: { fleet?: ShowcaseFleetItem[] }) {
+  const displayFleet = fleet && fleet.length > 0 
+    ? fleet.filter(car => car.available !== false).slice(0, 6) 
+    : fleetItems;
+
   return (
     <section className="bg-dark-gray py-24 relative overflow-hidden">
       {/* Background Accent glow */}
@@ -144,7 +160,7 @@ export default function FleetShowcase() {
 
         {/* Grid Showcase */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-1000">
-          {fleetItems.map((car, index) => (
+          {displayFleet.map((car, index) => (
             <TiltCard
               key={car.id}
               index={index}
