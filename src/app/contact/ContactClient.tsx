@@ -13,10 +13,34 @@ export default function ContactClient() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formState),
+      });
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        const err = await response.json();
+        setError(err.error || "Failed to send inquiry. Please try again.");
+      }
+    } catch (err) {
+      console.error("Contact submit error:", err);
+      setError("Concierge desk offline. Please try again or call +1 (306) 240-4000.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -131,6 +155,13 @@ export default function ContactClient() {
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+                {error && (
+                  <div className="bg-red-950/80 border border-red-900/40 text-red-400 px-4 py-3 rounded text-xs font-semibold flex items-center gap-2">
+                    <span>⚠️</span>
+                    <span>{error}</span>
+                  </div>
+                )}
+
                 <div>
                   <label className={labelStyles}>Your Name</label>
                   <input
@@ -201,10 +232,20 @@ export default function ContactClient() {
 
                 <button
                   type="submit"
-                  className="w-full bg-gradient-to-r from-luxury-gold to-soft-gold text-matte-black font-semibold text-xs uppercase tracking-widest py-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+                  disabled={loading}
+                  className="w-full bg-gradient-to-r from-luxury-gold to-soft-gold text-matte-black font-semibold text-xs uppercase tracking-widest py-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_0_15px_rgba(212,175,55,0.2)] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  <span>Submit Inquiry</span>
-                  <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  {loading ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-matte-black border-t-transparent rounded-full animate-spin" />
+                      <span>Submitting Inquiry...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span>Submit Inquiry</span>
+                      <Send className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
                 </button>
               </form>
             )}

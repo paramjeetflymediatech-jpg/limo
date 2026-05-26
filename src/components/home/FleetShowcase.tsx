@@ -167,7 +167,10 @@ export default function FleetShowcase({ fleet }: { fleet?: ShowcaseFleetItem[] }
               className="glass-panel rounded-lg overflow-hidden group border border-luxury-gold/10 hover:border-luxury-gold/30 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] transition-all duration-500 shadow-xl flex flex-col h-full cursor-pointer"
             >
               {/* Image Container */}
-              <div className="relative h-64 overflow-hidden bg-matte-black">
+              <Link 
+                href={`/fleet/${car.id}`}
+                className="relative h-64 overflow-hidden bg-matte-black block cursor-pointer"
+              >
                 {/* Spotlight hover overlay */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.15)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
                 <Image
@@ -183,13 +186,15 @@ export default function FleetShowcase({ fleet }: { fleet?: ShowcaseFleetItem[] }
                 <div className="absolute bottom-4 right-4 bg-luxury-gold text-matte-black font-semibold text-xs px-3 py-1.5 rounded-sm tracking-wider z-20 shadow-md">
                   {car.price}
                 </div>
-              </div>
+              </Link>
 
               {/* Details Container */}
               <div className="p-6 md:p-8 flex flex-col justify-between flex-grow">
                 <div>
                   <h3 className="text-xl font-serif text-white mb-3 group-hover:text-luxury-gold transition-colors duration-300">
-                    {car.name}
+                    <Link href={`/fleet/${car.id}`}>
+                      {car.name}
+                    </Link>
                   </h3>
                   <p className="text-white/95 text-xs md:text-sm font-light leading-relaxed mb-6">
                     {car.description}
@@ -203,13 +208,21 @@ export default function FleetShowcase({ fleet }: { fleet?: ShowcaseFleetItem[] }
                 </div>
 
                 {/* Reservation Link */}
-                <Link
-                  href={`/booking?vehicle=${encodeURIComponent(car.name)}`}
-                  className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-luxury-gold hover:text-white font-semibold group/link self-start mt-auto"
-                >
-                  <span>Reserve Now</span>
-                  <ArrowUpRight className="w-4 h-4 group-hover/link:translate-x-1 group-hover/link:-translate-y-1 transition-transform" />
-                </Link>
+                <div className="flex items-center justify-between gap-4 mt-auto border-t border-luxury-gold/10 pt-4">
+                  <Link
+                    href={`/fleet/${car.id}`}
+                    className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-luxury-gold hover:text-white font-semibold group/link"
+                  >
+                    <span>Explore</span>
+                    <ArrowUpRight className="w-4 h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
+                  </Link>
+                  <Link
+                    href={`/booking?vehicle=${encodeURIComponent(car.name)}`}
+                    className="text-xs uppercase tracking-widest text-gray-400 hover:text-white font-semibold"
+                  >
+                    <span>Book Now</span>
+                  </Link>
+                </div>
               </div>
             </TiltCard>
           ))}

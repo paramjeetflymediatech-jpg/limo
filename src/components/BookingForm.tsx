@@ -18,6 +18,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
   const searchParams = useSearchParams();
   
   const [vehicles, setVehicles] = useState<string[]>(vehicleCategories);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -94,6 +95,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
       router.push(`/booking?${query}`);
     } else {
       // If full form (on booking page), post to bookings API to persist
+      setSubmitting(true);
       try {
         const response = await fetch("/api/bookings", {
           method: "POST",
@@ -123,6 +125,8 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
       } catch (error) {
         console.error("Booking submission error:", error);
         alert("Concierge system offline. Please try booking again or contact us directly.");
+      } finally {
+        setSubmitting(false);
       }
     }
   };
@@ -393,10 +397,20 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
 
       <button
         type="submit"
-        className="w-full bg-gradient-to-r from-luxury-gold to-soft-gold hover:from-soft-gold hover:to-luxury-gold text-matte-black font-semibold text-xs uppercase tracking-widest py-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] mt-4"
+        disabled={submitting}
+        className="w-full bg-gradient-to-r from-luxury-gold to-soft-gold hover:from-soft-gold hover:to-luxury-gold text-matte-black font-semibold text-xs uppercase tracking-widest py-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
       >
-        <span>Request Chauffeur Reservation</span>
-        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+        {submitting ? (
+          <>
+            <div className="w-4 h-4 border-2 border-matte-black border-t-transparent rounded-full animate-spin" />
+            <span>Processing Reservation...</span>
+          </>
+        ) : (
+          <>
+            <span>Request Chauffeur Reservation</span>
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </>
+        )}
       </button>
     </form>
   );

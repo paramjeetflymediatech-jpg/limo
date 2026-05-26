@@ -101,7 +101,10 @@ export default function FleetClient({ fleet }: FleetClientProps) {
                       }`}
                     >
                       {/* Image Showcase */}
-                      <div className="w-full lg:w-1/2 relative h-[300px] md:h-[450px] overflow-hidden rounded-lg border border-luxury-gold/15 group shadow-2xl bg-matte-black">
+                      <Link 
+                        href={`/fleet/${car.id}`}
+                        className="w-full lg:w-1/2 relative h-[300px] md:h-[450px] overflow-hidden rounded-lg border border-luxury-gold/15 group shadow-2xl bg-matte-black block cursor-pointer"
+                      >
                         <Image
                           src={car.image}
                           alt={car.name}
@@ -113,7 +116,7 @@ export default function FleetClient({ fleet }: FleetClientProps) {
                         <div className="absolute top-6 left-6 bg-matte-black/80 backdrop-blur-md border border-luxury-gold/20 px-4 py-1.5 rounded-full text-xs uppercase tracking-widest text-luxury-gold font-semibold">
                           {car.category}
                         </div>
-                      </div>
+                      </Link>
 
                       {/* Specifications & Details */}
                       <div className="w-full lg:w-1/2 flex flex-col justify-center">
@@ -121,7 +124,9 @@ export default function FleetClient({ fleet }: FleetClientProps) {
                           {car.category}
                         </span>
                         <h2 className="text-2xl md:text-4xl font-serif font-bold text-white mb-4">
-                          {car.name}
+                          <Link href={`/fleet/${car.id}`} className="hover:text-luxury-gold transition-colors duration-300">
+                            {car.name}
+                          </Link>
                         </h2>
                         <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-6">
                           {car.description}
@@ -162,13 +167,21 @@ export default function FleetClient({ fleet }: FleetClientProps) {
                         </div>
 
                         {/* Reservation Action */}
-                        <Link
-                          href={`/booking?vehicle=${encodeURIComponent(car.name)}`}
-                          className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-luxury-gold to-soft-gold text-matte-black font-semibold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_15px_rgba(212,175,55,0.2)] transition-all duration-300 self-start"
-                        >
-                          <span>Reserve {car.name.split(" ")[0]}</span>
-                          <ArrowRight className="w-4 h-4" />
-                        </Link>
+                        <div className="flex flex-wrap gap-4 items-center">
+                          <Link
+                            href={`/fleet/${car.id}`}
+                            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-luxury-gold to-soft-gold text-matte-black font-semibold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_15px_rgba(212,175,55,0.2)] transition-all duration-300"
+                          >
+                            <span>Explore Details</span>
+                            <ArrowRight className="w-4 h-4" />
+                          </Link>
+                          <Link
+                            href={`/booking?vehicle=${encodeURIComponent(car.name)}`}
+                            className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-luxury-gold/30 hover:border-luxury-gold text-luxury-gold hover:text-white font-semibold text-xs uppercase tracking-widest transition-all duration-300"
+                          >
+                            <span>Book Now</span>
+                          </Link>
+                        </div>
                       </div>
                     </motion.div>
                   ))}

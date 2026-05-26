@@ -95,6 +95,8 @@ export class FleetItem extends Model {
   declare passengers: number;
   declare luggage: number;
   declare available: boolean;
+  declare imagesJson: string;
+  declare amenitiesJson: string;
 }
 
 FleetItem.init(
@@ -134,6 +136,16 @@ FleetItem.init(
     available: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
+    },
+    imagesJson: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      defaultValue: "[]",
+    },
+    amenitiesJson: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+      defaultValue: "[]",
     },
   },
   {

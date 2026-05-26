@@ -6,12 +6,29 @@ import { Car, Plus, Trash2, Pencil, X, Upload, CheckCircle2, AlertCircle, Chevro
 type Vehicle = {
   id: string; name: string; category: string; image: string;
   description: string; price: string; passengers: number;
-  luggage: number; available: boolean;
+  luggage: number; available: boolean; imagesJson?: string;
+  amenitiesJson?: string;
 };
 
-const EMPTY: Omit<Vehicle, "id"> = {
+type FormState = Omit<Vehicle, "id"> & {
+  images: string[];
+  amenities: string[];
+};
+
+const STANDARD_AMENITIES = [
+  "High-Speed Wi-Fi",
+  "Discreet Privacy Glass",
+  "Premium Audio System",
+  "Chilled Mineral Water",
+  "Professional Chauffeur",
+  "Dual Zone Climate Control"
+];
+
+const EMPTY: FormState = {
   name: "", category: "", image: "", description: "",
   price: "", passengers: 4, luggage: 2, available: true,
+  images: [],
+  amenities: ["High-Speed Wi-Fi", "Discreet Privacy Glass", "Premium Audio System", "Chilled Mineral Water", "Professional Chauffeur"],
 };
 
 const inputCls = "w-full bg-matte-black/60 border border-luxury-gold/15 text-white rounded px-3 py-2 text-xs focus:outline-none focus:border-luxury-gold/40";
@@ -21,13 +38,14 @@ const PER_PAGE = 9;
 export default function FleetPage() {
   const [fleet,    setFleet]    = useState<Vehicle[]>([]);
   const [loading,  setLoading]  = useState(true);
-  const [form,     setForm]     = useState(EMPTY);
+  const [form,     setForm]     = useState<FormState>(EMPTY);
   const [editing,  setEditing]  = useState<Vehicle | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [saving,   setSaving]   = useState(false);
   const [msg,      setMsg]      = useState<{ type: "ok"|"err"; text: string } | null>(null);
   const [page,     setPage]     = useState(1);
   const fileRef = useRef<HTMLInputElement>(null);
+  const multiFileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetch("/api/fleet").then(r => r.json()).then(d => setFleet(Array.isArray(d) ? d : [])).finally(() => setLoading(false));
@@ -39,7 +57,43 @@ export default function FleetPage() {
   };
 
   const openAdd  = () => { setForm(EMPTY); setEditing(null); setShowForm(true); };
-  const openEdit = (v: Vehicle) => { setForm({ name: v.name, category: v.category, image: v.image, description: v.description, price: v.price, passengers: v.passengers, luggage: v.luggage, available: v.available }); setEditing(v); setShowForm(true); };
+  const openEdit = (v: Vehicle) => {
+    let parsedImages: string[] = [];
+    try {
+      if (v.imagesJson) {
+        parsedImages = JSON.parse(v.imagesJson);
+      }
+    } catch (e) {
+      console.error("Failed to parse imagesJson:", e);
+    }
+
+    let parsedAmenities: string[] = [];
+    try {
+      if (v.amenitiesJson) {
+        parsedAmenities = JSON.parse(v.amenitiesJson);
+      } else {
+        parsedAmenities = ["High-Speed Wi-Fi", "Discreet Privacy Glass", "Premium Audio System", "Chilled Mineral Water", "Professional Chauffeur"];
+      }
+    } catch (e) {
+      console.error("Failed to parse amenitiesJson:", e);
+      parsedAmenities = ["High-Speed Wi-Fi", "Discreet Privacy Glass", "Premium Audio System", "Chilled Mineral Water", "Professional Chauffeur"];
+    }
+
+    setForm({
+      name: v.name,
+      category: v.category,
+      image: v.image,
+      description: v.description,
+      price: v.price,
+      passengers: v.passengers,
+      luggage: v.luggage,
+      available: v.available,
+      images: parsedImages,
+      amenities: parsedAmenities,
+    });
+    setEditing(v);
+    setShowForm(true);
+  };
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -49,13 +103,41 @@ export default function FleetPage() {
     if (res.ok) { const d = await res.json(); setForm(f => ({ ...f, image: d.url })); }
   };
 
+  const handleUploadAdditional = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+    
+    const uploadedUrls: string[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const fd = new FormData();
+      fd.append("file", files[i]);
+      const res = await fetch("/api/upload", { method: "POST", body: fd });
+      if (res.ok) {
+        const d = await res.json();
+        uploadedUrls.push(d.url);
+      }
+    }
+    
+    if (uploadedUrls.length > 0) {
+      setForm(f => ({ ...f, images: [...f.images, ...uploadedUrls] }));
+    }
+  };
+
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
     try {
+      const payload = {
+        ...form,
+        imagesJson: JSON.stringify(form.images),
+        amenitiesJson: JSON.stringify(form.amenities),
+      };
+      delete (payload as any).images;
+      delete (payload as any).amenities;
+
       const url    = editing ? `/api/fleet/${editing.id}` : "/api/fleet";
       const method = editing ? "PUT" : "POST";
-      const res    = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
+      const res    = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
       if (res.ok) {
         const saved = await res.json();
         if (editing) setFleet(f => f.map(v => v.id === editing.id ? saved : v));
@@ -187,7 +269,7 @@ export default function FleetPage() {
               </div>
 
               <div>
-                <label className={labelCls}>Image URL / Upload</label>
+                <label className={labelCls}>Image URL / Upload (Primary)</label>
                 <div className="flex gap-2">
                   <input className={`${inputCls} flex-1`} value={form.image} onChange={e => setForm(f => ({ ...f, image: e.target.value }))} placeholder="https://…" />
                   <button type="button" onClick={() => fileRef.current?.click()} className="px-3 py-2 border border-luxury-gold/20 text-luxury-gold rounded hover:bg-luxury-gold/10 text-xs cursor-pointer">
@@ -196,6 +278,110 @@ export default function FleetPage() {
                 </div>
                 <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleUpload} />
                 {form.image && <img src={form.image} alt="preview" className="mt-2 h-24 w-full object-cover rounded border border-luxury-gold/10" />}
+              </div>
+
+              {/* Multiple photos uploads */}
+              <div>
+                <label className={labelCls}>Additional Gallery Images</label>
+                <div className="flex flex-wrap gap-3 mt-2">
+                  {form.images.map((img, idx) => (
+                    <div key={idx} className="relative w-20 h-20 rounded overflow-hidden border border-luxury-gold/25 group bg-matte-black">
+                      <img src={img} className="w-full h-full object-cover" alt="Gallery thumbnail" />
+                      <button
+                        type="button"
+                        onClick={() => setForm(f => ({ ...f, images: f.images.filter((_, i) => i !== idx) }))}
+                        className="absolute inset-0 bg-red-950/80 text-red-400 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    type="button"
+                    onClick={() => multiFileRef.current?.click()}
+                    className="w-20 h-20 rounded border border-dashed border-luxury-gold/30 hover:border-luxury-gold/60 flex flex-col items-center justify-center text-gray-500 hover:text-luxury-gold transition-colors text-[9px] gap-1 cursor-pointer bg-matte-black/40"
+                  >
+                    <Plus className="w-4 h-4" />
+                    <span>Upload</span>
+                  </button>
+                </div>
+                <input ref={multiFileRef} type="file" accept="image/*" multiple className="hidden" onChange={handleUploadAdditional} />
+              </div>
+
+              {/* Amenities checklist & custom input */}
+              <div>
+                <label className={labelCls}>Amenities Included</label>
+                <div className="grid grid-cols-2 gap-2 mt-1">
+                  {STANDARD_AMENITIES.map(amenity => (
+                    <label key={amenity} className="flex items-center gap-2 text-[11px] text-gray-300">
+                      <input
+                        type="checkbox"
+                        checked={form.amenities.includes(amenity)}
+                        onChange={e => {
+                          if (e.target.checked) {
+                            setForm(f => ({ ...f, amenities: [...f.amenities, amenity] }));
+                          } else {
+                            setForm(f => ({ ...f, amenities: f.amenities.filter(a => a !== amenity) }));
+                          }
+                        }}
+                        className="accent-luxury-gold"
+                      />
+                      <span>{amenity}</span>
+                    </label>
+                  ))}
+                </div>
+                
+                <div className="mt-3">
+                  <label className="text-[9px] uppercase tracking-wider text-gray-500 block mb-1">Add Custom Amenity</label>
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      id="custom-amenity-input"
+                      placeholder="e.g. Starlight Headliner, Heated Seats"
+                      className="flex-1 bg-matte-black/60 border border-luxury-gold/15 text-white rounded px-2.5 py-1.5 text-xs focus:outline-none focus:border-luxury-gold/40"
+                      onKeyDown={e => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          const val = (e.target as HTMLInputElement).value.trim();
+                          if (val && !form.amenities.includes(val)) {
+                            setForm(f => ({ ...f, amenities: [...f.amenities, val] }));
+                            (e.target as HTMLInputElement).value = "";
+                          }
+                        }
+                      }}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        const input = document.getElementById("custom-amenity-input") as HTMLInputElement;
+                        const val = input?.value.trim();
+                        if (val && !form.amenities.includes(val)) {
+                          setForm(f => ({ ...f, amenities: [...f.amenities, val] }));
+                          input.value = "";
+                        }
+                      }}
+                      className="px-3 py-1.5 border border-luxury-gold/20 text-luxury-gold rounded hover:bg-luxury-gold/10 text-xs cursor-pointer"
+                    >
+                      Add
+                    </button>
+                  </div>
+                  
+                  {/* Selected Amenities Badges */}
+                  <div className="flex flex-wrap gap-1.5 mt-2">
+                    {form.amenities.filter(a => !STANDARD_AMENITIES.includes(a)).map(amenity => (
+                      <span key={amenity} className="inline-flex items-center gap-1 bg-luxury-gold/10 border border-luxury-gold/20 text-luxury-gold px-2 py-0.5 rounded text-[10px]">
+                        {amenity}
+                        <button
+                          type="button"
+                          onClick={() => setForm(f => ({ ...f, amenities: f.amenities.filter(a => a !== amenity) }))}
+                          className="hover:text-red-400 font-bold"
+                        >
+                          &times;
+                        </button>
+                      </span>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               <div className="flex justify-end gap-3 pt-2">

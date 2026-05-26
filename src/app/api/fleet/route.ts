@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
   try {
     await initDb();
     const data = await request.json();
-    const { name, category, image, description, price, passengers, luggage } = data;
+    const { name, category, image, description, price, passengers, luggage, imagesJson, amenitiesJson } = data;
 
     if (!name || !category || !image || !description || !price || passengers === undefined || luggage === undefined) {
       return Response.json(
@@ -53,6 +53,8 @@ export async function POST(request: NextRequest) {
       passengers: Number(passengers),
       luggage: Number(luggage),
       available: true,
+      imagesJson: imagesJson || "[]",
+      amenitiesJson: amenitiesJson || "[]",
     });
 
     return Response.json(newVehicle, { status: 201 });

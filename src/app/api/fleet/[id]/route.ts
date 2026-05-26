@@ -55,6 +55,22 @@ export async function DELETE(request: NextRequest, { params }: RouteContext) {
     // Clean up local uploaded file
     await deleteLocalUpload(car.image);
 
+    // Clean up any extra local uploads in imagesJson
+    try {
+      if (car.imagesJson) {
+        const extraImages: string[] = JSON.parse(car.imagesJson);
+        if (Array.isArray(extraImages)) {
+          for (const img of extraImages) {
+            if (img && img !== car.image) {
+              await deleteLocalUpload(img);
+            }
+          }
+        }
+      }
+    } catch (e) {
+      console.error("Failed to delete extra uploads:", e);
+    }
+
     await car.destroy();
 
     return Response.json({ message: "Vehicle removed successfully", vehicle: car });
