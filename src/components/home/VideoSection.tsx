@@ -76,7 +76,7 @@ export default function VideoSection() {
           </video>
 
           {/* Gradient top and bottom overlays */}
-          <div className="absolute inset-0 bg-gradient-to-t from-matte-black/60 via-transparent to-matte-black/30 pointer-events-none" />
+          {/* <div className="absolute inset-0 bg-gradient-to-t from-matte-black/60 via-transparent to-matte-black/30 pointer-events-none" /> */}
 
           {/* Play/Pause Center Button Overlay */}
           <AnimatePresence>

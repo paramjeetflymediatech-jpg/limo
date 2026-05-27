@@ -23,7 +23,7 @@ export default function Hero() {
       className="   relative min-h-[95vh] lg:min-h-screen flex flex-col justify-center items-center overflow-hidden pt-12"
     >
       {/* Video Backgrounds */}
-      <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden">
+      <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden bg-black">
         {/* Exterior Video */}
         <div
           className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${
@@ -35,7 +35,7 @@ export default function Hero() {
             loop
             muted
             playsInline
-            className="object-contain w-full h-full    "
+            className="object-cover w-full h-full filter brightness-[0.65]"
             poster="/vid1.mp4"
           >
             <source
@@ -56,7 +56,7 @@ export default function Hero() {
             loop
             muted
             playsInline
-            className="object-cover w-full h-full scale-105 filter brightness-[1.2] opacity-15 transition-transform duration-1000"
+            className="object-cover w-full h-full scale-105 filter brightness-[0.5] transition-transform duration-1000"
             poster="/images/limo_interior.png"
           >
             <source
@@ -66,9 +66,8 @@ export default function Hero() {
           </video>
         </div>
 
-        {/* Light overlays with gold tint gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-matte-black via-matte-black/40 to-transparent bg-matte-black/40"  />
-        {/* <div className="absolute inset-0 bg-gradient-to-r from-matte-black/20 via-transparent to-matte-black/20" /> */}
+        {/* Dark overlays with gold/black gradients for solid text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-black/75 bg-black/40" />
       </div>
 
       {/* Mouse Follow Glow Effect */}
@@ -166,9 +165,9 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="text-4xl md:text-6xl lg:text-8xl font-serif font-bold text-white tracking-tight leading-none mb-6 max-w-5xl   "
+          className="text-4xl md:text-6xl lg:text-8xl font-serif font-bold hero-text-white tracking-tight leading-none mb-6 max-w-5xl"
         >
-          Experience The <span className="text-transparent bg-clip-text bg-gradient-to-r from-luxury-gold via-champagne-gold to-luxury-gold">Art Of Luxury Travel</span>
+          Experience The <span className="text-transparent bg-clip-text bg-gradient-to-r from-luxury-gold via-soft-gold to-luxury-gold">Art Of Luxury Travel</span>
         </motion.h1>
 
         {/* Subheading */}
@@ -176,7 +175,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.9 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="text-gray-300 text-sm md:text-lg uppercase tracking-[0.25em] font-light max-w-2xl mb-10 leading-relaxed  "
+          className="hero-text-white-muted text-sm md:text-lg uppercase tracking-[0.25em] font-light max-w-2xl mb-10 leading-relaxed"
         >
           Elite Chauffeur & Limousine Services For VIP Clients
         </motion.p>
@@ -196,7 +195,7 @@ export default function Hero() {
           </Link>
           <Link
             href="/fleet"
-            className="px-8 py-4 border border-white/20 hover:border-luxury-gold text-white font-semibold text-xs uppercase tracking-widest bg-matte-black/20 backdrop-blur-sm transition-all duration-300 rounded-sm hover:shadow-[0_0_15px_rgba(212,175,55,0.1)]"
+            className="px-8 py-4 border border-[#ffffff]/35 hover:border-luxury-gold hero-text-white font-semibold text-xs uppercase tracking-widest bg-black/10 backdrop-blur-sm transition-all duration-300 rounded-sm hover:shadow-[0_0_15px_rgba(212,175,55,0.1)]"
           >
             Explore Luxury Fleet
           </Link>

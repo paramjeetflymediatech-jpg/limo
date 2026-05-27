@@ -272,7 +272,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
             />
           </div>
           {pickupSuggestions.length > 0 && formData.pickup !== lastSelectedPickup && (
-            <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-50 max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
+            <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-[1005] max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
               {pickupSuggestions.map((suggestion: any) => (
                 <button
                   key={suggestion.place_id}
@@ -311,7 +311,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
             />
           </div>
           {dropoffSuggestions.length > 0 && formData.dropoff !== lastSelectedDropoff && (
-            <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-50 max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
+            <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-[1005] max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
               {dropoffSuggestions.map((suggestion: any) => (
                 <button
                   key={suggestion.place_id}
@@ -484,7 +484,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
           />
         </div>
         {pickupSuggestions.length > 0 && formData.pickup !== lastSelectedPickup && (
-          <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-50 max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
+          <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-[1005] max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
             {pickupSuggestions.map((suggestion: any) => (
               <button
                 key={suggestion.place_id}
@@ -523,7 +523,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
           />
         </div>
         {dropoffSuggestions.length > 0 && formData.dropoff !== lastSelectedDropoff && (
-          <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-50 max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
+          <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-[1005] max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
             {dropoffSuggestions.map((suggestion: any) => (
               <button
                 key={suggestion.place_id}

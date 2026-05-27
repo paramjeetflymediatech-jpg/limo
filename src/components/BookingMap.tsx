@@ -26,16 +26,20 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
       zoomControl: false,
     });
 
-    // Sleek dark-mode maps to match the brand aesthetic
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: "abcd",
-      maxZoom: 20,
+    // High-contrast OpenStreetMap tiles for fully visible streets and cities
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      maxZoom: 19,
     }).addTo(map);
 
     L.control.zoom({ position: "bottomright" }).addTo(map);
 
     mapRef.current = map;
+
+    // Trigger redraw after container layout settles
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 150);
 
     return () => {
       if (mapRef.current) {
@@ -71,7 +75,7 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
     if (pickupCoords) {
       const pickupIcon = L.divIcon({
         html: `
-          <div class="flex items-center justify-center w-8 h-8 rounded-full bg-[#051c14] border-2 border-[#bfa15f] shadow-[0_0_12px_rgba(191,161,95,0.7)] text-[#bfa15f] font-sans font-bold text-xs select-none">
+          <div class="flex items-center justify-center w-8 h-8 rounded-full bg-[#1a2421] border-2 border-[#bfa15f] shadow-[0_0_12px_rgba(191,161,95,0.7)] text-[#bfa15f] font-sans font-bold text-xs select-none">
             A
           </div>
         `,
@@ -90,7 +94,7 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
     if (dropoffCoords) {
       const dropoffIcon = L.divIcon({
         html: `
-          <div class="flex items-center justify-center w-8 h-8 rounded-full bg-[#051c14] border-2 border-[#bfa15f] shadow-[0_0_12px_rgba(191,161,95,0.7)] text-[#bfa15f] font-sans font-bold text-xs select-none">
+          <div class="flex items-center justify-center w-8 h-8 rounded-full bg-[#1a2421] border-2 border-[#bfa15f] shadow-[0_0_12px_rgba(191,161,95,0.7)] text-[#bfa15f] font-sans font-bold text-xs select-none">
             B
           </div>
         `,
@@ -194,22 +198,22 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
 
   return (
     <div className="relative w-full h-80 rounded-lg overflow-hidden border border-[#bfa15f]/15">
-      <div ref={mapContainerRef} className="w-full h-full bg-[#051c14]" />
+      <div ref={mapContainerRef} className="w-full h-full bg-[#f5f2e9]" />
 
       {routeInfo && (
-        <div className="absolute top-4 left-4 z-[1000] glass-panel px-4 py-3 rounded-md border border-[#bfa15f]/35 text-white flex flex-col gap-1 shadow-lg pointer-events-none transition-all duration-300">
+        <div className="absolute top-4 left-4 z-[1000] glass-panel px-4 py-3 rounded-md border border-[#bfa15f]/35 text-gray-900 flex flex-col gap-1 shadow-lg pointer-events-none transition-all duration-300">
           <div className="text-[10px] uppercase tracking-widest text-[#bfa15f] font-semibold">
             Route Details
           </div>
           <div className="flex gap-4 items-center">
             <div>
-              <span className="text-gray-400 text-xs">Distance:</span>{" "}
-              <span className="text-sm font-semibold font-mono text-white">{routeInfo.distance}</span>
+              <span className="text-gray-500 text-xs">Distance:</span>{" "}
+              <span className="text-sm font-semibold font-mono text-gray-900">{routeInfo.distance}</span>
             </div>
             <div className="w-1 h-1 bg-[#bfa15f]/40 rounded-full" />
             <div>
-              <span className="text-gray-400 text-xs">Est. Time:</span>{" "}
-              <span className="text-sm font-semibold font-mono text-white">{routeInfo.duration}</span>
+              <span className="text-gray-500 text-xs">Est. Time:</span>{" "}
+              <span className="text-sm font-semibold font-mono text-gray-900">{routeInfo.duration}</span>
             </div>
           </div>
         </div>

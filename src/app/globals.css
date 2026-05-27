@@ -138,6 +138,14 @@ body {
   color: #000000 !important;
 }
 
+/* Custom hero text styles to force readable white color on top of dark video backdrops */
+.hero-text-white {
+  color: #ffffff !important;
+}
+.hero-text-white-muted {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
 /* Custom theme-dark class - now uses black text to match user preferences */
 .theme-dark {
   --background: #fdfbf7;
