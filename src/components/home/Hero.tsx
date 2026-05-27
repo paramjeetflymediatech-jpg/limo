@@ -20,7 +20,7 @@ export default function Hero() {
   return (
     <section
       onMouseMove={handleMouseMove}
-      className="relative min-h-[95vh] lg:min-h-screen flex flex-col justify-center items-center overflow-hidden pt-12"
+      className="   relative min-h-[95vh] lg:min-h-screen flex flex-col justify-center items-center overflow-hidden pt-12"
     >
       {/* Video Backgrounds */}
       <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden">
@@ -35,11 +35,11 @@ export default function Hero() {
             loop
             muted
             playsInline
-            className="object-cover w-full h-full scale-105 filter brightness-50 transition-transform duration-1000"
-            poster="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=1920"
+            className="object-contain w-full h-full    "
+            poster="/vid1.mp4"
           >
             <source
-              src="https://assets.mixkit.co/videos/preview/mixkit-luxury-black-car-driving-through-the-city-at-night-42295-large.mp4"
+              src="/vid1.mp4"
               type="video/mp4"
             />
           </video>
@@ -56,7 +56,7 @@ export default function Hero() {
             loop
             muted
             playsInline
-            className="object-cover w-full h-full scale-105 filter brightness-[0.4] transition-transform duration-1000"
+            className="object-cover w-full h-full scale-105 filter brightness-[1.2] opacity-15 transition-transform duration-1000"
             poster="/images/limo_interior.png"
           >
             <source
@@ -66,9 +66,9 @@ export default function Hero() {
           </video>
         </div>
 
-        {/* Dark overlays with gold tint gradients */}
-        <div className="absolute inset-0 bg-gradient-to-t from-matte-black via-matte-black/60 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-matte-black/80 via-transparent to-matte-black/80" />
+        {/* Light overlays with gold tint gradients */}
+        <div className="absolute inset-0 bg-gradient-to-t from-matte-black via-matte-black/40 to-transparent bg-matte-black/40"  />
+        {/* <div className="absolute inset-0 bg-gradient-to-r from-matte-black/20 via-transparent to-matte-black/20" /> */}
       </div>
 
       {/* Mouse Follow Glow Effect */}
@@ -133,7 +133,7 @@ export default function Hero() {
         </motion.div>
 
         {/* View Mode Toggle */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.15 }}
@@ -159,14 +159,14 @@ export default function Hero() {
           >
             VIP Cabin Interior
           </button>
-        </motion.div>
+        </motion.div> */}
 
         {/* Heading */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.2 }}
-          className="text-4xl md:text-6xl lg:text-8xl font-serif font-bold text-white tracking-tight leading-none mb-6 max-w-5xl"
+          className="text-4xl md:text-6xl lg:text-8xl font-serif font-bold text-white tracking-tight leading-none mb-6 max-w-5xl   "
         >
           Experience The <span className="text-transparent bg-clip-text bg-gradient-to-r from-luxury-gold via-champagne-gold to-luxury-gold">Art Of Luxury Travel</span>
         </motion.h1>
@@ -176,7 +176,7 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 0.9 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="text-gray-300 text-sm md:text-lg uppercase tracking-[0.25em] font-light max-w-2xl mb-10 leading-relaxed"
+          className="text-gray-300 text-sm md:text-lg uppercase tracking-[0.25em] font-light max-w-2xl mb-10 leading-relaxed  "
         >
           Elite Chauffeur & Limousine Services For VIP Clients
         </motion.p>

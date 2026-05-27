@@ -2,14 +2,14 @@
 @import "leaflet/dist/leaflet.css";
 
 @theme {
-  --color-matte-black: #0a0a0a;
-  --color-luxury-gold: #d4af37;
-  --color-soft-gold: #f5d06f;
-  --color-dark-gray: #111111;
-  --color-charcoal: #1e1e1e;
+  --color-matte-black: #fdfbf7;
+  --color-luxury-gold: #bfa15f;
+  --color-soft-gold: #faf4e3;
+  --color-dark-gray: #f5f2e9;
+  --color-charcoal: #ebe6d8;
   
-  --font-serif: var(--font-playfair), serif;
-  --font-sans: var(--font-inter), sans-serif;
+  --font-serif: var(--font-cormorant), serif;
+  --font-sans: var(--font-plus-jakarta), sans-serif;
   
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -20,20 +20,20 @@
     50% { transform: translateY(-10px); }
   }
   @keyframes glow {
-    0% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.2); }
-    100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.6); }
+    0% { box-shadow: 0 0 5px rgba(191, 161, 95, 0.2); }
+    100% { box-shadow: 0 0 20px rgba(191, 161, 95, 0.6); }
   }
 }
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ffffff;
+  --background: #fdfbf7;
+  --foreground: #000000;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-plus-jakarta), sans-serif;
   overflow-x: hidden;
 }
 
@@ -42,17 +42,17 @@ body {
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #0a0a0a;
+  background: #fdfbf7;
 }
 ::-webkit-scrollbar-thumb {
-  background: #d4af37;
+  background: #bfa15f;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #f5d06f;
+  background: #a88a4e;
 }
 
-/* Noise overlay */
+/* Noise overlay - reduced opacity for clean light mode */
 .noise-overlay {
   position: fixed;
   top: 0;
@@ -60,7 +60,7 @@ body {
   width: 100%;
   height: 100%;
   content: "";
-  opacity: 0.02;
+  opacity: 0.01;
   pointer-events: none;
   z-index: 9999;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
@@ -68,61 +68,120 @@ body {
 
 /* Glassmorphism utility */
 .glass-panel {
-  background: rgba(10, 10, 10, 0.7);
+  background: rgba(253, 251, 247, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 175, 55, 0.15);
+  border: 1px solid rgba(191, 161, 95, 0.15);
 }
 
 .glass-panel-hover {
   transition: all 0.3s ease;
 }
 .glass-panel-hover:hover {
-  background: rgba(17, 17, 17, 0.85);
-  border-color: rgba(212, 175, 55, 0.3);
-  box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.15);
+  background: rgba(245, 242, 233, 0.85);
+  border-color: rgba(191, 161, 95, 0.3);
+  box-shadow: 0 10px 30px -10px rgba(191, 161, 95, 0.15);
 }
 
 /* Custom luxury selection */
 ::selection {
-  background: #d4af37;
-  color: #0a0a0a;
+  background: #bfa15f;
+  color: #ffffff;
 }
 
 /* Custom Luxury Leaflet Controls */
 .leaflet-control-zoom {
-  border: 1px solid rgba(212, 175, 55, 0.2) !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7) !important;
+  border: 1px solid rgba(191, 161, 95, 0.2) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
   border-radius: 6px !important;
   overflow: hidden;
 }
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
-  background-color: #0a0a0a !important;
-  color: #d4af37 !important;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.15) !important;
+  background-color: #fdfbf7 !important;
+  color: #bfa15f !important;
+  border-bottom: 1px solid rgba(191, 161, 95, 0.15) !important;
   transition: all 0.3s ease !important;
 }
 .leaflet-control-zoom-in:hover,
 .leaflet-control-zoom-out:hover {
-  background-color: #1e1e1e !important;
-  color: #f5d06f !important;
+  background-color: #f5f2e9 !important;
+  color: #a88a4e !important;
 }
 .leaflet-bar a.leaflet-disabled {
-  background-color: #0a0a0a !important;
-  color: #444444 !important;
+  background-color: #fdfbf7 !important;
+  color: #cccccc !important;
 }
 .leaflet-popup-content-wrapper {
-  background: rgba(10, 10, 10, 0.95) !important;
+  background: rgba(253, 251, 247, 0.95) !important;
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(212, 175, 55, 0.25) !important;
-  color: #ffffff !important;
+  border: 1px solid rgba(191, 161, 95, 0.25) !important;
+  color: #1a2421 !important;
   border-radius: 6px !important;
-  font-family: var(--font-inter), sans-serif !important;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+  font-family: var(--font-plus-jakarta), sans-serif !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
 }
 .leaflet-popup-tip {
-  background: rgba(10, 10, 10, 0.95) !important;
-  border-left: 1px solid rgba(212, 175, 55, 0.25) !important;
-  border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
+  background: rgba(253, 251, 247, 0.95) !important;
+  border-left: 1px solid rgba(191, 161, 95, 0.25) !important;
+  border-bottom: 1px solid rgba(191, 161, 95, 0.25) !important;
 }
+
+/* Ensure text-white and all gray text classes are forced to black globally */
+.text-white,
+.text-gray-100,
+.text-gray-200,
+.text-gray-300,
+.text-gray-400,
+.text-gray-500,
+.text-gray-600 {
+  color: #000000 !important;
+}
+
+/* Custom theme-dark class - now uses black text to match user preferences */
+.theme-dark {
+  --background: #fdfbf7;
+  --foreground: #000000;
+  --color-matte-black: #fdfbf7;
+  --color-dark-gray: #f5f2e9;
+  --color-charcoal: #ebe6d8;
+}
+
+.theme-dark,
+.theme-dark * {
+  color: #000000 !important;
+}
+
+.theme-dark h1,
+.theme-dark h2,
+.theme-dark h3,
+.theme-dark h4,
+.theme-dark h5,
+.theme-dark h6,
+.theme-dark p,
+.theme-dark span,
+.theme-dark a,
+.theme-dark li {
+  color: #000000 !important;
+}
+
+.theme-dark .text-white {
+  color: #000000 !important;
+}
+
+.theme-dark .text-luxury-gold {
+  color: #bfa15f !important;
+}
+
+.theme-dark .text-gray-300 {
+  color: #333333 !important;
+}
+
+.theme-dark .text-gray-400 {
+  color: #444444 !important;
+}
+
+.theme-dark .text-gray-500 {
+  color: #555555 !important;
+}
+

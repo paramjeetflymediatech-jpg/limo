@@ -33,7 +33,7 @@ export default function VideoSection() {
   };
 
   return (
-    <section className="bg-matte-black py-24 relative overflow-hidden">
+    <section className="bg-matte-black theme-dark py-24 relative overflow-hidden">
       {/* Background Accent glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-luxury-gold/5 rounded-full blur-[150px] pointer-events-none" />
 

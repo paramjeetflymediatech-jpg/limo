@@ -76,7 +76,7 @@ export default function WhyChooseUs() {
                 <h3 className="text-lg font-serif text-white mb-4 group-hover:text-luxury-gold transition-colors duration-300">
                   {benefit.title}
                 </h3>
-                <p className="text-white/95 text-xs md:text-sm leading-relaxed font-light">
+                <p className="  text-xs md:text-sm leading-relaxed font-light">
                   {benefit.description}
                 </p>
               </motion.div>

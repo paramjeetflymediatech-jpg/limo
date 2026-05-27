@@ -196,7 +196,7 @@ export default function FleetShowcase({ fleet }: { fleet?: ShowcaseFleetItem[] }
                       {car.name}
                     </Link>
                   </h3>
-                  <p className="text-white/95 text-xs md:text-sm font-light leading-relaxed mb-6">
+                  <p className="  text-xs md:text-sm font-light leading-relaxed mb-6">
                     {car.description}
                   </p>
                   
@@ -211,14 +211,14 @@ export default function FleetShowcase({ fleet }: { fleet?: ShowcaseFleetItem[] }
                 <div className="flex items-center justify-between gap-4 mt-auto border-t border-luxury-gold/10 pt-4">
                   <Link
                     href={`/fleet/${car.id}`}
-                    className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-luxury-gold hover:text-white font-semibold group/link"
+                    className="inline-flex items-center gap-1.5 text-xs uppercase tracking-widest text-luxury-gold hover:text-black font-semibold group/link"
                   >
                     <span>Explore</span>
                     <ArrowUpRight className="w-4 h-4 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5 transition-transform" />
                   </Link>
                   <Link
                     href={`/booking?vehicle=${encodeURIComponent(car.name)}`}
-                    className="text-xs uppercase tracking-widest text-gray-400 hover:text-white font-semibold"
+                    className="text-xs uppercase tracking-widest text-luxury-gold hover:text-black font-semibold"
                   >
                     <span>Book Now</span>
                   </Link>

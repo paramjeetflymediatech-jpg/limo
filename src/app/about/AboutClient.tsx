@@ -108,7 +108,7 @@ export default function AboutClient() {
                   <h3 className="text-lg font-serif text-white mb-3">
                     {pillar.title}
                   </h3>
-                  <p className="text-white/95 text-xs md:text-sm font-light leading-relaxed">
+                  <p className="  text-xs md:text-sm font-light leading-relaxed">
                     {pillar.description}
                   </p>
                 </motion.div>

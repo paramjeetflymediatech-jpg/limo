@@ -177,7 +177,7 @@ export default function FleetClient({ fleet }: FleetClientProps) {
                           </Link>
                           <Link
                             href={`/booking?vehicle=${encodeURIComponent(car.name)}`}
-                            className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-luxury-gold/30 hover:border-luxury-gold text-luxury-gold hover:text-white font-semibold text-xs uppercase tracking-widest transition-all duration-300"
+                            className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-luxury-gold/30 hover:border-luxury-gold text-luxury-gold hover:text-luxury-goldfont-semibold text-xs uppercase tracking-widest transition-all duration-300"
                           >
                             <span>Book Now</span>
                           </Link>

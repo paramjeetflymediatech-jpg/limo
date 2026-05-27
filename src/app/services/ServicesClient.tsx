@@ -142,7 +142,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                         </span>
                         <Link
                           href={`/booking?service=${encodeURIComponent(service.name)}&location=${encodeURIComponent(service.location)}`}
-                          className="text-xs uppercase tracking-widest text-luxury-gold group-hover:text-white font-bold flex items-center gap-2 transition-colors duration-300"
+                          className="text-xs uppercase tracking-widest text-luxury-gold  font-bold flex items-center gap-2 transition-colors duration-300"
                         >
                           <span>Reserve Service</span>
                           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

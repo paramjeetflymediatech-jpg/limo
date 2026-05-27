@@ -5,11 +5,11 @@ import Link from "next/link";
 
 export default function Experience() {
   return (
-    <section className="relative h-[70vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
+    <section className="theme-dark relative h-[70vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
       {/* Background Image Parallax */}
       <div className="absolute inset-0 w-full h-full -z-10 bg-matte-black">
         <div
-          className="absolute inset-0 bg-cover bg-center brightness-[0.4]"
+          className="absolute inset-0 bg-cover bg-center brightness-[1.2] opacity-15"
           style={{
             backgroundImage: `url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=1920')`,
           }}

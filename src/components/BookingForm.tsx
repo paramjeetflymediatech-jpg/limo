@@ -343,7 +343,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
               name="dateTime"
               value={formData.dateTime}
               onChange={handleChange}
-              className={`${inputStyles} cursor-pointer [color-scheme:dark]`}
+              className={`${inputStyles} cursor-pointer [color-scheme:light]`}
               required
             />
           </div>
@@ -563,7 +563,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
               name="dateTime"
               value={formData.dateTime}
               onChange={handleChange}
-              className={`${inputStyles} cursor-pointer [color-scheme:dark]`}
+              className={`${inputStyles} cursor-pointer [color-scheme:light]`}
               required
             />
           </div>

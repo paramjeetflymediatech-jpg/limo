@@ -84,7 +84,7 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex flex-col items-start tracking-widest group">
-            <span className="text-xl md:text-2xl font-serif font-bold text-white group-hover:text-luxury-gold transition-colors duration-300">
+            <span className="text-xl md:text-2xl font-serif font-bold text-gray-900 group-hover:text-luxury-gold transition-colors duration-300">
               FANTASTICLIMO
             </span>
             <span className="text-[9px] uppercase tracking-[0.3em] text-luxury-gold/80 -mt-1">
@@ -108,7 +108,7 @@ export default function Navbar() {
                       className={`flex items-center gap-1 text-sm uppercase tracking-widest hover:text-luxury-gold transition-colors py-2 ${
                         pathname === link.href || pathname.startsWith("/services")
                           ? "text-luxury-gold"
-                          : "text-gray-300"
+                          : "text-gray-800"
                       }`}
                     >
                       {link.name}
@@ -130,10 +130,10 @@ export default function Navbar() {
                             <Link
                               key={subLink.name}
                               href={subLink.href}
-                              className={`block px-4 py-2.5 text-xs uppercase tracking-widest hover:bg-luxury-gold hover:text-matte-black transition-colors ${
+                              className={`block px-4 py-2.5 text-xs uppercase tracking-widest hover:bg-luxury-gold hover:text-white transition-colors ${
                                 pathname === subLink.href
                                   ? "text-luxury-gold"
-                                  : "text-gray-300"
+                                  : "text-gray-800"
                               }`}
                             >
                               {subLink.name}
@@ -164,7 +164,7 @@ export default function Navbar() {
                     className={`text-sm uppercase tracking-widest hover:text-luxury-gold transition-colors relative py-2 ${
                       pathname === link.href || pathname.startsWith("/services")
                         ? "text-luxury-gold"
-                        : "text-gray-300"
+                        : "text-gray-800"
                     }`}
                   >
                     {link.name}
@@ -183,7 +183,7 @@ export default function Navbar() {
                   key={link.name}
                   href={link.href}
                   className={`text-sm uppercase tracking-widest hover:text-luxury-gold transition-colors relative py-2 ${
-                    pathname === link.href ? "text-luxury-gold" : "text-gray-300"
+                    pathname === link.href ? "text-luxury-gold" : "text-gray-800"
                   }`}
                 >
                   {link.name}
@@ -202,7 +202,7 @@ export default function Navbar() {
           <div className="hidden lg:block">
             <Link
               href="/booking"
-              className="relative inline-flex items-center justify-center px-6 py-3 border border-luxury-gold/50 hover:border-luxury-gold text-xs uppercase tracking-widest font-semibold text-white bg-transparent hover:bg-luxury-gold hover:text-matte-black transition-all duration-300 group overflow-hidden"
+              className="relative inline-flex items-center justify-center px-6 py-3 border border-luxury-gold/50 hover:border-luxury-gold text-xs uppercase tracking-widest font-semibold text-gray-900 bg-transparent hover:bg-luxury-gold hover:text-white transition-all duration-300 group overflow-hidden"
             >
               <span className="relative z-10">Book Reservation</span>
               <span className="absolute inset-0 bg-gradient-to-r from-luxury-gold to-soft-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0" />
@@ -212,7 +212,7 @@ export default function Navbar() {
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-white hover:text-luxury-gold transition-colors z-50"
+            className="lg:hidden text-gray-900 hover:text-luxury-gold transition-colors z-50"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -248,7 +248,7 @@ export default function Navbar() {
                           key={subLink.name}
                           href={subLink.href}
                           className={`text-lg font-serif my-0.5 block hover:text-luxury-gold transition-colors ${
-                            pathname === subLink.href ? "text-luxury-gold" : "text-white"
+                            pathname === subLink.href ? "text-luxury-gold" : "text-gray-900"
                           }`}
                         >
                           {subLink.name}
@@ -265,7 +265,7 @@ export default function Navbar() {
                     <Link
                       href={link.href}
                       className={`text-2xl font-serif hover:text-luxury-gold transition-colors ${
-                        pathname === link.href ? "text-luxury-gold" : "text-white"
+                        pathname === link.href ? "text-luxury-gold" : "text-gray-900"
                       }`}
                     >
                       {link.name}
@@ -282,7 +282,7 @@ export default function Navbar() {
               >
                 <Link
                   href="/booking"
-                  className="px-8 py-4 border border-luxury-gold text-sm uppercase tracking-widest text-luxury-gold hover:bg-luxury-gold hover:text-matte-black transition-all duration-300 font-semibold"
+                  className="px-8 py-4 border border-luxury-gold text-sm uppercase tracking-widest text-luxury-gold hover:bg-luxury-gold hover:text-white transition-all duration-300 font-semibold"
                 >
                   Book Reservation
                 </Link>

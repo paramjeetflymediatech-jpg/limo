@@ -45,17 +45,17 @@ Sincerely,
 FantasticLimo Chauffeur Services
 `;
       const html = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 25px; border: 1px solid #d4af37; background-color: #0a0a0a; color: #ffffff;">
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 25px; border: 1px solid #dec07e; background-color: #051c14; color: #ffffff;">
           <div style="text-align: center; margin-bottom: 25px;">
             <span style="font-size: 24px; font-weight: bold; color: #ffffff; letter-spacing: 2px;">FANTASTICLIMO</span><br/>
-            <span style="font-size: 10px; color: #d4af37; letter-spacing: 3px; font-weight: bold;">LUXURY CHAUFFEUR SERVICE</span>
+            <span style="font-size: 10px; color: #dec07e; letter-spacing: 3px; font-weight: bold;">LUXURY CHAUFFEUR SERVICE</span>
           </div>
           <p>Dear ${booking.name},</p>
           <p>We are pleased to inform you that your chauffeured transportation reservation has been <strong style="color: #4ade80;">CONFIRMED</strong> by our dispatch desk.</p>
           
-          <div style="background-color: #111111; padding: 15px; border-left: 3px solid #4ade80; margin: 20px 0;">
-            <h4 style="color: #d4af37; margin-top: 0; margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Confirmed Reservation Receipt</h4>
-            <p style="margin: 5px 0; font-size: 13px;"><strong>Reference ID:</strong> <span style="color: #d4af37; font-weight: bold;">${booking.id}</span></p>
+          <div style="background-color: #0b2d20; padding: 15px; border-left: 3px solid #4ade80; margin: 20px 0;">
+            <h4 style="color: #dec07e; margin-top: 0; margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Confirmed Reservation Receipt</h4>
+            <p style="margin: 5px 0; font-size: 13px;"><strong>Reference ID:</strong> <span style="color: #dec07e; font-weight: bold;">${booking.id}</span></p>
             <p style="margin: 5px 0; font-size: 13px;"><strong>Vehicle:</strong> ${booking.vehicle}</p>
             <p style="margin: 5px 0; font-size: 13px;"><strong>Date & Time:</strong> ${formattedDate}</p>
             <p style="margin: 5px 0; font-size: 13px;"><strong>Pickup Location:</strong> ${booking.pickup}</p>
@@ -66,9 +66,9 @@ FantasticLimo Chauffeur Services
           
           <p>Our professional chauffeur will arrive at the pickup location 15 minutes prior to your scheduled time. Your vehicle is detailed, inspected, and configured to our signature standard.</p>
           <p style="font-size: 13px; color: #888;">If you need assistance or wish to make modifications, contact our dispatch operations center:</p>
-          <div style="margin: 15px 0; font-size: 13px; color: #d4af37;">
-            📞 <a href="tel:+13062404000" style="color: #d4af37; text-decoration: none;">+1 (306) 240-4000</a> &nbsp;&nbsp;|&nbsp;&nbsp; 
-            ✉️ <a href="mailto:info@fantasticlimo.ca" style="color: #d4af37; text-decoration: none;">info@fantasticlimo.ca</a>
+          <div style="margin: 15px 0; font-size: 13px; color: #dec07e;">
+            📞 <a href="tel:+13062404000" style="color: #dec07e; text-decoration: none;">+1 (306) 240-4000</a> &nbsp;&nbsp;|&nbsp;&nbsp; 
+            ✉️ <a href="mailto:info@fantasticlimo.ca" style="color: #dec07e; text-decoration: none;">info@fantasticlimo.ca</a>
           </div>
           
           <hr style="border: 0; border-top: 1px solid #222; margin: 25px 0;" />
@@ -105,7 +105,7 @@ Sincerely,
 FantasticLimo Chauffeur Services
 `;
       const html = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 25px; border: 1px solid #ef4444; background-color: #0a0a0a; color: #ffffff;">
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 25px; border: 1px solid #ef4444; background-color: #051c14; color: #ffffff;">
           <div style="text-align: center; margin-bottom: 25px;">
             <span style="font-size: 24px; font-weight: bold; color: #ffffff; letter-spacing: 2px;">FANTASTICLIMO</span><br/>
             <span style="font-size: 10px; color: #ef4444; letter-spacing: 3px; font-weight: bold;">RESERVATION CANCELLED</span>
@@ -113,7 +113,7 @@ FantasticLimo Chauffeur Services
           <p>Dear ${booking.name},</p>
           <p>This email is to confirm that your chauffeur reservation request has been <strong style="color: #ef4444;">CANCELLED</strong>.</p>
           
-          <div style="background-color: #111111; padding: 15px; border-left: 3px solid #ef4444; margin: 20px 0;">
+          <div style="background-color: #0b2d20; padding: 15px; border-left: 3px solid #ef4444; margin: 20px 0;">
             <h4 style="color: #ef4444; margin-top: 0; margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px;">Cancellation Receipt</h4>
             <p style="margin: 5px 0; font-size: 13px;"><strong>Reference ID:</strong> <span style="color: #ef4444; font-weight: bold;">${booking.id}</span></p>
             <p style="margin: 5px 0; font-size: 13px;"><strong>Vehicle:</strong> ${booking.vehicle}</p>
@@ -122,9 +122,9 @@ FantasticLimo Chauffeur Services
           </div>
           
           <p>If this cancellation was made in error, or you wish to discuss scheduling another ride, please contact our dispatch coordinators:</p>
-          <div style="margin: 15px 0; font-size: 13px; color: #d4af37;">
-            📞 <a href="tel:+13062404000" style="color: #d4af37; text-decoration: none;">+1 (306) 240-4000</a> &nbsp;&nbsp;|&nbsp;&nbsp; 
-            ✉️ <a href="mailto:info@fantasticlimo.ca" style="color: #d4af37; text-decoration: none;">info@fantasticlimo.ca</a>
+          <div style="margin: 15px 0; font-size: 13px; color: #dec07e;">
+            📞 <a href="tel:+13062404000" style="color: #dec07e; text-decoration: none;">+1 (306) 240-4000</a> &nbsp;&nbsp;|&nbsp;&nbsp; 
+            ✉️ <a href="mailto:info@fantasticlimo.ca" style="color: #dec07e; text-decoration: none;">info@fantasticlimo.ca</a>
           </div>
         </div>
       `;
