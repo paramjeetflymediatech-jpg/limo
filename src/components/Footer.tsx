@@ -67,7 +67,7 @@ export default function Footer() {
               <a
                 key={label}
                 href="#"
-                className="w-10 h-10 rounded-full border border-luxury-gold/20 flex items-center justify-center text-luxury-gold hover:text-white hover:border-luxury-gold hover:bg-luxury-gold/10 transition-all duration-300"
+                className="w-10 h-10 rounded-full border border-luxury-gold/20 flex items-center justify-center text-luxury-gold hover:border-luxury-gold hover:bg-luxury-gold/10 transition-all duration-300"
                 aria-label={label}
               >
                 <Icon className="w-4 h-4" />
@@ -83,22 +83,22 @@ export default function Footer() {
           </h3>
           <ul className="flex flex-col gap-4 text-sm text-gray-400">
             <li>
-              <Link href="/services/airport-transfers" className="hover:text-white transition-colors">
+              <Link href="/services/airport-transfers" className="transition-colors">
                 Airport Transfers
               </Link>
             </li>
             <li>
-              <Link href="/services/corporate-travel" className="hover:text-white transition-colors">
+              <Link href="/services/corporate-travel" className="transition-colors">
                 Corporate Executive Travel
               </Link>
             </li>
             <li>
-              <Link href="/services/wedding-chauffeur" className="hover:text-white transition-colors">
+              <Link href="/services/wedding-chauffeur" className="transition-colors">
                 Wedding Limousine
               </Link>
             </li>
             <li>
-              <Link href="/services" className="hover:text-white transition-colors">
+              <Link href="/services" className="transition-colors">
                 VIP Event Transportation
               </Link>
             </li>
@@ -117,13 +117,13 @@ export default function Footer() {
             </li>
             <li className="flex flex-col">
               <span className="text-xs uppercase text-gray-500 tracking-wider">Phone</span>
-              <a href="tel:+13062404000" className="hover:text-white transition-colors">
+              <a href="tel:+13062404000" className="transition-colors">
                 +1 (306) 240-4000
               </a>
             </li>
             <li className="flex flex-col">
               <span className="text-xs uppercase text-gray-500 tracking-wider">Email</span>
-              <a href="mailto:info@fantasticlimo.ca" className="hover:text-white transition-colors">
+              <a href="mailto:info@fantasticlimo.ca" className="transition-colors">
                 info@fantasticlimo.ca
               </a>
             </li>
@@ -159,8 +159,8 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 mt-16 pt-8 border-t border-luxury-gold/5 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500 gap-4">
         <p>&copy; {new Date().getFullYear()} FantasticLimo Service. All Rights Reserved.</p>
         <div className="flex gap-6">
-          <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-          <a href="#" className="hover:text-white transition-colors">Terms of Service</a>
+          <a href="#" className="transition-colors">Privacy Policy</a>
+          <a href="#" className="transition-colors">Terms of Service</a>
           <Link href="/admin" className="hover:text-luxury-gold text-luxury-gold/80 transition-colors font-medium">Admin Portal</Link>
         </div>
       </div>
