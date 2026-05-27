@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
 
 @theme {
   --color-matte-black: #0a0a0a;
@@ -86,4 +87,42 @@ body {
 ::selection {
   background: #d4af37;
   color: #0a0a0a;
+}
+
+/* Custom Luxury Leaflet Controls */
+.leaflet-control-zoom {
+  border: 1px solid rgba(212, 175, 55, 0.2) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7) !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+}
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  background-color: #0a0a0a !important;
+  color: #d4af37 !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15) !important;
+  transition: all 0.3s ease !important;
+}
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+  background-color: #1e1e1e !important;
+  color: #f5d06f !important;
+}
+.leaflet-bar a.leaflet-disabled {
+  background-color: #0a0a0a !important;
+  color: #444444 !important;
+}
+.leaflet-popup-content-wrapper {
+  background: rgba(10, 10, 10, 0.95) !important;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 175, 55, 0.25) !important;
+  color: #ffffff !important;
+  border-radius: 6px !important;
+  font-family: var(--font-inter), sans-serif !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5) !important;
+}
+.leaflet-popup-tip {
+  background: rgba(10, 10, 10, 0.95) !important;
+  border-left: 1px solid rgba(212, 175, 55, 0.25) !important;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.25) !important;
 }

@@ -1,8 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { MapPin, Calendar, Users, Car, ArrowRight, User, Mail, Phone } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const BookingMap = dynamic(() => import("./BookingMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-80 bg-matte-black/50 border border-luxury-gold/10 rounded-lg animate-pulse flex items-center justify-center">
+      <span className="text-xs uppercase tracking-widest text-luxury-gold">Loading Map Display...</span>
+    </div>
+  ),
+});
 
 export const vehicleCategories = [
   "Rolls-Royce Phantom VIII",
@@ -29,6 +39,85 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
     vehicle: vehicleCategories[0],
     passengers: "1",
   });
+
+  // Map coordinates states
+  const [pickupCoords, setPickupCoords] = useState<{ lat: number; lon: number } | null>(null);
+  const [dropoffCoords, setDropoffCoords] = useState<{ lat: number; lon: number } | null>(null);
+
+  // Autocomplete suggestions states
+  const [pickupSuggestions, setPickupSuggestions] = useState<any[]>([]);
+  const [dropoffSuggestions, setDropoffSuggestions] = useState<any[]>([]);
+  const [lastSelectedPickup, setLastSelectedPickup] = useState("");
+  const [lastSelectedDropoff, setLastSelectedDropoff] = useState("");
+
+  // Fetch suggestions from OpenStreetMap Nominatim
+  const fetchSuggestions = async (query: string, type: "pickup" | "dropoff") => {
+    if (!query || query.trim().length < 3) {
+      if (type === "pickup") setPickupSuggestions([]);
+      else setDropoffSuggestions([]);
+      return;
+    }
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        if (type === "pickup") {
+          setPickupSuggestions(data);
+        } else {
+          setDropoffSuggestions(data);
+        }
+      }
+    } catch (error) {
+      console.error("Geocoding autocomplete error:", error);
+    }
+  };
+
+  // Close suggestions when clicking outside
+  useEffect(() => {
+    const handleOutsideClick = () => {
+      setPickupSuggestions([]);
+      setDropoffSuggestions([]);
+    };
+    window.addEventListener("click", handleOutsideClick);
+    return () => window.removeEventListener("click", handleOutsideClick);
+  }, []);
+
+  // Debounce autocomplete suggestions
+  useEffect(() => {
+    if (!formData.pickup || formData.pickup.trim() === "") {
+      setPickupCoords(null);
+      setLastSelectedPickup("");
+      setPickupSuggestions([]);
+      return;
+    }
+    if (formData.pickup === lastSelectedPickup) {
+      setPickupSuggestions([]);
+      return;
+    }
+    const timeout = setTimeout(() => {
+      fetchSuggestions(formData.pickup, "pickup");
+    }, 400);
+    return () => clearTimeout(timeout);
+  }, [formData.pickup, lastSelectedPickup]);
+
+  useEffect(() => {
+    if (!formData.dropoff || formData.dropoff.trim() === "") {
+      setDropoffCoords(null);
+      setLastSelectedDropoff("");
+      setDropoffSuggestions([]);
+      return;
+    }
+    if (formData.dropoff === lastSelectedDropoff) {
+      setDropoffSuggestions([]);
+      return;
+    }
+    const timeout = setTimeout(() => {
+      fetchSuggestions(formData.dropoff, "dropoff");
+    }, 400);
+    return () => clearTimeout(timeout);
+  }, [formData.dropoff, lastSelectedDropoff]);
 
   // Fetch active fleet from API to populate vehicle dropdown dynamically
   useEffect(() => {
@@ -73,6 +162,33 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
       vehicle: vehicle || prev.vehicle,
       passengers: passengers || prev.passengers,
     }));
+
+    // Geocode URL coordinates immediately on load
+    const geocodeInitialAddress = async (address: string, type: "pickup" | "dropoff") => {
+      try {
+        const response = await fetch(
+          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`
+        );
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            const loc = { lat: parseFloat(data[0].lat), lon: parseFloat(data[0].lon) };
+            if (type === "pickup") {
+              setPickupCoords(loc);
+              setLastSelectedPickup(address);
+            } else {
+              setDropoffCoords(loc);
+              setLastSelectedDropoff(address);
+            }
+          }
+        }
+      } catch (err) {
+        console.error(`Failed to geocode initial ${type} location:`, err);
+      }
+    };
+
+    if (pickup) geocodeInitialAddress(pickup, "pickup");
+    if (dropoff) geocodeInitialAddress(dropoff, "dropoff");
   }, [searchParams, vehicles]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -140,7 +256,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
         onSubmit={handleSubmit}
         className="glass-panel p-6 md:p-8 rounded-lg border border-luxury-gold/20 shadow-2xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 items-end"
       >
-        <div className="relative">
+        <div className="relative" onClick={(e) => e.stopPropagation()}>
           <label className={labelStyles}>Pickup Location</label>
           <div className="relative">
             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
@@ -152,11 +268,34 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
               placeholder="Airport, Hotel, Address"
               className={inputStyles}
               required
+              autoComplete="off"
             />
           </div>
+          {pickupSuggestions.length > 0 && formData.pickup !== lastSelectedPickup && (
+            <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-50 max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
+              {pickupSuggestions.map((suggestion: any) => (
+                <button
+                  key={suggestion.place_id}
+                  type="button"
+                  onClick={() => {
+                    setFormData((prev) => ({ ...prev, pickup: suggestion.display_name }));
+                    setPickupCoords({
+                      lat: parseFloat(suggestion.lat),
+                      lon: parseFloat(suggestion.lon),
+                    });
+                    setLastSelectedPickup(suggestion.display_name);
+                    setPickupSuggestions([]);
+                  }}
+                  className="w-full text-left px-4 py-2.5 hover:bg-luxury-gold/10 text-xs text-gray-200 transition-colors duration-150 cursor-pointer block border-none outline-none"
+                >
+                  {suggestion.display_name}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
-        <div className="relative">
+        <div className="relative" onClick={(e) => e.stopPropagation()}>
           <label className={labelStyles}>Drop-off Location</label>
           <div className="relative">
             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
@@ -168,8 +307,31 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
               placeholder="Destination Address"
               className={inputStyles}
               required
+              autoComplete="off"
             />
           </div>
+          {dropoffSuggestions.length > 0 && formData.dropoff !== lastSelectedDropoff && (
+            <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-50 max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
+              {dropoffSuggestions.map((suggestion: any) => (
+                <button
+                  key={suggestion.place_id}
+                  type="button"
+                  onClick={() => {
+                    setFormData((prev) => ({ ...prev, dropoff: suggestion.display_name }));
+                    setDropoffCoords({
+                      lat: parseFloat(suggestion.lat),
+                      lon: parseFloat(suggestion.lon),
+                    });
+                    setLastSelectedDropoff(suggestion.display_name);
+                    setDropoffSuggestions([]);
+                  }}
+                  className="w-full text-left px-4 py-2.5 hover:bg-luxury-gold/10 text-xs text-gray-200 transition-colors duration-150 cursor-pointer block border-none outline-none"
+                >
+                  {suggestion.display_name}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
 
         <div className="relative">
@@ -306,7 +468,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
         Ride Parameters
       </h3>
       
-      <div className="relative">
+      <div className="relative" onClick={(e) => e.stopPropagation()}>
         <label className={labelStyles}>Pickup Location</label>
         <div className="relative">
           <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
@@ -318,11 +480,34 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
             placeholder="Airport, Hotel, Address"
             className={inputStyles}
             required
+            autoComplete="off"
           />
         </div>
+        {pickupSuggestions.length > 0 && formData.pickup !== lastSelectedPickup && (
+          <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-50 max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
+            {pickupSuggestions.map((suggestion: any) => (
+              <button
+                key={suggestion.place_id}
+                type="button"
+                onClick={() => {
+                  setFormData((prev) => ({ ...prev, pickup: suggestion.display_name }));
+                  setPickupCoords({
+                    lat: parseFloat(suggestion.lat),
+                    lon: parseFloat(suggestion.lon),
+                  });
+                  setLastSelectedPickup(suggestion.display_name);
+                  setPickupSuggestions([]);
+                }}
+                className="w-full text-left px-4 py-3 hover:bg-luxury-gold/10 text-xs md:text-sm text-gray-200 transition-colors duration-150 cursor-pointer block border-none outline-none"
+              >
+                {suggestion.display_name}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
 
-      <div className="relative">
+      <div className="relative" onClick={(e) => e.stopPropagation()}>
         <label className={labelStyles}>Drop-off Location</label>
         <div className="relative">
           <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
@@ -334,9 +519,39 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
             placeholder="Destination Address"
             className={inputStyles}
             required
+            autoComplete="off"
           />
         </div>
+        {dropoffSuggestions.length > 0 && formData.dropoff !== lastSelectedDropoff && (
+          <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-50 max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
+            {dropoffSuggestions.map((suggestion: any) => (
+              <button
+                key={suggestion.place_id}
+                type="button"
+                onClick={() => {
+                  setFormData((prev) => ({ ...prev, dropoff: suggestion.display_name }));
+                  setDropoffCoords({
+                    lat: parseFloat(suggestion.lat),
+                    lon: parseFloat(suggestion.lon),
+                  });
+                  setLastSelectedDropoff(suggestion.display_name);
+                  setDropoffSuggestions([]);
+                }}
+                className="w-full text-left px-4 py-3 hover:bg-luxury-gold/10 text-xs md:text-sm text-gray-200 transition-colors duration-150 cursor-pointer block border-none outline-none"
+              >
+                {suggestion.display_name}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
+
+      {/* Booking Map Preview */}
+      {(pickupCoords || dropoffCoords) && (
+        <div className="w-full mt-2 transition-all duration-500 ease-in-out">
+          <BookingMap pickupCoords={pickupCoords} dropoffCoords={dropoffCoords} />
+        </div>
+      )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="relative">
