@@ -75,11 +75,7 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 w-full z-40 transition-all duration-500 ${
-          isScrolled
-            ? "glass-panel py-4 shadow-lg border-b border-luxury-gold/10"
-            : "bg-transparent py-6"
-        }`}
+        className="fixed top-0 left-0 w-full z-40 transition-all duration-500 bg-white py-4 shadow-sm border-b border-gray-100"
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           {/* Logo */}
@@ -87,7 +83,7 @@ export default function Navbar() {
             <span className="text-xl md:text-2xl font-serif font-bold text-gray-900 group-hover:text-luxury-gold transition-colors duration-300">
               FANTASTICLIMO
             </span>
-            <span className="text-[9px] uppercase tracking-[0.3em] text-luxury-gold/80 -mt-1">
+            <span className="text-[9px] uppercase tracking-[0.3em] text-luxury-gold -mt-1 font-semibold">
               LUXURY CHAUFFEUR
             </span>
           </Link>
@@ -124,7 +120,7 @@ export default function Navbar() {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: 10 }}
-                          className="absolute left-0 mt-1 w-64 glass-panel border border-luxury-gold/20 rounded-md py-2 shadow-xl"
+                          className="absolute left-0 mt-1 w-64 bg-white border border-gray-100 rounded-md py-2 shadow-xl"
                         >
                           {link.dropdown.map((subLink:any) => (
                             <Link

@@ -1,18 +1,23 @@
 "use client";
 
-import { MessageCircle } from "lucide-react";
-
 export default function WhatsAppButton() {
   return (
     <a
-      href="https://wa.me/1234567890" // Replace with real company number
+      href="https://wa.me/1234567890"
       target="_blank"
       rel="noopener noreferrer"
-      className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-14 h-14 bg-matte-black border border-luxury-gold/50 rounded-full text-luxury-gold shadow-[0_0_15px_rgba(212,175,55,0.3)] hover:shadow-[0_0_25px_rgba(212,175,55,0.6)] transition-all duration-300 hover:scale-110 group"
+      className="fixed bottom-8 right-8 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] rounded-full shadow-[0_4px_20px_rgba(37,211,102,0.45)] hover:shadow-[0_4px_30px_rgba(37,211,102,0.7)] transition-all duration-300 hover:scale-110 group"
       aria-label="Contact us on WhatsApp"
     >
-      <span className="absolute inset-0 rounded-full border border-luxury-gold/20 animate-ping group-hover:duration-1000" />
-      <MessageCircle className="w-7 h-7 fill-luxury-gold/10 group-hover:scale-110 transition-transform duration-300" />
+      <span className="absolute inset-0 rounded-full bg-[#25D366] animate-ping opacity-30 group-hover:opacity-50" />
+      <svg
+        viewBox="0 0 32 32"
+        className="w-8 h-8 relative z-10 group-hover:scale-110 transition-transform duration-300"
+        fill="white"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M16.003 2.667C8.639 2.667 2.667 8.638 2.667 16c0 2.363.635 4.671 1.84 6.694L2.667 29.333l6.823-1.79A13.27 13.27 0 0 0 16.003 29.333C23.364 29.333 29.333 23.362 29.333 16S23.364 2.667 16.003 2.667zm0 2.4c6.038 0 10.933 4.895 10.933 10.933 0 6.037-4.895 10.933-10.933 10.933a10.89 10.89 0 0 1-5.57-1.528l-.399-.237-4.046 1.062 1.08-3.936-.261-.414A10.893 10.893 0 0 1 5.07 16c0-6.038 4.896-10.933 10.933-10.933zm-3.22 5.12c-.218 0-.573.082-.873.41-.3.327-1.145 1.118-1.145 2.727s1.172 3.162 1.336 3.38c.163.218 2.29 3.635 5.617 4.953 2.782 1.098 3.346.88 3.949.825.603-.055 1.946-.796 2.22-1.564.272-.768.272-1.427.19-1.564-.081-.136-.3-.218-.627-.382-.328-.163-1.946-.96-2.247-1.069-.3-.109-.518-.163-.737.164-.218.327-.845 1.069-.845 1.069s-.218.273-.518.109c-.3-.164-1.264-.465-2.408-1.486-.89-.793-1.49-1.773-1.664-2.073-.173-.3-.018-.463.13-.612.135-.135.3-.354.454-.531.153-.177.204-.3.3-.5.099-.2.05-.373-.027-.531-.077-.16-.737-1.773-1.009-2.428-.265-.637-.535-.55-.737-.56a13.56 13.56 0 0 0-.628-.01z" />
+      </svg>
     </a>
   );
 }

@@ -3,7 +3,6 @@ import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import LoadingScreen from "@/components/LoadingScreen";
-import ConditionalParticles from "@/components/ConditionalParticles";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -53,9 +52,6 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-matte-black text-white relative">
         {/* Loading Screen */}
         <LoadingScreen />
-
-        {/* Cinematic 3D Particles — hidden on /admin */}
-        <ConditionalParticles />
 
         {/* Cinematic Film Grain / Noise Overlay */}
         <div className="noise-overlay" />

@@ -3,7 +3,6 @@
 import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SmoothScroll from "@/components/SmoothScroll";
 
@@ -21,16 +20,13 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
 
   return (
     <>
-      {/* Custom Cursor for VIP experience */}
-      <CustomCursor />
-      
       {/* Dynamic Navigation */}
       <Navbar />
       
       {/* Smooth momentum scrolling */}
       <SmoothScroll>
         <div className="flex flex-col min-h-screen">
-          <main className="flex-grow pt-[88px]">{children}</main>
+          <main className={`flex-grow ${pathname === "/" ? "" : "pt-[88px]"}`}>{children}</main>
           <Footer />
         </div>
       </SmoothScroll>

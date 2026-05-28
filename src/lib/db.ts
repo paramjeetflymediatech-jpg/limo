@@ -7,7 +7,7 @@ import path from "path";
 export const sequelize = new Sequelize(
   process.env.DB_NAME || "limo",
   process.env.DB_USER || "root",
-  process.env.DB_PASSWORD || "",
+  process.env.DB_PASSWORD || "root",
   {
     host: process.env.DB_HOST || "localhost",
     port: parseInt(process.env.DB_PORT || "3306"),
@@ -704,7 +704,7 @@ export async function initDb() {
     const host = process.env.DB_HOST || "localhost";
     const port = parseInt(process.env.DB_PORT || "3306");
     const user = process.env.DB_USER || "root";
-    const password = process.env.DB_PASSWORD || "";
+    const password = process.env.DB_PASSWORD || "root";
     const database = process.env.DB_NAME || "limo";
 
     // Pre-create database if not exists using mysql2 raw connection

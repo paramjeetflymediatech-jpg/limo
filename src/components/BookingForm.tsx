@@ -248,7 +248,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
   };
 
   const inputStyles = "w-full bg-matte-black border border-luxury-gold/15 focus:border-luxury-gold/50 text-white placeholder-gray-500 rounded-md py-3 pl-10 pr-4 text-sm outline-none transition-all duration-300";
-  const labelStyles = "block text-xs uppercase tracking-widest text-luxury-gold font-medium mb-2";
+  const labelStyles = "block text-xs uppercase tracking-widest  font-medium mb-2";
 
   if (horizontal) {
     return (
@@ -392,7 +392,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
         <div>
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-luxury-gold to-soft-gold hover:from-soft-gold hover:to-luxury-gold text-matte-black font-semibold text-xs uppercase tracking-widest py-3.5 px-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_25px_rgba(212,175,55,0.4)]"
+            className="w-full bg-gradient-to-r from-luxury-gold to-soft-gold hover:from-soft-gold hover:to-luxury-gold text-black font-bold text-xs uppercase tracking-widest py-3.5 px-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_25px_rgba(212,175,55,0.4)]"
           >
             <span>Book Ride</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -405,7 +405,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="glass-panel p-8 rounded-lg border border-luxury-gold/20 shadow-2xl w-full flex flex-col gap-6"
+      className="glass-panel p-8 rounded-lg border border-luxury-gold/20  w-full flex flex-col gap-6"
     >
       {/* Contact Details (Name, Email, Phone) */}
       <div className="border-b border-luxury-gold/10 pb-6 mb-2">

@@ -117,9 +117,9 @@ export default function Hero() {
       </AnimatePresence>
 
       {/* Hero Content */}
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full flex flex-col items-center text-center relative z-10 pt-20 pb-12 lg:pb-24">
+      <div className=" mx-auto px-6 md:px-12 w-full flex flex-col items-center text-center relative z-10 pt-20 pb-12 lg:pb-24  backdrop-blur-xs">
         {/* Decorative Badge */}
-        <motion.div
+        {/* <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -129,7 +129,7 @@ export default function Hero() {
           <span className="text-[10px] uppercase tracking-[0.3em] text-luxury-gold font-semibold">
             First-Class Chauffeur Service
           </span>
-        </motion.div>
+        </motion.div> */}
 
         {/* View Mode Toggle */}
         {/* <motion.div
@@ -189,7 +189,7 @@ export default function Hero() {
         >
           <Link
             href="/booking"
-            className="px-8 py-4 bg-gradient-to-r from-luxury-gold to-soft-gold text-matte-black font-semibold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 rounded-sm"
+            className="px-8 py-4 bg-gradient-to-r from-luxury-gold to-soft-gold text-white font-bold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 rounded-sm"
           >
             Reserve Your Ride
           </Link>
