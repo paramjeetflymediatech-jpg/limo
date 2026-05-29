@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -69,6 +70,11 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
   const gallery = Array.from(new Set([car.image, ...additionalImages].filter(Boolean)));
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
@@ -136,6 +142,17 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
       { label: "Dual Zone Climate Control", description: "Personalized cabin temperature", icon: Shield },
     ];
   }
+  // Disable body scroll when lightbox is open
+  useEffect(() => {
+    if (isLightboxOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isLightboxOpen]);
 
   return (
     <div className="bg-matte-black min-h-screen py-12 md:py-20 relative">
@@ -237,79 +254,82 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
               </div>
             )}
 
-            {/* Lightbox Modal */}
-            <AnimatePresence>
-              {isLightboxOpen && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col justify-center items-center select-none"
-                  onClick={() => setIsLightboxOpen(false)}
-                >
-                  {/* Close Button */}
-                  <button
+            {/* Lightbox Modal rendered via Portal */}
+            {mounted && typeof window !== "undefined" && createPortal(
+              <AnimatePresence>
+                {isLightboxOpen && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 top-0 left-0 w-full h-full z-[100000] bg-black/95 backdrop-blur-md flex flex-col justify-center items-center select-none"
                     onClick={() => setIsLightboxOpen(false)}
-                    className="absolute top-6 right-6 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors z-50 cursor-pointer lightbox-btn"
                   >
-                    <X className="w-6 h-6" />
-                  </button>
+                    {/* Image Container */}
+                    <div className="relative w-[90vw] h-[80vh] flex items-center justify-center z-10" onClick={(e) => e.stopPropagation()}>
+                      <AnimatePresence mode="wait">
+                        <motion.div
+                          key={activeImageIndex}
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          exit={{ opacity: 0, scale: 1.05 }}
+                          transition={{ duration: 0.3 }}
+                          className="relative w-full h-full"
+                        >
+                          <Image
+                            src={gallery[activeImageIndex]}
+                            alt={`${car.name} main image full screen`}
+                            fill
+                            sizes="90vw"
+                            className="object-contain"
+                          />
+                        </motion.div>
+                      </AnimatePresence>
+                    </div>
 
-                  {/* Prev Button */}
-                  {gallery.length > 1 && (
+                    {/* Close Button */}
                     <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveImageIndex((prev) => (prev === 0 ? gallery.length - 1 : prev - 1));
-                      }}
-                      className="absolute left-6 p-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors z-50 cursor-pointer lightbox-btn"
+                      onClick={() => setIsLightboxOpen(false)}
+                      className="absolute top-6 right-6 p-3 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-all z-[100] cursor-pointer lightbox-btn"
                     >
-                      <ChevronLeft className="w-6 h-6" />
+                      <X className="w-6 h-6" />
                     </button>
-                  )}
 
-                  {/* Next Button */}
-                  {gallery.length > 1 && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveImageIndex((prev) => (prev === gallery.length - 1 ? 0 : prev + 1));
-                      }}
-                      className="absolute right-6 p-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors z-50 cursor-pointer lightbox-btn"
-                    >
-                      <ChevronRight className="w-6 h-6" />
-                    </button>
-                  )}
-
-                  {/* Image Container */}
-                  <div className="relative w-[90vw] h-[80vh] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
-                    <AnimatePresence mode="wait">
-                      <motion.div
-                        key={activeImageIndex}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 1.05 }}
-                        transition={{ duration: 0.3 }}
-                        className="relative w-full h-full"
+                    {/* Prev Button */}
+                    {gallery.length > 1 && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveImageIndex((prev) => (prev === 0 ? gallery.length - 1 : prev - 1));
+                        }}
+                        className="absolute left-6 p-4 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-all z-[100] cursor-pointer lightbox-btn"
                       >
-                        <Image
-                          src={gallery[activeImageIndex]}
-                          alt={`${car.name} main image full screen`}
-                          fill
-                          sizes="90vw"
-                          className="object-contain"
-                        />
-                      </motion.div>
-                    </AnimatePresence>
-                  </div>
+                        <ChevronLeft className="w-6 h-6" />
+                      </button>
+                    )}
 
-                  {/* Counter */}
-                  <div className="absolute bottom-6 text-xs uppercase tracking-widest lightbox-counter">
-                    {activeImageIndex + 1} of {gallery.length}
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                    {/* Next Button */}
+                    {gallery.length > 1 && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveImageIndex((prev) => (prev === gallery.length - 1 ? 0 : prev + 1));
+                        }}
+                        className="absolute right-6 p-4 rounded-full bg-white/10 border border-white/20 hover:bg-white/20 transition-all z-[100] cursor-pointer lightbox-btn"
+                      >
+                        <ChevronRight className="w-6 h-6" />
+                      </button>
+                    )}
+
+                    {/* Counter */}
+                    <div className="absolute bottom-6 text-xs uppercase tracking-widest lightbox-counter z-[100]">
+                      {activeImageIndex + 1} of {gallery.length}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>,
+              document.body
+            )}
           </div>
 
           {/* RIGHT COLUMN: Info, Specs & Booking */}
