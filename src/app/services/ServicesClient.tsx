@@ -23,28 +23,13 @@ interface ServicesClientProps {
 
 export default function ServicesClient({ services }: ServicesClientProps) {
   const router = useRouter();
-  const [selectedLocation, setSelectedLocation] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 4;
 
-  // Compile unique locations (cities) dynamically from services
-  const locations = ["All", ...Array.from(new Set(services.map((s) => s.location)))];
-
-  // Reset pagination to first page when filtering changes
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedLocation]);
-
-  // Filter services by location selection
-  const filteredServices = services.filter((s) => {
-    if (selectedLocation === "All") return true;
-    return s.location.toLowerCase() === selectedLocation.toLowerCase();
-  });
-
-  const totalItems = filteredServices.length;
+  const totalItems = services.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedServices = filteredServices.slice(startIndex, startIndex + itemsPerPage);
+  const paginatedServices = services.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className="bg-matte-black min-h-screen py-16 md:py-24 relative overflow-hidden">
@@ -66,29 +51,11 @@ export default function ServicesClient({ services }: ServicesClientProps) {
           </p>
         </div>
 
-        {/* Location Filters */}
-        {locations.length > 2 && (
-          <div className="flex flex-wrap justify-center gap-3 mb-12">
-            {locations.map((loc) => (
-              <button
-                key={loc}
-                onClick={() => setSelectedLocation(loc)}
-                className={`px-5 py-2.5 text-xs uppercase tracking-widest font-semibold border rounded-full transition-all duration-300 cursor-pointer ${selectedLocation === loc
-                  ? "bg-luxury-gold border-luxury-gold text-matte-black font-bold shadow-[0_0_15px_rgba(208,165,17,0.25)]"
-                  : "border-luxury-gold/15 text-gray-400 hover:text-white hover:border-luxury-gold/45 hover:bg-luxury-gold/5"
-                  }`}
-              >
-                {loc === "All" ? "All Locations" : loc}
-              </button>
-            ))}
-          </div>
-        )}
-
         {/* Services Catalog */}
-        {filteredServices.length === 0 ? (
+        {services.length === 0 ? (
           <div className="text-center py-20 border border-dashed border-luxury-gold/20 rounded-lg max-w-2xl mx-auto">
             <p className="text-gray-400 text-sm uppercase tracking-widest">
-              No services currently available for {selectedLocation === "All" ? "any location" : selectedLocation}.
+              No services currently available.
             </p>
           </div>
         ) : (
@@ -109,10 +76,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                         alt={service.name}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[0.8] group-hover:brightness-95"
                       />
-                      <div className="absolute top-4 left-4 bg-matte-black/80 backdrop-blur-md px-3.5 py-1 border border-luxury-gold/25 rounded-full text-[10px] uppercase tracking-widest text-luxury-gold font-bold flex items-center gap-1.5 shadow-md">
-                        <MapPin className="w-3 h-3 text-luxury-gold" />
-                        {service.location}
-                      </div>
+
                       {service.price && (
                         <div className="absolute bottom-4 right-4 bg-luxury-gold text-matte-black font-bold text-xs px-3.5 py-1 rounded-full shadow-lg flex items-center gap-0.5">
                           <DollarSign className="w-3.5 h-3.5" />
@@ -139,7 +103,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                           Bespoke Protocol Included
                         </span>
                         <Link
-                          href={`/booking?service=${encodeURIComponent(service.name)}&location=${encodeURIComponent(service.location)}`}
+                          href={`/booking?service=${encodeURIComponent(service.name)}`}
                           onClick={(e) => e.stopPropagation()}
                           className="text-xs uppercase tracking-widest text-luxury-gold  font-bold flex items-center gap-2 transition-colors duration-300"
                         >
