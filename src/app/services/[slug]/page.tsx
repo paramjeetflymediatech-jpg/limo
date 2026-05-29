@@ -2,10 +2,10 @@ import { initDb, LocationService } from "@/lib/db";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import { Check } from "lucide-react";
 
 import DynamicChauffeurDetailsClient from "./DynamicChauffeurDetailsClient";
+import ServiceGallery from "./ServiceGallery";
 
 export const dynamic = "force-dynamic";
 
@@ -146,23 +146,11 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
             </Link>
           </div>
 
-          <div className="w-full lg:w-1/2 relative h-[300px] md:h-[450px] overflow-hidden rounded-lg border border-luxury-gold/15 shadow-2xl bg-matte-black lg:sticky lg:top-28">
-            {service.image ? (
-              <Image
-                src={service.image}
-                alt={service.name}
-                fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
-                unoptimized
-                className="object-contain brightness-75"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-800">
-                <span className="text-[#D0A511] text-xs uppercase tracking-widest opacity-50">No Image</span>
-              </div>
-            )}
-          </div>
+          <ServiceGallery
+            primaryImage={service.image}
+            imagesJson={service.imagesJson}
+            serviceName={service.name}
+          />
         </div>
 
         {/* Features Grid Client Animation Wrapper */}

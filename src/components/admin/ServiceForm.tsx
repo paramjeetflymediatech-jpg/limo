@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { X, Upload, CheckCircle2, AlertCircle, ArrowLeft } from "lucide-react";
+import { X, Upload, Plus, Trash2, CheckCircle2, AlertCircle, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 
@@ -24,6 +24,7 @@ type Service = {
   slug: string; tagline: string;
   bulletPoints: string; // JSON string
   featuresJson: string; // JSON string
+  imagesJson?: string;  // JSON string
 };
 
 type Feature = { title: string; description: string };
@@ -31,6 +32,7 @@ type Feature = { title: string; description: string };
 const EMPTY_FORM = {
   name: "", description: "", image: "", location: "", price: "",
   slug: "", tagline: "", bulletPoints: "", featuresJson: "",
+  imagesJson: "[]",
   available: true,
 };
 
@@ -54,11 +56,13 @@ export default function ServiceForm({ initialData, isEdit }: ServiceFormProps) {
   const [form, setForm] = useState(EMPTY_FORM);
   const [features, setFeatures] = useState<Feature[]>([]);
   const [bullets, setBullets] = useState<string[]>([""]);
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<{ type: "ok" | "err"; text: string } | null>(null);
   const [isSlugManuallyEdited, setIsSlugManuallyEdited] = useState(isEdit ? true : false);
 
   const fileRef = useRef<HTMLInputElement>(null);
+  const multiFileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (initialData) {
@@ -73,6 +77,7 @@ export default function ServiceForm({ initialData, isEdit }: ServiceFormProps) {
         tagline: initialData.tagline,
         bulletPoints: initialData.bulletPoints,
         featuresJson: initialData.featuresJson,
+        imagesJson: initialData.imagesJson || "[]",
         available: initialData.available,
       });
 
@@ -87,6 +92,17 @@ export default function ServiceForm({ initialData, isEdit }: ServiceFormProps) {
         setBullets(parsedBullets.length > 0 ? parsedBullets : [""]);
       } catch {
         setBullets([""]);
+      }
+
+      try {
+        if (initialData.imagesJson) {
+          const parsedImgs = JSON.parse(initialData.imagesJson);
+          if (Array.isArray(parsedImgs)) {
+            setGalleryImages(parsedImgs);
+          }
+        }
+      } catch {
+        setGalleryImages([]);
       }
     }
   }, [initialData]);
@@ -108,6 +124,26 @@ export default function ServiceForm({ initialData, isEdit }: ServiceFormProps) {
     }
   };
 
+  const handleUploadAdditional = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const uploadedUrls: string[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const fd = new FormData();
+      fd.append("file", files[i]);
+      const res = await fetch("/api/upload", { method: "POST", body: fd });
+      if (res.ok) {
+        const d = await res.json();
+        uploadedUrls.push(d.url);
+      }
+    }
+
+    if (uploadedUrls.length > 0) {
+      setGalleryImages((imgs) => [...imgs, ...uploadedUrls]);
+    }
+  };
+
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
@@ -121,6 +157,7 @@ export default function ServiceForm({ initialData, isEdit }: ServiceFormProps) {
 
     const body = {
       ...form,
+      imagesJson: JSON.stringify(galleryImages.filter((img) => img.trim())),
       bulletPoints: JSON.stringify(bullets.filter((b) => b.trim())),
       featuresJson: JSON.stringify(features.filter((f) => f.title.trim())),
     };
@@ -238,6 +275,67 @@ export default function ServiceForm({ initialData, isEdit }: ServiceFormProps) {
             </div>
             <input ref={fileRef} type="file" accept="image/*" className="hidden" onChange={handleUpload} />
             {form.image && <img src={form.image} alt="preview" className="mt-3 h-32 w-auto object-cover rounded-md border border-gray-200 shadow-sm" />}
+          </div>
+
+          {/* Multiple photos uploads */}
+          <div>
+            <label className={labelCls}>Additional Gallery Images</label>
+            
+            <div className="flex gap-2 mt-2 mb-4">
+              <input 
+                id="gallery-url-input"
+                type="text" 
+                className={`${inputCls} flex-1`} 
+                placeholder="Paste image URL here..." 
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                     e.preventDefault();
+                     const input = e.target as HTMLInputElement;
+                     if (input.value.trim()) {
+                       setGalleryImages(f => [...f, input.value.trim()]);
+                       input.value = "";
+                     }
+                  }
+                }}
+              />
+              <button 
+                type="button"
+                onClick={() => {
+                  const input = document.getElementById("gallery-url-input") as HTMLInputElement;
+                  if (input && input.value.trim()) {
+                    setGalleryImages(f => [...f, input.value.trim()]);
+                    input.value = "";
+                  }
+                }}
+                className="px-4 py-2 border border-[#D0A511] text-[#D0A511] rounded-md hover:bg-[#D0A511]/5 text-sm font-semibold transition-colors"
+              >
+                Add URL
+              </button>
+            </div>
+
+            <div className="flex flex-wrap gap-4 mt-2">
+              {galleryImages.map((img, idx) => (
+                <div key={idx} className="relative w-24 h-24 rounded-md overflow-hidden border border-gray-200 group bg-gray-50 shadow-sm">
+                  <img src={img} className="w-full h-full object-cover" alt="Gallery thumbnail" />
+                  <button
+                    type="button"
+                    onClick={() => setGalleryImages(f => f.filter((_, i) => i !== idx))}
+                    className="absolute inset-0 bg-red-500/80 text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => multiFileRef.current?.click()}
+                className="w-24 h-24 rounded-md border border-dashed border-gray-300 hover:border-[#D0A511] flex flex-col items-center justify-center text-gray-500 hover:text-[#D0A511] transition-colors text-xs gap-1 cursor-pointer bg-gray-50 hover:bg-[#D0A511]/5"
+              >
+                <Plus className="w-5 h-5" />
+                <span>Upload</span>
+              </button>
+            </div>
+            <input ref={multiFileRef} type="file" accept="image/*" multiple className="hidden" onChange={handleUploadAdditional} />
           </div>
 
           {/* Bullet points */}

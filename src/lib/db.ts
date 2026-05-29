@@ -249,6 +249,7 @@ export class LocationService extends Model {
   declare tagline: string;
   declare bulletPoints: string;
   declare featuresJson: string;
+  declare imagesJson: string;
 }
 
 LocationService.init(
@@ -298,6 +299,11 @@ LocationService.init(
       defaultValue: "[]",
     },
     featuresJson: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      defaultValue: "[]",
+    },
+    imagesJson: {
       type: DataTypes.TEXT,
       allowNull: false,
       defaultValue: "[]",

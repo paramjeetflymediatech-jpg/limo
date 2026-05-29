@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
   try {
     await initDb();
     const body = await request.json();
-    const { name, description, image, location, price, slug, tagline, bulletPoints, featuresJson } = body;
+    const { name, description, image, location, price, slug, tagline, bulletPoints, featuresJson, imagesJson } = body;
 
     if (!name || !description || !image || !location) {
       return Response.json(
@@ -50,6 +50,7 @@ export async function POST(request: NextRequest) {
       tagline: tagline || "",
       bulletPoints: bulletPoints || "[]",
       featuresJson: featuresJson || "[]",
+      imagesJson: imagesJson || "[]",
       available: true,
     });
 
