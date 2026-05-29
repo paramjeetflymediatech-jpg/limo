@@ -783,7 +783,8 @@ export async function deleteLocalUpload(imagePath: string | null | undefined) {
 
   try {
     const filename = relativePath.replace("/uploads/", "");
-    const absolutePath = path.join(process.cwd(), "public", "uploads", filename);
+    const uploadDir = process.env.UPLOAD_DIR || path.join(process.cwd(), "public", "uploads");
+    const absolutePath = path.join(uploadDir, filename);
     await unlink(absolutePath);
     console.log(`Successfully deleted local image file: ${absolutePath}`);
   } catch (error) {

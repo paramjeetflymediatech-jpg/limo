@@ -20,8 +20,8 @@ export async function POST(request: NextRequest) {
     const originalExtension = path.extname(file.name) || ".jpg";
     const filename = `upload-${uniqueSuffix}${originalExtension}`;
 
-    // Target upload directory inside public
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
+    // Target upload directory: use UPLOAD_DIR env if set, otherwise default to public/uploads
+    const uploadDir = process.env.UPLOAD_DIR || path.join(process.cwd(), "public", "uploads");
     await mkdir(uploadDir, { recursive: true });
 
     const filePath = path.join(uploadDir, filename);
@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
 
     const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "";
     const baseUrl = serverUrl.replace(/\/$/, "");
-    const publicUrl = `${baseUrl}/uploads/${filename}`;
+    const publicUrl = baseUrl ? `${baseUrl}/uploads/${filename}` : `/uploads/${filename}`;
     return Response.json({ url: publicUrl });
   } catch (error) {
     console.error("Failed to upload image file:", error);
