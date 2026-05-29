@@ -266,4 +266,16 @@ body {
   font-weight: bold !important;
 }
 
+/* Force white color inside lightbox to override global text-white overrides */
+body .lightbox-btn,
+body .lightbox-btn * {
+  color: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+body .lightbox-counter {
+  color: #a1a1aa !important;
+}
+
+
 

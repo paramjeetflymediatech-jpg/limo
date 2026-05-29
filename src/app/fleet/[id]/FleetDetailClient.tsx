@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -17,7 +17,11 @@ import {
   Phone,
   Mail,
   Car,
-  Clock
+  Clock,
+  Maximize2,
+  X,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 
 interface Vehicle {
@@ -62,8 +66,27 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
   }
 
   // Combine primary image and additional images to build full gallery
-  const gallery = Array.from(new Set([car.image, ...additionalImages]));
+  const gallery = Array.from(new Set([car.image, ...additionalImages].filter(Boolean)));
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  // Keyboard navigation
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsLightboxOpen(false);
+      } else if (e.key === "ArrowLeft") {
+        setActiveImageIndex((prev) => (prev === 0 ? gallery.length - 1 : prev - 1));
+      } else if (e.key === "ArrowRight") {
+        setActiveImageIndex((prev) => (prev === gallery.length - 1 ? 0 : prev + 1));
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isLightboxOpen, gallery.length]);
 
   // Parse rate to calculate a daily rate estimate
   let hourlyRate = 150;
@@ -150,26 +173,44 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
           <div className="lg:col-span-7 flex flex-col gap-6 lg:sticky lg:top-28 h-fit">
 
             {/* Active Display Screen */}
-            <div className="relative h-[320px] sm:h-[450px] lg:h-[500px] w-full overflow-hidden rounded-lg border border-luxury-gold/15 bg-charcoal/40 shadow-2xl">
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={activeImageIndex}
-                  initial={{ opacity: 0, scale: 0.98 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 1.02 }}
-                  transition={{ duration: 0.4 }}
-                  className="absolute inset-0 w-full h-full"
-                >
-                  <Image
-                    src={gallery[activeImageIndex]}
-                    alt={`${car.name} main image`}
-                    fill
-                    priority
-                    sizes="(max-w-1024px) 100vw, 60vw"
-                    className="object-contain brightness-95 hover:scale-105 transition-transform duration-700"
-                  />
-                </motion.div>
-              </AnimatePresence>
+            <div 
+              onClick={() => setIsLightboxOpen(true)}
+              className="relative h-[320px] sm:h-[450px] lg:h-[500px] w-full overflow-hidden rounded-lg border border-luxury-gold/15 bg-charcoal/40 shadow-2xl cursor-zoom-in group"
+            >
+              {gallery.length > 0 ? (
+                <>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeImageIndex}
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 1.02 }}
+                      transition={{ duration: 0.4 }}
+                      className="absolute inset-0 w-full h-full"
+                    >
+                      <Image
+                        src={gallery[activeImageIndex]}
+                        alt={`${car.name} main image`}
+                        fill
+                        priority
+                        sizes="(max-w-1024px) 100vw, 60vw"
+                        className="object-contain brightness-95 group-hover:scale-105 transition-transform duration-700"
+                      />
+                    </motion.div>
+                  </AnimatePresence>
+
+                  {/* Zoom overlay indicator */}
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                    <div className="p-3 rounded-full bg-charcoal/90 backdrop-blur-sm border border-luxury-gold/30 text-[#D0A511] shadow-lg transform scale-90 group-hover:scale-100 transition-transform duration-300">
+                      <Maximize2 className="w-5 h-5" />
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-800">
+                  <span className="text-[#D0A511] text-xs uppercase tracking-widest opacity-50">No Image</span>
+                </div>
+              )}
             </div>
 
             {/* Thumbnails Row */}
@@ -195,6 +236,80 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
                 ))}
               </div>
             )}
+
+            {/* Lightbox Modal */}
+            <AnimatePresence>
+              {isLightboxOpen && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col justify-center items-center select-none"
+                  onClick={() => setIsLightboxOpen(false)}
+                >
+                  {/* Close Button */}
+                  <button
+                    onClick={() => setIsLightboxOpen(false)}
+                    className="absolute top-6 right-6 p-3 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors z-50 cursor-pointer lightbox-btn"
+                  >
+                    <X className="w-6 h-6" />
+                  </button>
+
+                  {/* Prev Button */}
+                  {gallery.length > 1 && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveImageIndex((prev) => (prev === 0 ? gallery.length - 1 : prev - 1));
+                      }}
+                      className="absolute left-6 p-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors z-50 cursor-pointer lightbox-btn"
+                    >
+                      <ChevronLeft className="w-6 h-6" />
+                    </button>
+                  )}
+
+                  {/* Next Button */}
+                  {gallery.length > 1 && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveImageIndex((prev) => (prev === gallery.length - 1 ? 0 : prev + 1));
+                      }}
+                      className="absolute right-6 p-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors z-50 cursor-pointer lightbox-btn"
+                    >
+                      <ChevronRight className="w-6 h-6" />
+                    </button>
+                  )}
+
+                  {/* Image Container */}
+                  <div className="relative w-[90vw] h-[80vh] flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={activeImageIndex}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 1.05 }}
+                        transition={{ duration: 0.3 }}
+                        className="relative w-full h-full"
+                      >
+                        <Image
+                          src={gallery[activeImageIndex]}
+                          alt={`${car.name} main image full screen`}
+                          fill
+                          sizes="90vw"
+                          className="object-contain"
+                        />
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Counter */}
+                  <div className="absolute bottom-6 text-xs uppercase tracking-widest lightbox-counter">
+                    {activeImageIndex + 1} of {gallery.length}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
 
           {/* RIGHT COLUMN: Info, Specs & Booking */}
