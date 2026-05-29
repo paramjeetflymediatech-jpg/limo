@@ -110,7 +110,7 @@ export default function FleetClient({ fleet }: FleetClientProps) {
                           fill
                           sizes="(max-w-768px) 100vw, 50vw"
                           priority={currentPage === 1 && index < 2}
-                          className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.85] group-hover:brightness-100"
+                          className="object-contain group-hover:scale-105 transition-transform duration-700 brightness-[0.85] group-hover:brightness-100"
                         />
                         <div className="absolute top-6 left-6 bg-matte-black/80 backdrop-blur-md border border-luxury-gold/20 px-4 py-1.5 rounded-full text-xs uppercase tracking-widest text-luxury-gold font-semibold">
                           {car.category}
@@ -127,9 +127,9 @@ export default function FleetClient({ fleet }: FleetClientProps) {
                             {car.name}
                           </Link>
                         </h2>
-                        <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-6">
+                        {/* <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-6">
                           {car.description}
-                        </p>
+                        </p> */}
 
                         {/* Specs Table */}
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-4 border-t border-b border-luxury-gold/10 py-6 mb-6">
