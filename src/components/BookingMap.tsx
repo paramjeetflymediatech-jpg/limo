@@ -75,7 +75,7 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
     if (pickupCoords) {
       const pickupIcon = L.divIcon({
         html: `
-          <div class="flex items-center justify-center w-8 h-8 rounded-full bg-[#1a2421] border-2 border-[#bfa15f] shadow-[0_0_12px_rgba(191,161,95,0.7)] text-[#bfa15f] font-sans font-bold text-xs select-none">
+          <div class="flex items-center justify-center w-8 h-8 rounded-full bg-[#1a2421] border-2 border-luxury-gold shadow-[0_0_12px_rgba(208,165,17,0.7)] text-luxury-gold font-sans font-bold text-xs select-none">
             A
           </div>
         `,
@@ -85,7 +85,7 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
       });
 
       const pickupMarker = L.marker([pickupCoords.lat, pickupCoords.lon], { icon: pickupIcon }).addTo(map);
-      pickupMarker.bindPopup('<b style="color: #bfa15f; font-family: var(--font-cormorant), serif;">Pickup Location</b>');
+      pickupMarker.bindPopup('<b style="color: #D0A511; font-family: var(--font-cormorant), serif;">Pickup Location</b>');
       markersRef.current.pickup = pickupMarker;
       bounds.push([pickupCoords.lat, pickupCoords.lon]);
     }
@@ -94,7 +94,7 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
     if (dropoffCoords) {
       const dropoffIcon = L.divIcon({
         html: `
-          <div class="flex items-center justify-center w-8 h-8 rounded-full bg-[#1a2421] border-2 border-[#bfa15f] shadow-[0_0_12px_rgba(191,161,95,0.7)] text-[#bfa15f] font-sans font-bold text-xs select-none">
+          <div class="flex items-center justify-center w-8 h-8 rounded-full bg-[#1a2421] border-2 border-luxury-gold shadow-[0_0_12px_rgba(208,165,17,0.7)] text-luxury-gold font-sans font-bold text-xs select-none">
             B
           </div>
         `,
@@ -104,7 +104,7 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
       });
 
       const dropoffMarker = L.marker([dropoffCoords.lat, dropoffCoords.lon], { icon: dropoffIcon }).addTo(map);
-      dropoffMarker.bindPopup('<b style="color: #bfa15f; font-family: var(--font-cormorant), serif;">Drop-off Location</b>');
+      dropoffMarker.bindPopup('<b style="color: #D0A511; font-family: var(--font-cormorant), serif;">Drop-off Location</b>');
       markersRef.current.dropoff = dropoffMarker;
       bounds.push([dropoffCoords.lat, dropoffCoords.lon]);
     }
@@ -124,7 +124,7 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
 
               // Sleek dashed gold line to trace the route
               const polyline = L.polyline(coordinates, {
-                color: "#bfa15f",
+                color: "#D0A511",
                 weight: 4,
                 opacity: 0.85,
                 dashArray: "4, 8",
@@ -157,7 +157,7 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
               [dropoffCoords.lat, dropoffCoords.lon],
             ],
             {
-              color: "#bfa15f",
+              color: "#D0A511",
               weight: 4,
               opacity: 0.8,
               dashArray: "6, 8",
@@ -197,12 +197,12 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
   }, [pickupCoords, dropoffCoords]);
 
   return (
-    <div className="relative w-full h-80 rounded-lg overflow-hidden border border-[#bfa15f]/15">
+    <div className="relative w-full h-80 rounded-lg overflow-hidden border border-luxury-gold/15">
       <div ref={mapContainerRef} className="w-full h-full bg-[#f5f2e9]" />
 
       {routeInfo && (
-        <div className="absolute top-4 left-4 z-[1000] glass-panel px-4 py-3 rounded-md border border-[#bfa15f]/35 text-gray-900 flex flex-col gap-1 shadow-lg pointer-events-none transition-all duration-300">
-          <div className="text-[10px] uppercase tracking-widest text-[#bfa15f] font-semibold">
+        <div className="absolute top-4 left-4 z-[1000] glass-panel px-4 py-3 rounded-md border border-luxury-gold/35 text-gray-900 flex flex-col gap-1 shadow-lg pointer-events-none transition-all duration-300">
+          <div className="text-[10px] uppercase tracking-widest text-luxury-gold font-semibold">
             Route Details
           </div>
           <div className="flex gap-4 items-center">
@@ -210,7 +210,7 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
               <span className="text-gray-500 text-xs">Distance:</span>{" "}
               <span className="text-sm font-semibold font-mono text-gray-900">{routeInfo.distance}</span>
             </div>
-            <div className="w-1 h-1 bg-[#bfa15f]/40 rounded-full" />
+            <div className="w-1 h-1 bg-luxury-gold/40 rounded-full" />
             <div>
               <span className="text-gray-500 text-xs">Est. Time:</span>{" "}
               <span className="text-sm font-semibold font-mono text-gray-900">{routeInfo.duration}</span>

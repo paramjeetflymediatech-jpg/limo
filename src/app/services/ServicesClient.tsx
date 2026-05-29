@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ArrowRight, Star, MapPin, DollarSign } from "lucide-react";
 
 interface LocationService {
@@ -13,6 +14,7 @@ interface LocationService {
   location: string;
   price: string;
   available: boolean;
+  slug: string;
 }
 
 interface ServicesClientProps {
@@ -20,6 +22,7 @@ interface ServicesClientProps {
 }
 
 export default function ServicesClient({ services }: ServicesClientProps) {
+  const router = useRouter();
   const [selectedLocation, setSelectedLocation] = useState<string>("All");
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 4;
@@ -70,11 +73,10 @@ export default function ServicesClient({ services }: ServicesClientProps) {
               <button
                 key={loc}
                 onClick={() => setSelectedLocation(loc)}
-                className={`px-5 py-2.5 text-xs uppercase tracking-widest font-semibold border rounded-full transition-all duration-300 cursor-pointer ${
-                  selectedLocation === loc
-                    ? "bg-luxury-gold border-luxury-gold text-matte-black font-bold shadow-[0_0_15px_rgba(212,175,55,0.25)]"
-                    : "border-luxury-gold/15 text-gray-400 hover:text-white hover:border-luxury-gold/45 hover:bg-luxury-gold/5"
-                }`}
+                className={`px-5 py-2.5 text-xs uppercase tracking-widest font-semibold border rounded-full transition-all duration-300 cursor-pointer ${selectedLocation === loc
+                  ? "bg-luxury-gold border-luxury-gold text-matte-black font-bold shadow-[0_0_15px_rgba(208,165,17,0.25)]"
+                  : "border-luxury-gold/15 text-gray-400 hover:text-white hover:border-luxury-gold/45 hover:bg-luxury-gold/5"
+                  }`}
               >
                 {loc === "All" ? "All Locations" : loc}
               </button>
@@ -91,18 +93,14 @@ export default function ServicesClient({ services }: ServicesClientProps) {
           </div>
         ) : (
           <>
-            {/* Services Grid with elegant entry animations */}
+            {/* Services Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              <AnimatePresence mode="popLayout">
                 {paginatedServices.map((service, index) => (
-                  <motion.div
+                  <div
                     key={service.id}
-                    layout
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, scale: 0.95 }}
-                    transition={{ duration: 0.5, delay: index * 0.05 }}
-                    className="glass-panel rounded-xl overflow-hidden border border-luxury-gold/10 hover:border-luxury-gold/30 hover:bg-matte-black/60 transition-all duration-300 group flex flex-col justify-between h-full"
+                    onClick={() => router.push(`/services/${service.slug}`)}
+                    className="glass-panel rounded-xl overflow-hidden border border-luxury-gold/10 hover:border-luxury-gold/30 hover:bg-matte-black/60 transition-all duration-300 group flex flex-col justify-between h-full cursor-pointer animate-fade-in"
+                    style={{ animationDelay: `${index * 50}ms` }}
                   >
                     {/* Image Banner */}
                     <div className="relative h-64 md:h-72 bg-matte-black overflow-hidden border-b border-luxury-gold/10">
@@ -142,6 +140,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                         </span>
                         <Link
                           href={`/booking?service=${encodeURIComponent(service.name)}&location=${encodeURIComponent(service.location)}`}
+                          onClick={(e) => e.stopPropagation()}
                           className="text-xs uppercase tracking-widest text-luxury-gold  font-bold flex items-center gap-2 transition-colors duration-300"
                         >
                           <span>Reserve Service</span>
@@ -149,9 +148,8 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                         </Link>
                       </div>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
-              </AnimatePresence>
             </div>
 
             {/* Pagination Controls */}
@@ -174,11 +172,10 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                     <button
                       key={page}
                       onClick={() => setCurrentPage(page)}
-                      className={`w-9 h-9 flex items-center justify-center border text-xs font-semibold rounded transition-all cursor-pointer ${
-                        currentPage === page
-                          ? "bg-luxury-gold border-luxury-gold text-matte-black font-bold shadow-[0_0_15px_rgba(212,175,55,0.2)]"
-                          : "border-luxury-gold/10 text-gray-400 hover:text-white hover:border-luxury-gold/30 hover:bg-luxury-gold/5"
-                      }`}
+                      className={`w-9 h-9 flex items-center justify-center border text-xs font-semibold rounded transition-all cursor-pointer ${currentPage === page
+                        ? "bg-luxury-gold border-luxury-gold text-matte-black font-bold shadow-[0_0_15px_rgba(208,165,17,0.2)]"
+                        : "border-luxury-gold/10 text-gray-400 hover:text-white hover:border-luxury-gold/30 hover:bg-luxury-gold/5"
+                        }`}
                     >
                       {page}
                     </button>

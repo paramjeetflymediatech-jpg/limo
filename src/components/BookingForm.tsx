@@ -26,7 +26,7 @@ export const vehicleCategories = [
 function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
+
   const [vehicles, setVehicles] = useState<string[]>(vehicleCategories);
   const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -129,7 +129,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
           const activeVehicles = data
             .filter((car: any) => car.available !== false)
             .map((car: any) => car.name);
-          
+
           if (activeVehicles.length > 0) {
             setVehicles(activeVehicles);
             // Update default vehicle if current one isn't in the fetched list
@@ -198,7 +198,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (horizontal) {
       // If horizontal (homepage search bar), redirect to full booking page with parameters
       const query = new URLSearchParams({
@@ -392,10 +392,10 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
         <div>
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-luxury-gold to-soft-gold hover:from-soft-gold hover:to-luxury-gold text-black font-bold text-xs uppercase tracking-widest py-3.5 px-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_25px_rgba(212,175,55,0.4)]"
+            className="w-full bg-[#D0A511] text-white hover:brightness-110 font-bold text-xs uppercase tracking-widest cursor-pointer py-3.5 px-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-lg"
           >
             <span>Book Ride</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform text-white" />
           </button>
         </div>
       </form>
@@ -467,7 +467,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
       <h3 className="text-sm font-serif text-luxury-gold uppercase tracking-widest font-semibold">
         Ride Parameters
       </h3>
-      
+
       <div className="relative" onClick={(e) => e.stopPropagation()}>
         <label className={labelStyles}>Pickup Location</label>
         <div className="relative">
@@ -613,11 +613,11 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
       <button
         type="submit"
         disabled={submitting}
-        className="w-full bg-gradient-to-r from-luxury-gold to-soft-gold hover:from-soft-gold hover:to-luxury-gold text-matte-black font-semibold text-xs uppercase tracking-widest py-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_0_15px_rgba(212,175,55,0.2)] hover:shadow-[0_0_25px_rgba(212,175,55,0.4)] mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full bg-luxury-gold text-white font-semibold text-xs uppercase tracking-widest py-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group hover:brightness-125 hover:shadow-[0_0_30px_rgba(208,165,17,0.55)] shadow-[0_0_15px_rgba(208,165,17,0.3)] mt-4 disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {submitting ? (
           <>
-            <div className="w-4 h-4 border-2 border-matte-black border-t-transparent rounded-full animate-spin" />
+            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
             <span>Processing Reservation...</span>
           </>
         ) : (

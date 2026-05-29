@@ -44,7 +44,7 @@ export default function Navbar() {
     fetch("/api/services")
       .then((res) => res.json())
       .then((data: ServiceItem[]) => {
-        console.log(data,'data')
+        console.log(data, 'data')
         if (Array.isArray(data)) {
           setServices(data);
         }
@@ -64,9 +64,9 @@ export default function Navbar() {
       dropdown:
         services.length > 0
           ? services.map((s) => ({
-              name: s.name,
-              href: `/services/${s.slug || s.id}`,
-            }))
+            name: s.name,
+            href: `/services/${s.slug || s.id}`,
+          }))
           : undefined,
     },
     ...staticNavLinks.slice(2), // About Us, Contact
@@ -81,10 +81,10 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex flex-col items-start tracking-widest group">
             <span className="text-xl md:text-2xl font-serif font-bold text-gray-900 group-hover:text-luxury-gold transition-colors duration-300">
-              FANTASTICLIMO
+              FANTASTIC <span className="text-luxury-gold">LIMO</span>
             </span>
-            <span className="text-[9px] uppercase tracking-[0.3em] text-luxury-gold -mt-1 font-semibold">
-              LUXURY CHAUFFEUR
+            <span className="text-[9px] uppercase text-gray-800 -mt-1 font-semibold">
+              WHERE EVERY RIDE IS AN EXPERIENCE
             </span>
           </Link>
 
@@ -101,17 +101,15 @@ export default function Navbar() {
                   >
                     <Link
                       href={link.href}
-                      className={`flex items-center gap-1 text-sm uppercase tracking-widest hover:text-luxury-gold transition-colors py-2 ${
-                        pathname === link.href || pathname.startsWith("/services")
+                      className={`flex items-center gap-1 text-sm font-semibold uppercase tracking-widest hover:text-luxury-gold transition-colors py-2 ${pathname === link.href || pathname.startsWith("/services")
                           ? "text-luxury-gold"
                           : "text-gray-800"
-                      }`}
+                        }`}
                     >
                       {link.name}
                       <ChevronDown
-                        className={`w-4 h-4 transition-transform duration-200 ${
-                          isDropdownOpen ? "rotate-180" : ""
-                        }`}
+                        className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""
+                          }`}
                       />
                     </Link>
                     <AnimatePresence>
@@ -122,15 +120,14 @@ export default function Navbar() {
                           exit={{ opacity: 0, y: 10 }}
                           className="absolute left-0 mt-1 w-64 bg-white border border-gray-100 rounded-md py-2 shadow-xl"
                         >
-                          {link.dropdown.map((subLink:any) => (
+                          {link.dropdown.map((subLink: any) => (
                             <Link
                               key={subLink.name}
                               href={subLink.href}
-                              className={`block px-4 py-2.5 text-xs uppercase tracking-widest hover:bg-luxury-gold hover:text-white transition-colors ${
-                                pathname === subLink.href
+                              className={`block px-4 py-2.5 text-xs uppercase tracking-widest hover:bg-luxury-gold hover:text-white transition-colors ${pathname === subLink.href
                                   ? "text-luxury-gold"
                                   : "text-gray-800"
-                              }`}
+                                }`}
                             >
                               {subLink.name}
                             </Link>
@@ -157,11 +154,10 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`text-sm uppercase tracking-widest hover:text-luxury-gold transition-colors relative py-2 ${
-                      pathname === link.href || pathname.startsWith("/services")
+                    className={`text-sm font-semibold uppercase tracking-widest hover:text-luxury-gold transition-colors relative py-2 ${pathname === link.href || pathname.startsWith("/services")
                         ? "text-luxury-gold"
                         : "text-gray-800"
-                    }`}
+                      }`}
                   >
                     {link.name}
                     {(pathname === link.href || pathname.startsWith("/services")) && (
@@ -178,9 +174,8 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-sm uppercase tracking-widest hover:text-luxury-gold transition-colors relative py-2 ${
-                    pathname === link.href ? "text-luxury-gold" : "text-gray-800"
-                  }`}
+                  className={`text-sm font-semibold uppercase tracking-widest hover:text-luxury-gold transition-colors relative py-2 ${pathname === link.href ? "text-luxury-gold" : "text-gray-800"
+                    }`}
                 >
                   {link.name}
                   {pathname === link.href && (
@@ -198,10 +193,10 @@ export default function Navbar() {
           <div className="hidden lg:block">
             <Link
               href="/booking"
-              className="relative inline-flex items-center justify-center px-6 py-3 border border-luxury-gold/50 hover:border-luxury-gold text-xs uppercase tracking-widest font-semibold text-gray-900 bg-transparent hover:bg-luxury-gold hover:text-white transition-all duration-300 group overflow-hidden"
+              className="relative inline-flex items-center justify-center px-6 py-3 border border-luxury-gold hover:border-luxury-gold text-xs uppercase tracking-widest font-semibold text-gray-900 bg-transparent hover:bg-luxury-gold hover:text-white transition-all duration-300 group overflow-hidden"
             >
               <span className="relative z-10">Book Reservation</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-luxury-gold to-soft-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0" />
+              <span className="absolute inset-0 bg-gradient-to-r from-[#D0A511]  opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0" />
             </Link>
           </div>
 
@@ -239,13 +234,12 @@ export default function Navbar() {
                       <span className="text-gray-500 text-xs uppercase tracking-widest mb-1">
                         {link.name}
                       </span>
-                      {link.dropdown.map((subLink:any) => (
+                      {link.dropdown.map((subLink: any) => (
                         <Link
                           key={subLink.name}
                           href={subLink.href}
-                          className={`text-lg font-serif my-0.5 block hover:text-luxury-gold transition-colors ${
-                            pathname === subLink.href ? "text-luxury-gold" : "text-gray-900"
-                          }`}
+                          className={`text-lg font-serif my-0.5 block hover:text-luxury-gold transition-colors ${pathname === subLink.href ? "text-luxury-gold" : "text-gray-900"
+                            }`}
                         >
                           {subLink.name}
                         </Link>
@@ -260,9 +254,8 @@ export default function Navbar() {
                   ) : (
                     <Link
                       href={link.href}
-                      className={`text-2xl font-serif hover:text-luxury-gold transition-colors ${
-                        pathname === link.href ? "text-luxury-gold" : "text-gray-900"
-                      }`}
+                      className={`text-2xl font-serif hover:text-luxury-gold transition-colors ${pathname === link.href ? "text-luxury-gold" : "text-gray-900"
+                        }`}
                     >
                       {link.name}
                     </Link>

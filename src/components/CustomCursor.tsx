@@ -49,13 +49,13 @@ export default function CustomCursor() {
       ) {
         gsap.to(cursor, {
           scale: 1.5,
-          backgroundColor: "#bfa15f",
+          backgroundColor: "#D0A511",
           duration: 0.2,
         });
         gsap.to(follower, {
           scale: 2.2,
-          borderColor: "#bfa15f",
-          backgroundColor: "rgba(191, 161, 95, 0.1)",
+          borderColor: "#D0A511",
+          backgroundColor: "rgba(208, 165, 17, 0.1)",
           borderWidth: "1px",
           duration: 0.2,
         });
@@ -78,7 +78,7 @@ export default function CustomCursor() {
         });
         gsap.to(follower, {
           scale: 1,
-          borderColor: "rgba(191, 161, 95, 0.4)",
+          borderColor: "rgba(208, 165, 17, 0.4)",
           backgroundColor: "transparent",
           borderWidth: "1px",
           duration: 0.2,
@@ -108,7 +108,7 @@ export default function CustomCursor() {
       {/* Outer glow ring */}
       <div
         ref={followerRef}
-        className="fixed top-0 left-0 w-8 h-8 border border-[rgba(191, 161, 95, 0.4)] rounded-full pointer-events-none z-9998 -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 ease-out"
+        className="fixed top-0 left-0 w-8 h-8 border border-[rgba(208,165,17,0.4)] rounded-full pointer-events-none z-9998 -translate-x-1/2 -translate-y-1/2 transition-transform duration-75 ease-out"
       />
     </>
   );

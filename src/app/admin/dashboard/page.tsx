@@ -6,12 +6,12 @@ import {
   Clock, AlertCircle, CheckCircle2, DollarSign, TrendingUp,
 } from "lucide-react";
 
-type Booking  = { id: string; name: string; status: string; vehicle: string; dateTime: string; pickup: string; dropoff: string; };
-type Fleet    = { id: string; name: string; available: boolean; };
-type Service  = { id: number; name: string; available: boolean; };
+type Booking = { id: string; name: string; status: string; vehicle: string; dateTime: string; pickup: string; dropoff: string; };
+type Fleet = { id: string; name: string; available: boolean; };
+type Service = { id: number; name: string; available: boolean; };
 
 const STATUS_COLORS: Record<string, string> = {
-  Pending:   "text-yellow-400 bg-yellow-950/30 border-yellow-900/40",
+  Pending: "text-yellow-400 bg-yellow-950/30 border-yellow-900/40",
   Confirmed: "text-blue-400  bg-blue-950/30  border-blue-900/40",
   Completed: "text-green-400 bg-green-950/30 border-green-900/40",
   Cancelled: "text-red-400   bg-red-950/30   border-red-900/40",
@@ -19,9 +19,9 @@ const STATUS_COLORS: Record<string, string> = {
 
 export default function DashboardPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [fleet,    setFleet]    = useState<Fleet[]>([]);
+  const [fleet, setFleet] = useState<Fleet[]>([]);
   const [services, setServices] = useState<Service[]>([]);
-  const [loading,  setLoading]  = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Promise.all([
@@ -35,16 +35,16 @@ export default function DashboardPage() {
     }).finally(() => setLoading(false));
   }, []);
 
-  const pending       = bookings.filter(b => b.status === "Pending").length;
-  const confirmed     = bookings.filter(b => b.status === "Confirmed").length;
-  const activeFleet   = fleet.filter(f => f.available).length;
-  const activeServices= services.filter(s => s.available).length;
+  const pending = bookings.filter(b => b.status === "Pending").length;
+  const confirmed = bookings.filter(b => b.status === "Confirmed").length;
+  const activeFleet = fleet.filter(f => f.available).length;
+  const activeServices = services.filter(s => s.available).length;
 
   const kpis = [
-    { label: "Total Bookings",    value: bookings.length, icon: CalendarCheck, color: "text-luxury-gold" },
-    { label: "Pending Review",    value: pending,          icon: AlertCircle,   color: "text-yellow-400" },
-    { label: "Active Fleet",      value: `${activeFleet}/${fleet.length}`, icon: Car, color: "text-blue-400" },
-    { label: "Active Services",   value: activeServices,   icon: MapPin,        color: "text-green-400" },
+    { label: "Total Bookings", value: bookings.length, icon: CalendarCheck, color: "text-luxury-gold" },
+    { label: "Pending Review", value: pending, icon: AlertCircle, color: "text-yellow-400" },
+    { label: "Active Fleet", value: `${activeFleet}/${fleet.length}`, icon: Car, color: "text-blue-400" },
+    { label: "Active Services", value: activeServices, icon: MapPin, color: "text-green-400" },
   ];
 
   return (

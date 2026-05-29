@@ -148,7 +148,7 @@ export default function VideoClient() {
               <div>
                 <button
                   onClick={() => openVideo(videosList[0])}
-                  className="flex items-center gap-3 bg-luxury-gold hover:bg-soft-gold text-matte-black px-6 py-4 rounded-full font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-[0_0_20px_rgba(212,175,55,0.3)] hover:scale-105"
+                  className="flex items-center gap-3 bg-luxury-gold hover:brightness-110 text-white px-6 py-4 rounded-full font-bold text-xs uppercase tracking-widest transition-all duration-300 shadow-[0_0_20px_rgba(208,165,17,0.3)] hover:scale-105"
                 >
                   <Play className="w-4 h-4 fill-matte-black" />
                   Play Brand Video
@@ -310,7 +310,7 @@ export default function VideoClient() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/booking"
-              className="w-full sm:w-auto relative inline-flex items-center justify-center px-8 py-4 border border-luxury-gold bg-luxury-gold hover:bg-soft-gold text-matte-black text-xs uppercase tracking-widest font-semibold transition-all duration-300 rounded-none shadow-[0_0_20px_rgba(212,175,55,0.2)]"
+              className="w-full sm:w-auto relative inline-flex items-center justify-center px-8 py-4 border border-luxury-gold bg-luxury-gold hover:brightness-110 text-white text-xs uppercase tracking-widest font-semibold transition-all duration-300 rounded-none shadow-[0_0_20px_rgba(208,165,17,0.2)]"
             >
               Book Now
             </Link>
@@ -339,7 +339,7 @@ export default function VideoClient() {
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
               transition={{ duration: 0.3 }}
-              className="relative w-full max-w-5xl aspect-video bg-black rounded-xl overflow-hidden border border-luxury-gold/30 shadow-[0_0_50px_rgba(212,175,55,0.25)] flex flex-col"
+              className="relative w-full max-w-5xl aspect-video bg-black rounded-xl overflow-hidden border border-luxury-gold/30 shadow-[0_0_50px_rgba(208,165,17,0.25)] flex flex-col"
             >
               {/* HTML5 Video Player */}
               <video

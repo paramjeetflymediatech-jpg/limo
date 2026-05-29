@@ -88,7 +88,7 @@ export default function FleetClient({ fleet }: FleetClientProps) {
           ) : (
             <>
               <div className="flex flex-col gap-20">
-                <AnimatePresence mode="wait">
+                <AnimatePresence>
                   {paginatedFleet.map((car, index) => (
                     <motion.div
                       key={car.id}
@@ -96,12 +96,11 @@ export default function FleetClient({ fleet }: FleetClientProps) {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -40 }}
                       transition={{ duration: 0.6 }}
-                      className={`flex flex-col lg:flex-row gap-12 items-center ${
-                        index % 2 === 1 ? "lg:flex-row-reverse" : ""
-                      }`}
+                      className={`flex flex-col lg:flex-row gap-12 items-center ${index % 2 === 1 ? "lg:flex-row-reverse" : ""
+                        }`}
                     >
                       {/* Image Showcase */}
-                      <Link 
+                      <Link
                         href={`/fleet/${car.id}`}
                         className="w-full lg:w-1/2 relative h-[300px] md:h-[450px] overflow-hidden rounded-lg border border-luxury-gold/15 group shadow-2xl bg-matte-black block cursor-pointer"
                       >
@@ -170,7 +169,7 @@ export default function FleetClient({ fleet }: FleetClientProps) {
                         <div className="flex flex-wrap gap-4 items-center">
                           <Link
                             href={`/fleet/${car.id}`}
-                            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-luxury-gold to-soft-gold text-matte-black font-semibold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_15px_rgba(212,175,55,0.2)] transition-all duration-300"
+                            className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-luxury-gold text-white font-semibold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_15px_rgba(208,165,17,0.2)] transition-all duration-300"
                           >
                             <span>Explore Details</span>
                             <ArrowRight className="w-4 h-4" />
@@ -214,11 +213,10 @@ export default function FleetClient({ fleet }: FleetClientProps) {
                           setCurrentPage(page);
                           window.scrollTo({ top: 400, behavior: "smooth" });
                         }}
-                        className={`w-9 h-9 flex items-center justify-center border text-xs font-semibold rounded transition-all cursor-pointer ${
-                          currentPage === page
-                            ? "bg-luxury-gold border-luxury-gold text-matte-black font-bold shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+                        className={`w-9 h-9 flex items-center justify-center border text-xs font-semibold rounded transition-all cursor-pointer ${currentPage === page
+                            ? "bg-luxury-gold border-luxury-gold text-matte-black font-bold shadow-[0_0_15px_rgba(208,165,17,0.2)]"
                             : "border-luxury-gold/10 text-gray-400 hover:text-white hover:border-luxury-gold/30 hover:bg-luxury-gold/5"
-                        }`}
+                          }`}
                       >
                         {page}
                       </button>

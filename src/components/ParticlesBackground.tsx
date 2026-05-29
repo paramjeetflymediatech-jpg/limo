@@ -55,8 +55,8 @@ export default function ParticlesBackground() {
       if (matContext) {
         const gradient = matContext.createRadialGradient(8, 8, 0, 8, 8, 8);
         gradient.addColorStop(0, "rgba(247, 231, 161, 1)"); // Champagne Gold center
-        gradient.addColorStop(0.3, "rgba(212, 175, 55, 0.8)"); // Gold mid
-        gradient.addColorStop(1, "rgba(212, 175, 55, 0)"); // Fade out
+        gradient.addColorStop(0.3, "rgba(208,165,17, 0.8)"); // Gold mid
+        gradient.addColorStop(1, "rgba(208,165,17, 0)"); // Fade out
         matContext.fillStyle = gradient;
         matContext.fillRect(0, 0, 16, 16);
       }

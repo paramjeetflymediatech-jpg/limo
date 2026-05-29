@@ -10,19 +10,19 @@ type SeoEntry = {
 type SeoMap = Record<string, SeoEntry>;
 
 const EMPTY: SeoEntry = { title: "", description: "", keywords: "", ogTitle: "", ogDescription: "", ogImage: "", canonicalUrl: "" };
-const inputCls  = "w-full bg-matte-black/60 border border-luxury-gold/15 text-white rounded px-3 py-2 text-xs focus:outline-none focus:border-luxury-gold/40";
-const labelCls  = "text-[10px] uppercase tracking-widest text-gray-400 block mb-1";
+const inputCls = "w-full bg-matte-black/60 border border-luxury-gold/15 text-white rounded px-3 py-2 text-xs focus:outline-none focus:border-luxury-gold/40";
+const labelCls = "text-[10px] uppercase tracking-widest text-gray-400 block mb-1";
 
 export default function SeoPage() {
-  const [seoMap,     setSeoMap]     = useState<SeoMap>({});
-  const [routes,     setRoutes]     = useState<string[]>([]);
-  const [selected,   setSelected]   = useState("/");
-  const [form,       setForm]       = useState<SeoEntry>(EMPTY);
-  const [loading,    setLoading]    = useState(true);
-  const [saving,     setSaving]     = useState(false);
-  const [deleting,   setDeleting]   = useState(false);
-  const [msg,        setMsg]        = useState<{ type:"ok"|"err"; text:string }|null>(null);
-  const [newRoute,   setNewRoute]   = useState("");
+  const [seoMap, setSeoMap] = useState<SeoMap>({});
+  const [routes, setRoutes] = useState<string[]>([]);
+  const [selected, setSelected] = useState("/");
+  const [form, setForm] = useState<SeoEntry>(EMPTY);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [msg, setMsg] = useState<{ type: "ok" | "err"; text: string } | null>(null);
+  const [newRoute, setNewRoute] = useState("");
   const [addingPage, setAddingPage] = useState(false);
 
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function SeoPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const toast = (type:"ok"|"err", text:string) => { setMsg({ type, text }); setTimeout(() => setMsg(null), 3500); };
+  const toast = (type: "ok" | "err", text: string) => { setMsg({ type, text }); setTimeout(() => setMsg(null), 3500); };
 
   const selectRoute = (r: string) => {
     setSelected(r);
@@ -110,7 +110,7 @@ export default function SeoPage() {
       <div className="flex items-center gap-3">
         <Globe className="w-5 h-5 text-luxury-gold" />
         <h1 className="text-2xl font-serif font-bold text-white">SEO Pages</h1>
-        <button onClick={() => setAddingPage(true)} className="ml-auto flex items-center gap-2 px-4 py-2 bg-luxury-gold text-matte-black text-[10px] uppercase tracking-widest font-bold rounded hover:brightness-110 transition-all cursor-pointer shadow-[0_0_15px_rgba(212,175,55,0.15)]">
+        <button onClick={() => setAddingPage(true)} className="ml-auto flex items-center gap-2 px-4 py-2 bg-luxury-gold text-matte-black text-[10px] uppercase tracking-widest font-bold rounded hover:brightness-110 transition-all cursor-pointer shadow-[0_0_15px_rgba(208,165,17,0.15)]">
           <Plus className="w-3.5 h-3.5" /> New Page
         </button>
       </div>

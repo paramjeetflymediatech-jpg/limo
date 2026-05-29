@@ -16,7 +16,7 @@ export default function BookingCTA() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="glass-panel p-8 md:p-20 rounded-2xl border border-luxury-gold/20 shadow-[0_0_50px_rgba(212,175,55,0.1)] flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left relative overflow-hidden"
+          className="glass-panel p-8 md:p-20 rounded-2xl border border-luxury-gold/20 shadow-[0_0_50px_rgba(208,165,17,0.1)] flex flex-col lg:flex-row items-center justify-between gap-12 text-center lg:text-left relative overflow-hidden"
         >
           {/* Subtle line decorations */}
           <div className="absolute top-0 right-0 w-48 h-[1px] bg-gradient-to-r from-transparent to-luxury-gold/50" />
@@ -37,7 +37,7 @@ export default function BookingCTA() {
           <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto shrink-0 justify-center z-10">
             <Link
               href="/booking"
-              className="flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-luxury-gold to-soft-gold text-matte-black font-semibold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_20px_rgba(212,175,55,0.3)] transition-all duration-300 w-full sm:w-auto rounded-sm"
+              className="flex items-center justify-center gap-2 px-8 py-4 bg-luxury-gold text-white font-semibold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_20px_rgba(208,165,17,0.3)] transition-all duration-300 w-full sm:w-auto rounded-sm"
             >
               <CalendarCheck className="w-4 h-4" />
               <span>Reserve Online</span>

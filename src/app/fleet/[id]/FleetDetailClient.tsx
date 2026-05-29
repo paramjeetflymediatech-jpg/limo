@@ -4,17 +4,17 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { 
-  Users, 
-  Briefcase, 
-  Wifi, 
-  Shield, 
-  Wine, 
-  Gauge, 
-  ArrowLeft, 
-  ArrowRight, 
-  Check, 
-  Phone, 
+import {
+  Users,
+  Briefcase,
+  Wifi,
+  Shield,
+  Wine,
+  Gauge,
+  ArrowLeft,
+  ArrowRight,
+  Check,
+  Phone,
   Mail,
   Car,
   Clock
@@ -121,12 +121,12 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
       <div className="absolute bottom-10 right-1/4 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[200px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-        
+
         {/* Navigation Breadcrumb & Back */}
         <div className="mb-10">
-          <Link 
+          <Link
             href="/fleet"
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-luxury-gold hover:text-white transition-colors group"
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#D0A511] hover:text-white transition-colors group"
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span>Back To Fleet Collection</span>
@@ -135,7 +135,7 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
 
         {/* Vehicle Header (Title & Category) */}
         <div className="mb-12 border-b border-luxury-gold/10 pb-8">
-          <span className="text-xs uppercase tracking-[0.35em] text-luxury-gold font-semibold mb-3 block">
+          <span className="text-xs uppercase tracking-[0.35em] text-[#D0A511] font-semibold mb-3 block">
             {car.category}
           </span>
           <h1 className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white tracking-wide">
@@ -145,10 +145,10 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
 
         {/* Content Layout Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          
+
           {/* LEFT COLUMN: Gallery Viewport & Thumbnails */}
           <div className="lg:col-span-7 flex flex-col gap-6">
-            
+
             {/* Active Display Screen */}
             <div className="relative h-[320px] sm:h-[450px] lg:h-[500px] w-full overflow-hidden rounded-lg border border-luxury-gold/15 bg-charcoal/40 shadow-2xl">
               <AnimatePresence mode="wait">
@@ -166,7 +166,7 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
                     fill
                     priority
                     sizes="(max-w-1024px) 100vw, 60vw"
-                    className="object-cover brightness-95 hover:scale-105 transition-transform duration-700"
+                    className="object-contain brightness-95 hover:scale-105 transition-transform duration-700"
                   />
                 </motion.div>
               </AnimatePresence>
@@ -179,11 +179,10 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
                   <button
                     key={idx}
                     onClick={() => setActiveImageIndex(idx)}
-                    className={`relative aspect-video rounded overflow-hidden border bg-charcoal/60 transition-all cursor-pointer ${
-                      activeImageIndex === idx 
-                        ? "border-luxury-gold shadow-[0_0_12px_rgba(212,175,55,0.25)] scale-[1.03]" 
-                        : "border-luxury-gold/15 opacity-60 hover:opacity-100"
-                    }`}
+                    className={`relative aspect-video rounded overflow-hidden border bg-charcoal/60 transition-all cursor-pointer ${activeImageIndex === idx
+                      ? "border-luxury-gold shadow-[0_0_12px_rgba(212,175,55,0.25)] scale-[1.03]"
+                      : "border-luxury-gold/15 opacity-60 hover:opacity-100"
+                      }`}
                   >
                     <Image
                       src={img}
@@ -200,14 +199,14 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
 
           {/* RIGHT COLUMN: Info, Specs & Booking */}
           <div className="lg:col-span-5 flex flex-col gap-8">
-            
+
             {/* Description & Cost */}
             <div className="glass-panel rounded-xl p-6 md:p-8 flex flex-col gap-6">
               <div className="flex justify-between items-baseline border-b border-luxury-gold/10 pb-4">
                 <span className="text-gray-400 text-xs uppercase tracking-widest">Rate (USD)</span>
-                <span className="text-3xl font-serif text-luxury-gold font-bold">{car.price}</span>
+                <span className="text-3xl font-serif text-[#D0A511] font-bold">{car.price}</span>
               </div>
-              
+
               <div className="text-gray-300 text-sm leading-relaxed font-light">
                 <h3 className="text-white text-xs uppercase tracking-widest font-semibold mb-2">Description</h3>
                 <p>{car.description}</p>
@@ -219,11 +218,11 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
               {specs.map((spec) => {
                 const Icon = spec.icon;
                 return (
-                  <div 
-                    key={spec.label} 
+                  <div
+                    key={spec.label}
                     className="border border-luxury-gold/10 bg-matte-black/40 rounded-lg p-4 flex flex-col gap-1 hover:border-luxury-gold/25 transition-all duration-300"
                   >
-                    <div className="flex items-center gap-2 text-luxury-gold mb-1">
+                    <div className="flex items-center gap-2 text-[#D0A511] mb-1">
                       <Icon className="w-4 h-4" />
                       <span className="text-[10px] uppercase tracking-wider text-gray-500">{spec.label}</span>
                     </div>
@@ -235,7 +234,7 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
 
             {/* Premium Onboard Amenities */}
             <div>
-              <h3 className="text-xs uppercase tracking-widest text-luxury-gold font-semibold mb-4 pl-1">
+              <h3 className="text-xs uppercase tracking-widest text-[#D0A511] font-semibold mb-4 pl-1">
                 Luxury Inclusions & Amenities
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -243,7 +242,7 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
                   const Icon = amenity.icon;
                   return (
                     <div key={amenity.label} className="flex gap-3">
-                      <div className="w-8 h-8 rounded-full bg-luxury-gold/5 border border-luxury-gold/10 flex items-center justify-center text-luxury-gold shrink-0">
+                      <div className="w-8 h-8 rounded-full bg-luxury-gold/5 border border-luxury-gold/10 flex items-center justify-center text-[#D0A511] shrink-0">
                         <Icon className="w-4 h-4" />
                       </div>
                       <div className="flex flex-col">
@@ -260,20 +259,20 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
             <div className="flex flex-col gap-4 mt-4">
               <Link
                 href={`/booking?vehicle=${encodeURIComponent(car.name)}`}
-                className="w-full py-4 bg-gradient-to-r from-luxury-gold to-soft-gold text-matte-black font-semibold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_20px_rgba(212,175,55,0.2)] transition-all duration-300 text-center rounded"
+                className="w-full py-4 bg-[#D0A511] text-black font-semibold text-xs uppercase tracking-widest hover:brightness-110 shadow-lg transition-all duration-300 text-center rounded flex items-center justify-center"
               >
                 <span>Reserve {car.name}</span>
               </Link>
-              
+
               <div className="flex flex-col gap-2 text-center text-xs text-gray-500 py-3 border-t border-luxury-gold/10">
                 <span className="uppercase tracking-widest text-[9px] text-gray-600">Secure Direct Booking Concierge</span>
                 <div className="flex flex-wrap items-center justify-center gap-4 text-gray-400 mt-1">
-                  <a href="tel:+13062404000" className="flex items-center gap-1.5 hover:text-luxury-gold transition-colors">
-                    <Phone className="w-3.5 h-3.5 text-luxury-gold" />
+                  <a href="tel:+13062404000" className="flex items-center gap-1.5 hover:text-[#D0A511] transition-colors">
+                    <Phone className="w-3.5 h-3.5 text-[#D0A511]" />
                     <span>+1 (306) 240-4000</span>
                   </a>
-                  <a href="mailto:info@fantasticlimo.ca" className="flex items-center gap-1.5 hover:text-luxury-gold transition-colors">
-                    <Mail className="w-3.5 h-3.5 text-luxury-gold" />
+                  <a href="mailto:info@fantasticlimo.ca" className="flex items-center gap-1.5 hover:text-[#D0A511] transition-colors">
+                    <Mail className="w-3.5 h-3.5 text-[#D0A511]" />
                     <span>info@fantasticlimo.ca</span>
                   </a>
                 </div>

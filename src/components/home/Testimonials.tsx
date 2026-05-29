@@ -120,9 +120,8 @@ export default function Testimonials() {
             <button
               key={index}
               onClick={() => setActiveIndex(index)}
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                index === activeIndex ? "w-6 bg-luxury-gold" : "bg-gray-600 hover:bg-gray-400"
-              }`}
+              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${index === activeIndex ? "w-6 bg-luxury-gold" : "bg-gray-600 hover:bg-gray-400"
+                }`}
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}

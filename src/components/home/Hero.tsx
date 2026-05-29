@@ -26,9 +26,8 @@ export default function Hero() {
       <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden bg-black">
         {/* Exterior Video */}
         <div
-          className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${
-            viewMode === "exterior" ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+          className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${viewMode === "exterior" ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
         >
           <video
             autoPlay
@@ -47,9 +46,8 @@ export default function Hero() {
 
         {/* Interior Video */}
         <div
-          className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${
-            viewMode === "interior" ? "opacity-100" : "opacity-0 pointer-events-none"
-          }`}
+          className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${viewMode === "interior" ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
         >
           <video
             autoPlay
@@ -74,7 +72,7 @@ export default function Hero() {
       <div
         className="absolute inset-0 pointer-events-none opacity-45 mix-blend-screen transition-opacity duration-300"
         style={{
-          background: `radial-gradient(800px circle at ${mousePos.x}px ${mousePos.y}px, rgba(212,175,55,0.08), transparent 80%)`,
+          background: `radial-gradient(800px circle at ${mousePos.x}px ${mousePos.y}px, rgba(208,165,17,0.08), transparent 80%)`,
         }}
       />
 
@@ -123,7 +121,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="inline-flex items-center gap-2 border border-luxury-gold/30 px-4 py-1.5 rounded-full bg-matte-black/40 backdrop-blur-md mb-6 shadow-[0_0_15px_rgba(212,175,55,0.1)]"
+          className="inline-flex items-center gap-2 border border-luxury-gold/30 px-4 py-1.5 rounded-full bg-matte-black/40 backdrop-blur-md mb-6 shadow-[0_0_15px_rgba(208,165,17,0.1)]"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-luxury-gold animate-pulse" />
           <span className="text-[10px] uppercase tracking-[0.3em] text-luxury-gold font-semibold">
@@ -142,7 +140,7 @@ export default function Hero() {
             onClick={() => setViewMode("exterior")}
             className={`px-5 py-2 rounded-full text-[10px] uppercase tracking-widest font-medium transition-all duration-500 cursor-pointer ${
               viewMode === "exterior"
-                ? "bg-luxury-gold text-matte-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+                ? "bg-luxury-gold text-matte-black font-semibold shadow-[0_0_15px_rgba(208,165,17,0.3)]"
                 : "text-white hover:text-luxury-gold"
             }`}
           >
@@ -152,7 +150,7 @@ export default function Hero() {
             onClick={() => setViewMode("interior")}
             className={`px-5 py-2 rounded-full text-[10px] uppercase tracking-widest font-medium transition-all duration-500 cursor-pointer ${
               viewMode === "interior"
-                ? "bg-luxury-gold text-matte-black font-semibold shadow-[0_0_15px_rgba(212,175,55,0.3)]"
+                ? "bg-luxury-gold text-matte-black font-semibold shadow-[0_0_15px_rgba(208,165,17,0.3)]"
                 : "text-white hover:text-luxury-gold"
             }`}
           >
@@ -189,13 +187,13 @@ export default function Hero() {
         >
           <Link
             href="/booking"
-            className="px-8 py-4 bg-gradient-to-r from-luxury-gold to-soft-gold text-white font-bold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_20px_rgba(212,175,55,0.4)] transition-all duration-300 rounded-sm"
+            className="px-8 py-4 bg-luxury-gold text-white font-bold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_20px_rgba(208,165,17,0.4)] transition-all duration-300 rounded-sm"
           >
             Reserve Your Ride
           </Link>
           <Link
             href="/fleet"
-            className="px-8 py-4 border border-[#ffffff]/35 hover:border-luxury-gold hero-text-white font-semibold text-xs uppercase tracking-widest bg-black/10 backdrop-blur-sm transition-all duration-300 rounded-sm hover:shadow-[0_0_15px_rgba(212,175,55,0.1)]"
+            className="px-8 py-4 border border-[#ffffff]/35 hover:border-luxury-gold hero-text-white font-semibold text-xs uppercase tracking-widest bg-black/10 backdrop-blur-sm transition-all duration-300 rounded-sm hover:shadow-[0_0_15px_rgba(208,165,17,0.1)]"
           >
             Explore Luxury Fleet
           </Link>

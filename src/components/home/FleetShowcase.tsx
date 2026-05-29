@@ -1,6 +1,6 @@
 "use client";
 
-import { useMotionValue, useTransform, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
@@ -11,7 +11,7 @@ export const fleetItems = [
     name: "Rolls-Royce Phantom VIII",
     category: "Ultra Luxury Sedan",
     image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?auto=format&fit=crop&q=80&w=800",
-    description: "The ultimate signature of luxury and prestige. Offers an whisper-quiet ride and hand-crafted leather interior.",
+    description: "The ultimate signature of luxury and prestige. Offers a whisper-quiet ride and hand-crafted leather interior.",
     price: "$350/hr",
     passengers: 4,
     luggage: 3,
@@ -41,7 +41,7 @@ export const fleetItems = [
     name: "Cadillac Escalade ESV",
     category: "Luxury SUV",
     image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=800",
-    description: "Bold styling, incredible road presence, and vast cargo capacity. Perfect for group airport transfers and security details.",
+    description: "Bold styling, incredible road presence, and vast cargo capacity. Perfect for group airport transfers.",
     price: "$180/hr",
     passengers: 6,
     luggage: 6,
@@ -51,7 +51,7 @@ export const fleetItems = [
     name: "Super Stretch Limousine",
     category: "Limo",
     image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=800",
-    description: "Classic stretch styling with modern light bar, fiber optics, sound system, and privacy partition. The party start here.",
+    description: "Classic stretch styling with modern light bar, fiber optics, sound system, and privacy partition.",
     price: "$220/hr",
     passengers: 10,
     luggage: 5,
@@ -61,65 +61,12 @@ export const fleetItems = [
     name: "VIP Executive Sprinter",
     category: "Luxury Coach",
     image: "https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&q=80&w=800",
-    description: "High-roof configuration with face-to-face leather captains chairs, LED ceiling panels, premium bar, and sound controls.",
+    description: "High-roof configuration with face-to-face leather captain chairs, LED ceiling panels, and premium bar.",
     price: "$250/hr",
     passengers: 12,
     luggage: 10,
   },
 ];
-
-function TiltCard({
-  children,
-  className,
-  index,
-}: {
-  children: React.ReactNode;
-  className?: string;
-  index: number;
-}) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  // Map mouse positions to rotational angles
-  const rotateX = useTransform(y, [-150, 150], [10, -10]);
-  const rotateY = useTransform(x, [-150, 150], [-10, 10]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const el = e.currentTarget;
-    const rect = el.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    
-    // Position relative to element center
-    const mouseX = e.clientX - rect.left - width / 2;
-    const mouseY = e.clientY - rect.top - height / 2;
-    
-    x.set(mouseX);
-    y.set(mouseY);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.div
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.8, delay: index * 0.1 }}
-      className={className}
-    >
-      <div style={{ transform: "translateZ(20px)" }} className="h-full">
-        {children}
-      </div>
-    </motion.div>
-  );
-}
 
 interface ShowcaseFleetItem {
   id: string;
@@ -134,9 +81,10 @@ interface ShowcaseFleetItem {
 }
 
 export default function FleetShowcase({ fleet }: { fleet?: ShowcaseFleetItem[] }) {
-  const displayFleet = fleet && fleet.length > 0 
-    ? fleet.filter(car => car.available !== false).slice(0, 6) 
-    : fleetItems;
+  const displayFleet =
+    fleet && fleet.length > 0
+      ? fleet.filter((car) => car.available !== false).slice(0, 6)
+      : fleetItems;
 
   return (
     <section className="bg-dark-gray py-24 relative overflow-hidden">
@@ -154,60 +102,57 @@ export default function FleetShowcase({ fleet }: { fleet?: ShowcaseFleetItem[] }
             Pinnacle of Automotive Prestige
           </h2>
           <p className="text-white text-sm md:text-base leading-relaxed font-light">
-            Our meticulously curated fleet offers the finest in comfort, state-of-the-art technology, and absolute privacy. Discover the ultimate travel companion.
+            Our meticulously curated fleet offers the finest in comfort, state-of-the-art technology, and absolute
+            privacy. Discover the ultimate travel companion.
           </p>
         </div>
 
-        {/* Grid Showcase */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-1000">
+        {/* Grid — NO perspective, NO 3D, NO onMouseMove */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayFleet.map((car, index) => (
-            <TiltCard
+            <motion.div
               key={car.id}
-              index={index}
-              className="glass-panel rounded-lg overflow-hidden group border border-luxury-gold/10 hover:border-luxury-gold/30 hover:shadow-[0_0_30px_rgba(212,175,55,0.15)] transition-all duration-500 shadow-xl flex flex-col h-full cursor-pointer"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: index * 0.08 }}
+              className="glass-panel rounded-lg overflow-hidden group border border-luxury-gold/10 hover:border-luxury-gold/30 hover:shadow-[0_0_30px_rgba(208,165,17,0.15)] transition-all duration-500 shadow-xl flex flex-col h-full"
             >
-              {/* Image Container */}
-              <Link 
-                href={`/fleet/${car.id}`}
-                className="relative h-64 overflow-hidden bg-matte-black block cursor-pointer"
-              >
-                {/* Spotlight hover overlay */}
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(212,175,55,0.15)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
+              {/* Image */}
+              <Link href={`/fleet/${car.id}`} className="relative h-64 overflow-hidden bg-matte-black block">
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(208,165,17,0.15)_0%,transparent_60%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10 pointer-events-none" />
                 <Image
                   src={car.image}
                   alt={car.name}
                   fill
-                  sizes="(max-w-728px) 100vw, 33vw"
-                  className="object-cover group-hover:scale-110 transition-transform duration-700 brightness-[0.85] group-hover:brightness-100"
+                  sizes="(max-width: 728px) 100vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.85] group-hover:brightness-100"
                 />
                 <div className="absolute top-4 left-4 bg-matte-black/75 backdrop-blur-md px-3 py-1 border border-luxury-gold/20 text-[10px] uppercase tracking-widest text-luxury-gold rounded-full z-20">
                   {car.category}
                 </div>
-                <div className="absolute bottom-4 right-4 bg-luxury-gold text-matte-black font-semibold text-xs px-3 py-1.5 rounded-sm tracking-wider z-20 shadow-md">
+                <div className="absolute bottom-4 right-4 bg-luxury-gold text-white font-semibold text-xs px-3 py-1.5 rounded-sm tracking-wider z-20 shadow-md">
                   {car.price}
                 </div>
               </Link>
 
-              {/* Details Container */}
+              {/* Details */}
               <div className="p-6 md:p-8 flex flex-col justify-between flex-grow">
                 <div>
                   <h3 className="text-xl font-serif text-white mb-3 group-hover:text-luxury-gold transition-colors duration-300">
-                    <Link href={`/fleet/${car.id}`}>
-                      {car.name}
-                    </Link>
+                    <Link href={`/fleet/${car.id}`}>{car.name}</Link>
                   </h3>
-                  <p className="  text-xs md:text-sm font-light leading-relaxed mb-6">
-                    {car.description}
-                  </p>
-                  
-                  {/* Capacity Info */}
+                  <p className="text-xs md:text-sm font-light leading-relaxed mb-6">{car.description}</p>
                   <div className="flex gap-6 border-t border-luxury-gold/10 pt-4 mb-6 text-[11px] uppercase tracking-widest text-gray-500">
-                    <span>Passengers: <strong className="text-gray-300">{car.passengers}</strong></span>
-                    <span>Luggage: <strong className="text-gray-300">{car.luggage}</strong></span>
+                    <span>
+                      Passengers: <strong className="text-gray-300">{car.passengers}</strong>
+                    </span>
+                    <span>
+                      Luggage: <strong className="text-gray-300">{car.luggage}</strong>
+                    </span>
                   </div>
                 </div>
 
-                {/* Reservation Link */}
                 <div className="flex items-center justify-between gap-4 mt-auto border-t border-luxury-gold/10 pt-4">
                   <Link
                     href={`/fleet/${car.id}`}
@@ -220,19 +165,19 @@ export default function FleetShowcase({ fleet }: { fleet?: ShowcaseFleetItem[] }
                     href={`/booking?vehicle=${encodeURIComponent(car.name)}`}
                     className="text-xs uppercase tracking-widest text-luxury-gold hover:text-black font-semibold"
                   >
-                    <span>Book Now</span>
+                    Book Now
                   </Link>
                 </div>
               </div>
-            </TiltCard>
+            </motion.div>
           ))}
         </div>
 
-        {/* View All Button */}
+        {/* View All */}
         <div className="text-center mt-16">
           <Link
             href="/fleet"
-            className="inline-flex px-8 py-4 border border-luxury-gold/30 hover:border-luxury-gold text-luxury-gold hover:text-matte-black hover:bg-luxury-gold text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-[0_0_10px_rgba(212,175,55,0.05)]"
+            className="inline-flex px-8 py-4 border border-luxury-gold/30 hover:border-luxury-gold text-luxury-gold hover:text-white hover:bg-luxury-gold text-xs uppercase tracking-widest font-semibold transition-all duration-300 shadow-[0_0_10px_rgba(208,165,17,0.05)]"
           >
             View Entire Fleet
           </Link>

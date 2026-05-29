@@ -12,7 +12,7 @@ type Booking = {
 };
 
 const STATUS_COLORS: Record<string, string> = {
-  Pending:   "text-yellow-400 bg-yellow-950/30 border-yellow-900/40",
+  Pending: "text-yellow-400 bg-yellow-950/30 border-yellow-900/40",
   Confirmed: "text-blue-400  bg-blue-950/30  border-blue-900/40",
   Completed: "text-green-400 bg-green-950/30 border-green-900/40",
   Cancelled: "text-red-400   bg-red-950/30   border-red-900/40",
@@ -22,10 +22,10 @@ const PER_PAGE = 15;
 
 export default function BookingsPage() {
   const [bookings, setBookings] = useState<Booking[]>([]);
-  const [loading,  setLoading]  = useState(true);
-  const [search,   setSearch]   = useState("");
-  const [filter,   setFilter]   = useState("All");
-  const [page,     setPage]     = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("All");
+  const [page, setPage] = useState(1);
   const [selected, setSelected] = useState<Booking | null>(null);
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export default function BookingsPage() {
   });
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
-  const paginated  = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+  const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
   const inputCls = "bg-matte-black/60 border border-luxury-gold/15 text-white rounded px-3 py-2 text-xs focus:outline-none focus:border-luxury-gold/40";
 
@@ -87,15 +87,14 @@ export default function BookingsPage() {
             onChange={e => { setSearch(e.target.value); setPage(1); }}
           />
         </div>
-        {["All","Pending","Confirmed","Completed","Cancelled"].map(s => (
+        {["All", "Pending", "Confirmed", "Completed", "Cancelled"].map(s => (
           <button
             key={s}
             onClick={() => { setFilter(s); setPage(1); }}
-            className={`px-3 py-2 rounded text-[10px] uppercase tracking-widest font-bold border transition-all cursor-pointer ${
-              filter === s
+            className={`px-3 py-2 rounded text-[10px] uppercase tracking-widest font-bold border transition-all cursor-pointer ${filter === s
                 ? "bg-luxury-gold text-matte-black border-luxury-gold"
                 : "border-luxury-gold/20 text-gray-400 hover:border-luxury-gold/40"
-            }`}
+              }`}
           >
             {s}
           </button>
@@ -139,7 +138,7 @@ export default function BookingsPage() {
                           onChange={e => updateStatus(b.id, e.target.value)}
                           className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold border bg-transparent cursor-pointer ${STATUS_COLORS[b.status] ?? ""}`}
                         >
-                          {["Pending","Confirmed","Completed","Cancelled"].map(s => (
+                          {["Pending", "Confirmed", "Completed", "Cancelled"].map(s => (
                             <option key={s} value={s} className="bg-matte-black text-white">{s}</option>
                           ))}
                         </select>
@@ -189,14 +188,14 @@ export default function BookingsPage() {
 
             <div className="grid grid-cols-2 gap-4 text-xs">
               {[
-                ["Client",    selected.name],
-                ["Email",     selected.email],
-                ["Phone",     selected.phone],
-                ["Vehicle",   selected.vehicle],
-                ["Passengers",selected.passengers],
+                ["Client", selected.name],
+                ["Email", selected.email],
+                ["Phone", selected.phone],
+                ["Vehicle", selected.vehicle],
+                ["Passengers", selected.passengers],
                 ["Date/Time", selected.dateTime],
-                ["Pickup",    selected.pickup],
-                ["Dropoff",   selected.dropoff],
+                ["Pickup", selected.pickup],
+                ["Dropoff", selected.dropoff],
               ].map(([l, v]) => (
                 <div key={l}>
                   <p className="text-gray-500 text-[10px] uppercase tracking-widest">{l}</p>
@@ -206,7 +205,7 @@ export default function BookingsPage() {
             </div>
 
             <div className="flex justify-end gap-3 border-t border-luxury-gold/10 pt-4">
-              {["Confirmed","Completed","Cancelled"].map(s => (
+              {["Confirmed", "Completed", "Cancelled"].map(s => (
                 <button key={s} onClick={() => updateStatus(selected.id, s)}
                   className="px-3 py-1.5 text-[10px] uppercase tracking-widest font-bold border border-luxury-gold/20 text-luxury-gold hover:bg-luxury-gold/10 rounded transition-all cursor-pointer">
                   Mark {s}

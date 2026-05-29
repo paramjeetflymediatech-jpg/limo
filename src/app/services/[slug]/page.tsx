@@ -105,7 +105,7 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
         {/* Breadcrumb / Back Link */}
         <Link
           href="/services"
-          className="text-xs uppercase tracking-widest text-luxury-gold hover:text-white mb-8 inline-block transition-colors"
+          className="text-xs uppercase tracking-widest text-[#D0A511] hover:text-white mb-8 inline-block transition-colors"
         >
           &larr; Back to Services
         </Link>
@@ -113,7 +113,7 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
         {/* Hero Row */}
         <div className="flex flex-col lg:flex-row gap-12 items-center mb-24">
           <div className="w-full lg:w-1/2">
-            <span className="text-xs uppercase tracking-[0.35em] text-luxury-gold font-semibold mb-3 block">
+            <span className="text-xs uppercase tracking-[0.35em] text-[#D0A511] font-semibold mb-3 block">
               {service.tagline || `Exclusive ${service.location} Chauffeur`}
             </span>
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
@@ -122,19 +122,19 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
             <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-8">
               {service.description}
             </p>
-            
+
             <div className="flex flex-col gap-3 mb-8">
               {bulletPointsList.map((item, idx) => (
                 <div key={idx} className="flex items-center gap-3 text-xs text-gray-300">
-                  <Check className="w-4 h-4 text-luxury-gold shrink-0" />
+                  <Check className="w-4 h-4 text-[#D0A511] shrink-0" />
                   <span>{item}</span>
                 </div>
               ))}
             </div>
-            
+
             <Link
               href={`/booking?service=${encodeURIComponent(service.name)}&location=${encodeURIComponent(service.location)}`}
-              className="inline-flex px-8 py-4 bg-gradient-to-r from-luxury-gold to-soft-gold text-matte-black font-semibold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_15px_rgba(212,175,55,0.2)] transition-all duration-300"
+              className="inline-flex px-8 py-4 bg-luxury-gold text-white font-semibold text-xs uppercase tracking-widest hover:brightness-125 hover:shadow-[0_0_30px_rgba(208,165,17,0.55)] shadow-[0_0_15px_rgba(208,165,17,0.3)] transition-all duration-300"
             >
               Book Chauffeur in {service.location}
             </Link>
@@ -149,11 +149,11 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 priority
                 unoptimized
-                className="object-cover brightness-75"
+                className="object-contain brightness-75"
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-800">
-                <span className="text-luxury-gold text-xs uppercase tracking-widest opacity-50">No Image</span>
+                <span className="text-[#D0A511] text-xs uppercase tracking-widest opacity-50">No Image</span>
               </div>
             )}
           </div>

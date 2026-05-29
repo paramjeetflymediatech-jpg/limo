@@ -19,28 +19,28 @@ const EMPTY_FORM = {
   available: true,
 };
 
-const inputCls  = "w-full bg-matte-black/60 border border-luxury-gold/15 text-white rounded px-3 py-2 text-xs focus:outline-none focus:border-luxury-gold/40";
-const labelCls  = "text-[10px] uppercase tracking-widest text-gray-400 block mb-1";
-const PER_PAGE  = 9;
+const inputCls = "w-full bg-matte-black/60 border border-luxury-gold/15 text-white rounded px-3 py-2 text-xs focus:outline-none focus:border-luxury-gold/40";
+const labelCls = "text-[10px] uppercase tracking-widest text-gray-400 block mb-1";
+const PER_PAGE = 9;
 
 export default function ServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
-  const [loading,  setLoading]  = useState(true);
-  const [form,     setForm]     = useState(EMPTY_FORM);
+  const [loading, setLoading] = useState(true);
+  const [form, setForm] = useState(EMPTY_FORM);
   const [features, setFeatures] = useState<Feature[]>([]);
-  const [bullets,  setBullets]  = useState<string[]>([]);
-  const [editing,  setEditing]  = useState<Service | null>(null);
+  const [bullets, setBullets] = useState<string[]>([]);
+  const [editing, setEditing] = useState<Service | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [saving,   setSaving]   = useState(false);
-  const [page,     setPage]     = useState(1);
-  const [msg,      setMsg]      = useState<{ type:"ok"|"err"; text:string }|null>(null);
+  const [saving, setSaving] = useState(false);
+  const [page, setPage] = useState(1);
+  const [msg, setMsg] = useState<{ type: "ok" | "err"; text: string } | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     fetch("/api/services").then(r => r.json()).then(d => setServices(Array.isArray(d) ? d : [])).finally(() => setLoading(false));
   }, []);
 
-  const toast = (type:"ok"|"err", text:string) => { setMsg({ type, text }); setTimeout(() => setMsg(null), 3500); };
+  const toast = (type: "ok" | "err", text: string) => { setMsg({ type, text }); setTimeout(() => setMsg(null), 3500); };
 
   const openAdd = () => {
     setForm(EMPTY_FORM);
@@ -73,9 +73,9 @@ export default function ServicesPage() {
       featuresJson: JSON.stringify(features.filter(f => f.title.trim())),
     };
     try {
-      const url    = editing ? `/api/services/${editing.id}` : "/api/services";
+      const url = editing ? `/api/services/${editing.id}` : "/api/services";
       const method = editing ? "PUT" : "POST";
-      const res    = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+      const res = await fetch(url, { method, headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
       if (res.ok) {
         const saved = await res.json();
         if (editing) setServices(sv => sv.map(s => s.id === editing.id ? saved : s));
@@ -101,7 +101,7 @@ export default function ServicesPage() {
   };
 
   const totalPages = Math.max(1, Math.ceil(services.length / PER_PAGE));
-  const paginated  = services.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+  const paginated = services.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
   return (
     <div className="flex flex-col gap-6">
@@ -117,7 +117,7 @@ export default function ServicesPage() {
       <div className="flex items-center gap-3">
         <MapPin className="w-5 h-5 text-luxury-gold" />
         <h1 className="text-2xl font-serif font-bold text-white">Services</h1>
-        <button onClick={openAdd} className="ml-auto flex items-center gap-2 px-4 py-2 bg-luxury-gold text-matte-black text-[10px] uppercase tracking-widest font-bold rounded hover:brightness-110 transition-all cursor-pointer shadow-[0_0_15px_rgba(212,175,55,0.15)]">
+        <button onClick={openAdd} className="ml-auto flex items-center gap-2 px-4 py-2 bg-luxury-gold text-matte-black text-[10px] uppercase tracking-widest font-bold rounded hover:brightness-110 transition-all cursor-pointer shadow-[0_0_15px_rgba(208,165,17,0.15)]">
           <Plus className="w-3.5 h-3.5" /> Add Service
         </button>
       </div>
@@ -219,8 +219,8 @@ export default function ServicesPage() {
                 <div className="flex flex-col gap-2">
                   {bullets.map((b, i) => (
                     <div key={i} className="flex gap-2">
-                      <input className={`${inputCls} flex-1`} value={b} onChange={e => setBullets(arr => arr.map((x,j) => j===i ? e.target.value : x))} placeholder={`Bullet point ${i+1}`} />
-                      <button type="button" onClick={() => setBullets(arr => arr.filter((_,j) => j !== i))} className="text-red-400 hover:text-red-300 cursor-pointer"><X className="w-4 h-4" /></button>
+                      <input className={`${inputCls} flex-1`} value={b} onChange={e => setBullets(arr => arr.map((x, j) => j === i ? e.target.value : x))} placeholder={`Bullet point ${i + 1}`} />
+                      <button type="button" onClick={() => setBullets(arr => arr.filter((_, j) => j !== i))} className="text-red-400 hover:text-red-300 cursor-pointer"><X className="w-4 h-4" /></button>
                     </div>
                   ))}
                   <button type="button" onClick={() => setBullets(arr => [...arr, ""])} className="text-xs text-luxury-gold hover:underline self-start cursor-pointer">+ Add bullet</button>
@@ -234,11 +234,11 @@ export default function ServicesPage() {
                   {features.map((f, i) => (
                     <div key={i} className="border border-luxury-gold/10 rounded p-3 flex flex-col gap-2">
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] uppercase tracking-widest text-luxury-gold">Feature {i+1}</span>
-                        <button type="button" onClick={() => setFeatures(arr => arr.filter((_,j) => j!==i))} className="text-red-400 hover:text-red-300 cursor-pointer"><X className="w-3.5 h-3.5" /></button>
+                        <span className="text-[10px] uppercase tracking-widest text-luxury-gold">Feature {i + 1}</span>
+                        <button type="button" onClick={() => setFeatures(arr => arr.filter((_, j) => j !== i))} className="text-red-400 hover:text-red-300 cursor-pointer"><X className="w-3.5 h-3.5" /></button>
                       </div>
-                      <input className={inputCls} placeholder="Title" value={f.title} onChange={e => setFeatures(arr => arr.map((x,j) => j===i ? { ...x, title: e.target.value } : x))} />
-                      <textarea className={`${inputCls} resize-none h-14`} placeholder="Description" value={f.description} onChange={e => setFeatures(arr => arr.map((x,j) => j===i ? { ...x, description: e.target.value } : x))} />
+                      <input className={inputCls} placeholder="Title" value={f.title} onChange={e => setFeatures(arr => arr.map((x, j) => j === i ? { ...x, title: e.target.value } : x))} />
+                      <textarea className={`${inputCls} resize-none h-14`} placeholder="Description" value={f.description} onChange={e => setFeatures(arr => arr.map((x, j) => j === i ? { ...x, description: e.target.value } : x))} />
                     </div>
                   ))}
                   <button type="button" onClick={() => setFeatures(arr => [...arr, { title: "", description: "" }])} className="text-xs text-luxury-gold hover:underline self-start cursor-pointer">+ Add feature card</button>

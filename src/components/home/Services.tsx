@@ -61,7 +61,7 @@ export default function Services({ services }: ServicesProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
-              className="glass-panel rounded-lg overflow-hidden border border-luxury-gold/10 hover:border-luxury-gold/30 hover:shadow-[0_0_25px_rgba(212,175,55,0.1)] hover:bg-dark-gray/40 transition-all duration-300 flex flex-col justify-between h-full group"
+              className="glass-panel rounded-lg overflow-hidden border border-luxury-gold/10 hover:border-luxury-gold/30 hover:shadow-[0_0_25px_rgba(208,165,17,0.1)] hover:bg-dark-gray/40 transition-all duration-300 flex flex-col justify-between h-full group"
             >
               {/* Card Thumbnail Image */}
               <div className="relative h-44 bg-matte-black overflow-hidden border-b border-luxury-gold/10 shrink-0">

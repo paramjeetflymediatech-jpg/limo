@@ -7,12 +7,12 @@ const inputCls = "w-full bg-matte-black/60 border border-luxury-gold/15 text-whi
 const labelCls = "text-[10px] uppercase tracking-widest text-gray-400 block mb-1";
 
 export default function SettingsPage() {
-  const [currentPw,  setCurrentPw]  = useState("");
-  const [newPw,      setNewPw]      = useState("");
-  const [confirmPw,  setConfirmPw]  = useState("");
-  const [showPw,     setShowPw]     = useState(false);
-  const [saving,     setSaving]     = useState(false);
-  const [msg,        setMsg]        = useState<{ type:"ok"|"err"; text:string }|null>(null);
+  const [currentPw, setCurrentPw] = useState("");
+  const [newPw, setNewPw] = useState("");
+  const [confirmPw, setConfirmPw] = useState("");
+  const [showPw, setShowPw] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [msg, setMsg] = useState<{ type: "ok" | "err"; text: string } | null>(null);
 
   const username = typeof window !== "undefined"
     ? sessionStorage.getItem("adminUsername") || "admin"
@@ -21,7 +21,7 @@ export default function SettingsPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newPw !== confirmPw) { setMsg({ type: "err", text: "New passwords do not match." }); return; }
-    if (newPw.length < 6)    { setMsg({ type: "err", text: "New password must be at least 6 characters." }); return; }
+    if (newPw.length < 6) { setMsg({ type: "err", text: "New password must be at least 6 characters." }); return; }
     setSaving(true);
     setMsg(null);
     try {

@@ -23,13 +23,10 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
       {/* Dynamic Navigation */}
       <Navbar />
       
-      {/* Smooth momentum scrolling */}
-      <SmoothScroll>
-        <div className="flex flex-col min-h-screen">
-          <main className={`flex-grow ${pathname === "/" ? "" : "pt-[88px]"}`}>{children}</main>
-          <Footer />
-        </div>
-      </SmoothScroll>
+      <div className="flex flex-col min-h-screen">
+        <main className={`flex-grow ${pathname === "/" ? "" : "pt-[88px]"}`}>{children}</main>
+        <Footer />
+      </div>
       
       {/* Float Contact Link */}
       <WhatsAppButton />

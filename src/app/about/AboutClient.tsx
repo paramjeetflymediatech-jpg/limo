@@ -62,7 +62,7 @@ export default function AboutClient() {
             </p>
             <Link
               href="/booking"
-              className="inline-flex px-8 py-4 bg-gradient-to-r from-luxury-gold to-soft-gold text-matte-black font-semibold text-xs uppercase tracking-widest hover:brightness-110 transition-all duration-300 shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+              className="inline-flex px-8 py-4 bg-luxury-gold text-white font-semibold text-xs uppercase tracking-widest hover:brightness-110 transition-all duration-300 shadow-[0_0_15px_rgba(208,165,17,0.2)]"
             >
               Book Chauffeur Now
             </Link>

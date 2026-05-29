@@ -86,7 +86,7 @@ export default function VideoSection() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 onClick={togglePlay}
-                className="absolute inset-0 m-auto w-20 h-20 rounded-full bg-luxury-gold text-matte-black flex items-center justify-center shadow-[0_0_30px_rgba(212,175,55,0.4)] hover:scale-110 hover:bg-soft-gold transition-all duration-300 z-20"
+                className="absolute inset-0 m-auto w-20 h-20 rounded-full bg-luxury-gold text-matte-black flex items-center justify-center shadow-[0_0_30px_rgba(208,165,17,0.4)] hover:scale-110 hover:bg-soft-gold transition-all duration-300 z-20"
                 aria-label="Play Video"
               >
                 <Play className="w-8 h-8 fill-matte-black translate-x-0.5" />

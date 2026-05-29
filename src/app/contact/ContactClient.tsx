@@ -105,8 +105,8 @@ export default function ContactClient() {
             </div>
 
             {/* Google Maps Embed */}
-            <div className="relative rounded-lg overflow-hidden border border-luxury-gold/20 shadow-[0_0_30px_rgba(212,175,55,0.08)]" style={{ height: "320px" }}>
-             
+            <div className="relative rounded-lg overflow-hidden border border-luxury-gold/20 shadow-[0_0_30px_rgba(208,165,17,0.08)]" style={{ height: "320px" }}>
+
               <iframe
                 title="FantasticLimo Location"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d74647.56209391438!2d-123.123904!3d49.25773545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548673f143a94fb3%3A0xbb9196ea9b81f38b!2sVancouver%2C%20BC%2C%20Canada!5e1!3m2!1sen!2sin!4v1779789010405!5m2!1sen!2sin"
@@ -233,7 +233,7 @@ export default function ContactClient() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-luxury-gold to-soft-gold text-matte-black font-semibold text-xs uppercase tracking-widest py-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_0_15px_rgba(212,175,55,0.2)] disabled:opacity-60 disabled:cursor-not-allowed"
+                  className="w-full bg-luxury-gold text-white font-semibold text-xs uppercase tracking-widest py-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-[0_0_15px_rgba(208,165,17,0.2)] disabled:opacity-60 disabled:cursor-not-allowed"
                 >
                   {loading ? (
                     <>
