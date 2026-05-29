@@ -24,6 +24,13 @@ const EMPTY_FORM = {
 const inputCls = "w-full bg-white border border-gray-300 text-gray-900 rounded px-3 py-2 text-sm focus:outline-none focus:border-[#D0A511] focus:ring-1 focus:ring-[#D0A511]/50";
 const labelCls = "text-xs font-semibold text-gray-600 block mb-1";
 
+const generateSlug = (text: string): string => {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)+/g, "");
+};
+
 interface ServiceFormProps {
   initialData?: Service;
   isEdit?: boolean;
@@ -36,11 +43,13 @@ export default function ServiceForm({ initialData, isEdit }: ServiceFormProps) {
   const [bullets, setBullets] = useState<string[]>([""]);
   const [saving, setSaving] = useState(false);
   const [msg, setMsg] = useState<{ type: "ok" | "err"; text: string } | null>(null);
+  const [isSlugManuallyEdited, setIsSlugManuallyEdited] = useState(isEdit ? true : false);
 
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (initialData) {
+      setIsSlugManuallyEdited(true);
       setForm({
         name: initialData.name,
         description: initialData.description,
@@ -146,7 +155,21 @@ export default function ServiceForm({ initialData, isEdit }: ServiceFormProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <label className={labelCls}>Service Name *</label>
-              <input className={inputCls} value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} required />
+              <input
+                className={inputCls}
+                value={form.name}
+                onChange={(e) => {
+                  const nameVal = e.target.value;
+                  setForm((f) => {
+                    const updated = { ...f, name: nameVal };
+                    if (!isSlugManuallyEdited) {
+                      updated.slug = generateSlug(nameVal);
+                    }
+                    return updated;
+                  });
+                }}
+                required
+              />
             </div>
             <div>
               <label className={labelCls}>Location *</label>
@@ -154,7 +177,17 @@ export default function ServiceForm({ initialData, isEdit }: ServiceFormProps) {
             </div>
             <div>
               <label className={labelCls}>URL Slug *</label>
-              <input className={inputCls} value={form.slug} onChange={(e) => setForm((f) => ({ ...f, slug: e.target.value }))} placeholder="airport-transfers" required />
+              <input
+                className={inputCls}
+                value={form.slug}
+                onChange={(e) => {
+                  const slugVal = e.target.value;
+                  setIsSlugManuallyEdited(slugVal.length > 0);
+                  setForm((f) => ({ ...f, slug: slugVal }));
+                }}
+                placeholder="airport-transfers"
+                required
+              />
             </div>
             <div>
               <label className={labelCls}>Price</label>
