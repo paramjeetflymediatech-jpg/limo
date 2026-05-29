@@ -141,14 +141,21 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
           </div>
 
           <div className="w-full lg:w-1/2 relative h-[300px] md:h-[450px] overflow-hidden rounded-lg border border-luxury-gold/15 shadow-2xl bg-matte-black">
-            <Image
-              src={service.image}
-              alt={service.name}
-              fill
-              sizes="(max-w-768px) 100vw, 50vw"
-              priority
-              className="object-cover brightness-75"
-            />
+            {service.image ? (
+              <Image
+                src={service.image}
+                alt={service.name}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+                unoptimized
+                className="object-cover brightness-75"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-800">
+                <span className="text-luxury-gold text-xs uppercase tracking-widest opacity-50">No Image</span>
+              </div>
+            )}
           </div>
         </div>
 
