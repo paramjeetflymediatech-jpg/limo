@@ -60,7 +60,7 @@ export default function FleetClient({ fleet }: FleetClientProps) {
   const paginatedFleet = detailedFleet.slice(startIndex, startIndex + itemsPerPage);
 
   return (
-    <div className="bg-matte-black min-h-screen py-16 md:py-24 relative overflow-hidden">
+    <div className="bg-white min-h-screen py-16 md:py-24 relative overflow-hidden">
       {/* Glow backgrounds */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-luxury-gold/5 rounded-full blur-[180px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-luxury-gold/5 rounded-full blur-[180px] pointer-events-none" />
