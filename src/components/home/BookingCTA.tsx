@@ -23,7 +23,7 @@ export default function BookingCTA() {
           <div className="absolute bottom-0 left-0 w-48 h-[1px] bg-gradient-to-r from-luxury-gold/50 to-transparent" />
 
           <div className="max-w-xl">
-            <span className="text-xs uppercase tracking-[0.35em] text-luxury-gold font-semibold mb-3 block">
+            <span className="text-xs uppercase tracking-[0.35em] text-luxury-gold font-black mb-3 block">
               Bespoke Reservations
             </span>
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
@@ -44,7 +44,7 @@ export default function BookingCTA() {
             </Link>
             <a
               href="tel:+1234567890"
-              className="flex items-center justify-center gap-2 px-8 py-4 border border-luxury-gold/40 text-luxury-gold hover:text-white hover:border-luxury-gold hover:bg-luxury-gold/10 font-semibold text-xs uppercase tracking-widest transition-all duration-300 w-full sm:w-auto rounded-sm"
+              className="flex items-center justify-center gap-2 px-8 py-4 border border-luxury-gold/40 text-luxury-gold hover:text-black hover:border-luxury-gold hover:bg-luxury-gold/10 font-semibold text-xs uppercase tracking-widest transition-all duration-300 w-full sm:w-auto rounded-sm"
             >
               <PhoneCall className="w-4 h-4" />
               <span>Call Concierge</span>

@@ -126,7 +126,7 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
         <div className="mb-10">
           <Link
             href="/fleet"
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#D0A511] hover:text-white transition-colors group"
+            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest text-[#D0A511] hover:text-black transition-colors group "
           >
             <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
             <span>Back To Fleet Collection</span>

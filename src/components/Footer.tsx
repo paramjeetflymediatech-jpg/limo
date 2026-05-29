@@ -48,11 +48,10 @@ export default function Footer() {
         <div className="flex flex-col gap-6">
           <Link href="/" className="flex flex-col items-start tracking-widest">
             <span className="text-2xl font-serif font-bold text-white">
-              FANTASTICLIMO
+              FANTASTIC <span className="text-[#D0A511]">LIMO</span>
             </span>
-            <span className="text-[9px] uppercase tracking-[0.3em] text-luxury-gold/80 -mt-1">
-              LUXURY CHAUFFEUR
-            </span>
+            <span className="text-[9px] uppercase   -mt-1">
+WHERE EVERY RIDE IS AN EXPERIENCE            </span>
           </Link>
           <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
             Experience the pinnacle of luxury, privacy, and safety. FantasticLimo provides elite chauffeur services tailored to dignitaries, executives, and VIPs worldwide.
@@ -67,7 +66,7 @@ export default function Footer() {
               <a
                 key={label}
                 href="#"
-                className="w-10 h-10 rounded-full border border-luxury-gold/20 flex items-center justify-center text-luxury-gold hover:border-luxury-gold hover:bg-luxury-gold/10 transition-all duration-300"
+                className="w-10 h-10 rounded-full border border-luxury-gold/20 flex items-center justify-center text-[#D0A511] hover:border-luxury-gold hover:bg-luxury-gold/10 transition-all duration-300"
                 aria-label={label}
               >
                 <Icon className="w-4 h-4" />
@@ -78,7 +77,7 @@ export default function Footer() {
 
         {/* Quick Links Column */}
         <div>
-          <h3 className="text-luxury-gold font-serif text-sm uppercase tracking-widest mb-6 font-semibold">
+          <h3 className="text-[#D0A511] font-serif text-sm uppercase tracking-widest mb-6 font-black">
             Services
           </h3>
           <ul className="flex flex-col gap-4 text-sm text-gray-400">
@@ -107,7 +106,7 @@ export default function Footer() {
 
         {/* Contact Info Column */}
         <div>
-          <h3 className="text-luxury-gold font-serif text-sm uppercase tracking-widest mb-6 font-semibold">
+          <h3 className="text-[#D0A511] font-serif text-sm uppercase tracking-widest mb-6 font-black">
             Contact
           </h3>
           <ul className="flex flex-col gap-4 text-sm text-gray-400">
@@ -132,7 +131,7 @@ export default function Footer() {
 
         {/* Newsletter Column */}
         <div>
-          <h3 className="text-luxury-gold font-serif text-sm uppercase tracking-widest mb-6 font-semibold">
+          <h3 className="text-[#D0A511] font-serif text-sm uppercase tracking-widest mb-6 font-black">
             Newsletter
           </h3>
           <p className="text-gray-400 text-sm mb-4">

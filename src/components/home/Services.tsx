@@ -36,7 +36,7 @@ export default function Services({ services }: ServicesProps) {
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16">
           <div className="max-w-2xl mb-6 md:mb-0">
-            <span className="text-xs uppercase tracking-[0.35em] text-luxury-gold font-semibold mb-3 block">
+            <span className="text-xs uppercase tracking-[0.35em] text-luxury-gold font-bold mb-3 block">
               Our Capabilities
             </span>
             <h2 className="text-3xl md:text-5xl font-serif font-bold text-white leading-tight">

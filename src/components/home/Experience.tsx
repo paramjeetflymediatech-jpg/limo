@@ -28,7 +28,7 @@ export default function Experience() {
           transition={{ duration: 1 }}
           className="flex flex-col items-center"
         >
-          <span className="text-xs uppercase tracking-[0.35em] text-luxury-gold font-semibold mb-6 block">
+          <span className="text-xs uppercase tracking-[0.35em] text-luxury-gold font-black mb-6 block">
             Bespoke Journeys
           </span>
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-serif font-bold text-white mb-6 leading-tight">

@@ -36,11 +36,11 @@ const galleryImages = [
 
 export default function Gallery() {
   return (
-    <section className="bg-dark-gray py-24 relative overflow-hidden">
+    <section className=" py-24 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs uppercase tracking-[0.35em] text-luxury-gold font-semibold mb-3 block">
+          <span className="text-xs uppercase tracking-[0.35em] text-luxury-gold font-black mb-3 block">
             FantasticLimo Lifestyle
           </span>
           <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6">

@@ -52,7 +52,7 @@ export default function Testimonials() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-luxury-gold/5 rounded-full blur-[180px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-6 md:px-12 relative z-10 text-center">
-        <span className="text-xs uppercase tracking-[0.35em] text-luxury-gold font-semibold mb-3 block">
+        <span className="text-xs uppercase tracking-[0.35em] text-[#D0A511] font-black mb-3 block">
           Client Endorsements
         </span>
         <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-12">

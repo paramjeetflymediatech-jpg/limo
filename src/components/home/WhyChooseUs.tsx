@@ -46,7 +46,7 @@ export default function WhyChooseUs() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-20">
-          <span className="text-xs uppercase tracking-[0.35em] text-luxury-gold font-semibold mb-3 block">
+          <span className="text-xs uppercase tracking-[0.35em] text-[#D0A511] font-black mb-3 block">
             Why Choose FantasticLimo
           </span>
           <h2 className="text-3xl md:text-5xl font-serif font-bold text-white mb-6">
