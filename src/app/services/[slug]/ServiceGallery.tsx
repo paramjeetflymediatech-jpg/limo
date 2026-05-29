@@ -140,7 +140,7 @@ export default function ServiceGallery({ primaryImage, imagesJson, serviceName }
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 top-0 left-0 w-full h-full z-[100000] bg-black/95 backdrop-blur-md flex flex-col justify-center items-center select-none"
+              className="fixed inset-0 top-0 left-0 w-full h-full z-[100000] bg-gray-500/50 backdrop-blur-md flex flex-col justify-center items-center select-none"
               onClick={() => setIsLightboxOpen(false)}
             >
               {/* Image Container */}
