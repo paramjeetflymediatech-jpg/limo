@@ -1,7 +1,7 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import FleetForm from "@/components/admin/FleetForm";
-import { initDb, Fleet } from "@/lib/db";
+import { initDb, FleetItem } from "@/lib/db";
 
 export const dynamic = "force-dynamic";
 
@@ -15,7 +15,7 @@ export default async function EditFleetPage({ params }: RouteParams) {
   await initDb();
   const { id } = await params;
 
-  const vehicleModel = await Fleet.findByPk(id);
+  const vehicleModel = await FleetItem.findByPk(id);
 
   if (!vehicleModel) {
     notFound();
