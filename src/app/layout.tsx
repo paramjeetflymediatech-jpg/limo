@@ -3,7 +3,7 @@ import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import LoadingScreen from "@/components/LoadingScreen";
-
+export const dynamic = "force-dynamic";
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
   subsets: ["latin"],
