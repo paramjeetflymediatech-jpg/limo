@@ -30,18 +30,23 @@ export async function generateMetadata({ params }: RouteParams): Promise<Metadat
     };
   }
 
+  const plainDesc = service.description
+    .replace(/<[^>]*>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .substring(0, 160);
+
   return {
     title: `${service.name} | FantasticLimo ${service.location}`,
-    description: service.description,
+    description: plainDesc,
     openGraph: {
       title: `${service.name} | FantasticLimo ${service.location}`,
-      description: service.description,
+      description: plainDesc,
       images: [{ url: service.image }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${service.name} | FantasticLimo ${service.location}`,
-      description: service.description,
+      description: plainDesc,
       images: [service.image],
     }
   };
@@ -119,9 +124,10 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6 leading-tight">
               {service.name}
             </h1>
-            <p className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-8">
-              {service.description}
-            </p>
+            <div 
+              className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-8 prose prose-invert max-w-none"
+              dangerouslySetInnerHTML={{ __html: service.description }}
+            />
 
             <div className="flex flex-col gap-3 mb-8">
               {bulletPointsList.map((item, idx) => (

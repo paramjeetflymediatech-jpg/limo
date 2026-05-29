@@ -4,6 +4,19 @@ import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { X, Upload, CheckCircle2, AlertCircle, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import dynamic from "next/dynamic";
+
+const CKEditorWrapper = dynamic(
+  () => import("@/components/admin/CKEditorWrapper"),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-[200px] bg-gray-50 border border-gray-200 rounded animate-pulse flex items-center justify-center text-xs text-gray-400">
+        Loading editor...
+      </div>
+    ),
+  }
+);
 
 type Service = {
   id: number; name: string; description: string; image: string;
@@ -98,6 +111,14 @@ export default function ServiceForm({ initialData, isEdit }: ServiceFormProps) {
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+
+    const plainText = form.description.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ").trim();
+    if (!plainText) {
+      toast("err", "Description is required.");
+      setSaving(false);
+      return;
+    }
+
     const body = {
       ...form,
       bulletPoints: JSON.stringify(bullets.filter((b) => b.trim())),
@@ -201,7 +222,10 @@ export default function ServiceForm({ initialData, isEdit }: ServiceFormProps) {
 
           <div>
             <label className={labelCls}>Description *</label>
-            <textarea className={`${inputCls} resize-none h-24`} value={form.description} onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))} required />
+            <CKEditorWrapper
+              value={form.description}
+              onChange={(data) => setForm((f) => ({ ...f, description: data }))}
+            />
           </div>
 
           <div>

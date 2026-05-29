@@ -127,8 +127,8 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                         <h2 className="text-2xl font-serif text-white mb-4 group-hover:text-luxury-gold transition-colors duration-300 font-bold">
                           {service.name}
                         </h2>
-                        <p className="text-gray-300 text-sm leading-relaxed font-light">
-                          {service.description}
+                        <p className="text-gray-300 text-sm leading-relaxed font-light line-clamp-3">
+                          {service.description.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ")}
                         </p>
                       </div>
 
