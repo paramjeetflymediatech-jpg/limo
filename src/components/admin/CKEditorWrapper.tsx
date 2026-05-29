@@ -14,7 +14,7 @@ export default function CKEditorWrapper({ value, onChange }: CKEditorWrapperProp
   return (
     <div className="prose max-w-none text-gray-900 min-h-[200px]">
       <CKEditor
-        editor={ClassicEditor}
+        editor={ClassicEditor as any}
         data={value}
         onChange={(event, editor) => {
           const data = editor.getData();
