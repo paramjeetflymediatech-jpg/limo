@@ -76,7 +76,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[220px] bg-luxury-gold/10 rounded-full blur-[100px] pointer-events-none" />
 
         <div className="relative w-full max-w-md z-10">
-          <div className="bg-black/55 backdrop-blur-2xl border border-luxury-gold/25 rounded-2xl p-10 shadow-[0_0_80px_rgba(208,165,17,0.12)] flex flex-col gap-7">
+          <div className="bg-white backdrop-blur-2xl border border-luxury-gold/25 rounded-2xl p-10 shadow-[0_0_80px_rgba(208,165,17,0.12)] flex flex-col gap-7">
 
             {/* Header */}
             <div className="flex flex-col items-center gap-3 text-center">
@@ -109,7 +109,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     onChange={e => setUsername(e.target.value)}
                     placeholder="admin"
                     required
-                    className="w-full bg-black/50 border border-luxury-gold/25 text-white pl-10 pr-4 py-3 text-sm rounded-lg focus:outline-none focus:border-luxury-gold/70 focus:shadow-[0_0_15px_rgba(208,165,17,0.15)] transition-all placeholder-gray-600"
+                    className="w-full bg-white border border-luxury-gold/25 text-white pl-10 pr-4 py-3 text-sm rounded-lg focus:outline-none focus:border-luxury-gold/70 focus:shadow-[0_0_15px_rgba(208,165,17,0.15)] transition-all placeholder-gray-600"
                   />
                 </div>
               </div>
@@ -125,7 +125,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                     onChange={e => setPassword(e.target.value)}
                     placeholder="••••••••"
                     required
-                    className="w-full bg-black/50 border border-luxury-gold/25 text-white pl-10 pr-12 py-3 text-sm rounded-lg focus:outline-none focus:border-luxury-gold/70 focus:shadow-[0_0_15px_rgba(208,165,17,0.15)] transition-all placeholder-gray-600"
+                    className="w-full bg-white border border-luxury-gold/25 text-white pl-10 pr-12 py-3 text-sm rounded-lg focus:outline-none focus:border-luxury-gold/70 focus:shadow-[0_0_15px_rgba(208,165,17,0.15)] transition-all placeholder-gray-600"
                   />
                   <button
                     type="button"
