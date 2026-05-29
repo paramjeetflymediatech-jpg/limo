@@ -142,7 +142,7 @@ export default function FleetShowcase({ fleet }: { fleet?: ShowcaseFleetItem[] }
                   <h3 className="text-xl font-serif text-white mb-3 group-hover:text-luxury-gold transition-colors duration-300">
                     <Link href={`/fleet/${car.id}`}>{car.name}</Link>
                   </h3>
-                  <p className="text-xs md:text-sm font-light leading-relaxed mb-6">{car.description}</p>
+                  {/* <p className="text-xs md:text-sm font-light leading-relaxed mb-6">{car.description}</p> */}
                   <div className="flex gap-6 border-t border-luxury-gold/10 pt-4 mb-6 text-[11px] uppercase tracking-widest text-gray-500">
                     <span>
                       Passengers: <strong className="text-gray-300">{car.passengers}</strong>
