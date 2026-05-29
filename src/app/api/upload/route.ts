@@ -27,7 +27,9 @@ export async function POST(request: NextRequest) {
     const filePath = path.join(uploadDir, filename);
     await writeFile(filePath, buffer);
 
-    const publicUrl = `/uploads/${filename}`;
+    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || "";
+    const baseUrl = serverUrl.replace(/\/$/, "");
+    const publicUrl = `${baseUrl}/uploads/${filename}`;
     return Response.json({ url: publicUrl });
   } catch (error) {
     console.error("Failed to upload image file:", error);

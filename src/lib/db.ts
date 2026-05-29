@@ -767,10 +767,22 @@ export async function getDbSeoMetadata(route: string) {
 
 // Helper to delete old local uploads when an image URL changes or is deleted
 export async function deleteLocalUpload(imagePath: string | null | undefined) {
-  if (!imagePath || !imagePath.startsWith("/uploads/")) return;
+  if (!imagePath) return;
+
+  // Extract relative path from absolute URL if prepended
+  let relativePath = imagePath;
+  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+  if (serverUrl) {
+    const baseUrl = serverUrl.replace(/\/$/, "");
+    if (imagePath.startsWith(baseUrl)) {
+      relativePath = imagePath.substring(baseUrl.length);
+    }
+  }
+
+  if (!relativePath.startsWith("/uploads/")) return;
 
   try {
-    const filename = imagePath.replace("/uploads/", "");
+    const filename = relativePath.replace("/uploads/", "");
     const absolutePath = path.join(process.cwd(), "public", "uploads", filename);
     await unlink(absolutePath);
     console.log(`Successfully deleted local image file: ${absolutePath}`);
