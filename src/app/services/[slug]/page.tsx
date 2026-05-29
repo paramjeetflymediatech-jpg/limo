@@ -101,7 +101,7 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
   }));
 
   return (
-    <div className="bg-matte-black min-h-screen py-16 md:py-24 relative overflow-hidden">
+    <div className="bg-matte-black min-h-screen py-16 md:py-24 relative">
       {/* Decorative Glow */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-luxury-gold/5 rounded-full blur-[150px] pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-luxury-gold/5 rounded-full blur-[150px] pointer-events-none" />
@@ -116,7 +116,7 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
         </Link>
 
         {/* Hero Row */}
-        <div className="flex flex-col lg:flex-row gap-12 items-center mb-24">
+        <div className="flex flex-col lg:flex-row gap-12 items-start mb-24">
           <div className="w-full lg:w-1/2">
             <span className="text-xs uppercase tracking-[0.35em] text-[#D0A511] font-semibold mb-3 block">
               {service.tagline || `Exclusive ${service.location} Chauffeur`}
@@ -125,7 +125,7 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
               {service.name}
             </h1>
             <div 
-              className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-8 prose prose-invert max-w-none"
+              className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-8 rich-text-content max-w-none"
               dangerouslySetInnerHTML={{ __html: service.description }}
             />
 
@@ -146,7 +146,7 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
             </Link>
           </div>
 
-          <div className="w-full lg:w-1/2 relative h-[300px] md:h-[450px] overflow-hidden rounded-lg border border-luxury-gold/15 shadow-2xl bg-matte-black">
+          <div className="w-full lg:w-1/2 relative h-[300px] md:h-[450px] overflow-hidden rounded-lg border border-luxury-gold/15 shadow-2xl bg-matte-black lg:sticky lg:top-28">
             {service.image ? (
               <Image
                 src={service.image}

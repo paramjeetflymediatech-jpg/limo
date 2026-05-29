@@ -193,3 +193,77 @@ body {
   color: #555555 !important;
 }
 
+/* Rich Text / CKEditor Styling */
+.rich-text-content {
+  color: #000000;
+}
+.rich-text-content h1 {
+  font-size: 2.25rem !important; /* text-3xl */
+  font-weight: 700 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+  font-family: var(--font-serif) !important;
+  display: block !important;
+}
+.rich-text-content h2 {
+  font-size: 1.875rem !important; /* text-2xl */
+  font-weight: 700 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+  font-family: var(--font-serif) !important;
+  display: block !important;
+}
+.rich-text-content h3 {
+  font-size: 1.5rem !important; /* text-xl */
+  font-weight: 600 !important;
+  margin-top: 1.25rem !important;
+  margin-bottom: 0.5rem !important;
+  font-family: var(--font-serif) !important;
+  display: block !important;
+}
+.rich-text-content h4 {
+  font-size: 1.25rem !important; /* text-lg */
+  font-weight: 600 !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.5rem !important;
+  display: block !important;
+}
+.rich-text-content p {
+  margin-bottom: 1rem !important;
+  line-height: 1.75 !important;
+  display: block !important;
+}
+.rich-text-content ul {
+  list-style-type: disc !important;
+  padding-left: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  display: block !important;
+}
+.rich-text-content ol {
+  list-style-type: decimal !important;
+  padding-left: 1.5rem !important;
+  margin-bottom: 1rem !important;
+  display: block !important;
+}
+.rich-text-content li {
+  margin-bottom: 0.25rem !important;
+  display: list-item !important;
+}
+.rich-text-content a {
+  color: #D0A511 !important;
+  text-decoration: underline !important;
+}
+.rich-text-content blockquote {
+  border-left: 4px solid #D0A511 !important;
+  padding-left: 1rem !important;
+  font-style: italic !important;
+  margin: 1.5rem 0 !important;
+  color: #555555 !important;
+  display: block !important;
+}
+.rich-text-content strong,
+.rich-text-content b {
+  font-weight: bold !important;
+}
+
+
