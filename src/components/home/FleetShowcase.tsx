@@ -126,7 +126,7 @@ export default function FleetShowcase({ fleet }: { fleet?: ShowcaseFleetItem[] }
                   alt={car.name}
                   fill
                   sizes="(max-width: 728px) 100vw, 33vw"
-                  className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.85] group-hover:brightness-100"
+                  className="object-contain group-hover:scale-105 transition-transform duration-700 brightness-[0.85] group-hover:brightness-100"
                 />
                 <div className="absolute top-4 left-4 bg-matte-black/75 backdrop-blur-md px-3 py-1 border border-luxury-gold/20 text-[10px] uppercase tracking-widest text-luxury-gold rounded-full z-20">
                   {car.category}
