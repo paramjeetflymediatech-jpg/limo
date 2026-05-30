@@ -80,17 +80,14 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="relative flex items-center shrink-0" aria-label="Fantastic Limo Home">
-            <div className="relative h-16 w-52 md:h-20 md:w-64">
-              <Image
-                src="/logo/ball.png"
-                alt="Fantastic Limo"
-                fill
-                className="object-contain object-left"
-                priority
-                sizes="(max-width: 768px) 208px, 256px"
-              />
-            </div>
+          <Link href="/" className="flex flex-col items-start tracking-widest group">
+            <span className="text-xl md:text-2xl font-serif font-bold text-gray-900 group-hover:text-luxury-gold transition-colors duration-300">
+              FANTASTIC <span className="text-luxury-gold">LIMO</span>
+            </span>
+            <span className="text-[9px] uppercase text-gray-800 -mt-1 font-semibold">
+              WHERE EVERY RIDE IS AN EXPERIENCE
+            </span>
+
           </Link>
 
           {/* Desktop Navigation */}
