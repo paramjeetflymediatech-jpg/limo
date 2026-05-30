@@ -116,47 +116,18 @@ export default function Hero() {
 
       {/* Hero Content */}
       <div className=" mx-auto px-6 md:px-12 w-full flex flex-col items-center text-center relative z-10 pt-20 pb-12 lg:pb-24  backdrop-blur-xs">
-        {/* Decorative Badge */}
-        {/* <motion.div
+        {/* Decorative FIFA World Cup Badge */}
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="inline-flex items-center gap-2 border border-luxury-gold/30 px-4 py-1.5 rounded-full bg-matte-black/40 backdrop-blur-md mb-6 shadow-[0_0_15px_rgba(208,165,17,0.1)]"
+          className="inline-flex items-center gap-2 border border-red-500/30 px-4 py-1.5 rounded-full bg-black/40 backdrop-blur-md mb-6 shadow-[0_0_15px_rgba(239,68,68,0.15)]"
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-luxury-gold animate-pulse" />
-          <span className="text-[10px] uppercase tracking-[0.3em] text-luxury-gold font-semibold">
-            First-Class Chauffeur Service
+          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-ping" />
+          <span className="text-[10px] uppercase tracking-[0.3em] hero-text-white font-semibold">
+            FIFA World Cup 2026 VIP Transfers
           </span>
-        </motion.div> */}
-
-        {/* View Mode Toggle */}
-        {/* <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.15 }}
-          className="flex gap-2 p-1.5 bg-matte-black/75 backdrop-blur-md border border-luxury-gold/25 rounded-full mb-8 z-20"
-        >
-          <button
-            onClick={() => setViewMode("exterior")}
-            className={`px-5 py-2 rounded-full text-[10px] uppercase tracking-widest font-medium transition-all duration-500 cursor-pointer ${
-              viewMode === "exterior"
-                ? "bg-luxury-gold text-matte-black font-semibold shadow-[0_0_15px_rgba(208,165,17,0.3)]"
-                : "text-white hover:text-luxury-gold"
-            }`}
-          >
-            Exterior Cruise
-          </button>
-          <button
-            onClick={() => setViewMode("interior")}
-            className={`px-5 py-2 rounded-full text-[10px] uppercase tracking-widest font-medium transition-all duration-500 cursor-pointer ${
-              viewMode === "interior"
-                ? "bg-luxury-gold text-matte-black font-semibold shadow-[0_0_15px_rgba(208,165,17,0.3)]"
-                : "text-white hover:text-luxury-gold"
-            }`}
-          >
-            VIP Cabin Interior
-          </button>
-        </motion.div> */}
+        </motion.div>
 
         {/* Heading */}
         <motion.h1
@@ -183,11 +154,11 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex flex-col sm:flex-row gap-4 mb-16"
+          className="flex flex-col sm:flex-row gap-4 mb-12"
         >
           <Link
             href="/booking"
-            className="px-8 py-4 bg-luxury-gold text-white font-bold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_20px_rgba(208,165,17,0.4)] transition-all duration-300 rounded-sm"
+            className="px-8 py-4 bg-luxury-gold hero-text-white font-bold text-xs uppercase tracking-widest hover:brightness-110 shadow-[0_0_20px_rgba(208,165,17,0.4)] transition-all duration-300 rounded-sm"
           >
             Reserve Your Ride
           </Link>
@@ -197,6 +168,46 @@ export default function Hero() {
           >
             Explore Luxury Fleet
           </Link>
+        </motion.div>
+
+        {/* FIFA World Cup Event Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
+          className="w-full max-w-4xl mb-10 p-5 rounded-lg border border-red-500 bg-white/95 backdrop-blur-md shadow-[0_0_25px_rgba(239,68,68,0.15)] text-left flex flex-col md:flex-row items-center justify-between gap-6"
+        >
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-full bg-red-600/10 border border-red-500/35 flex items-center justify-center text-red-600 shadow-[0_0_15px_rgba(239,68,68,0.2)] flex-shrink-0 animate-pulse">
+              ⚽
+            </div>
+            <div>
+              <span className="text-[10px] uppercase tracking-[0.25em] text-red-600 font-bold block mb-1">
+                Canada 2026 Special Event Chauffeur
+              </span>
+              <h3 className="text-black text-base md:text-lg font-serif font-bold">
+                FIFA World Cup Chauffeur Services
+              </h3>
+              <p className="text-gray-700 text-xs font-light mt-1">
+                Luxury stadium transfers to BMO Field (Toronto) & BC Place (Vancouver). Bypass traffic with VIP stadium drop-offs.
+              </p>
+            </div>
+          </div>
+          
+          <div className="flex flex-wrap gap-2.5 w-full md:w-auto justify-end">
+            <Link
+              href="/booking?dropoff=BC+Place,+Vancouver,+BC&vehicle=VIP+Executive+Sprinter"
+              className="px-4 py-2.5 bg-red-600 hover:bg-red-700 border border-red-600 hero-text-white font-bold text-xs uppercase tracking-widest transition-all duration-300 rounded-sm text-center flex-1 sm:flex-initial"
+            >
+              BC Place (Vancouver)
+            </Link>
+            <Link
+              href="/booking?dropoff=BMO+Field,+Toronto,+ON&vehicle=VIP+Executive+Sprinter"
+              className="px-4 py-2.5 bg-red-600 hover:bg-red-700 border border-red-600 hero-text-white font-bold text-xs uppercase tracking-widest transition-all duration-300 rounded-sm text-center flex-1 sm:flex-initial"
+            >
+              BMO Field (Toronto)
+            </Link>
+          </div>
         </motion.div>
 
         {/* Floating Booking Form */}
