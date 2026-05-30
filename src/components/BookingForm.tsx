@@ -362,7 +362,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
               >
                 {vehicles.map((vehicle) => (
                   <option key={vehicle} value={vehicle}>
-                    {vehicle.split(" ")[0]}
+                    {vehicle}
                   </option>
                 ))}
               </select>
