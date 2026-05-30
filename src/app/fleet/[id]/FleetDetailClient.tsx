@@ -155,7 +155,7 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
   }, [isLightboxOpen]);
 
   return (
-    <div className="bg-matte-black min-h-screen py-12 md:py-20 relative">
+    <div className="bg-white min-h-screen py-12 md:py-20 relative">
       {/* Decorative Glow Elements */}
       <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[200px] pointer-events-none" />
       <div className="absolute bottom-10 right-1/4 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[200px] pointer-events-none" />
@@ -190,9 +190,9 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
           <div className="lg:col-span-7 flex flex-col gap-6 lg:sticky lg:top-28 h-fit">
 
             {/* Active Display Screen */}
-            <div 
+            <div
               onClick={() => setIsLightboxOpen(true)}
-              className="relative h-[320px] sm:h-[450px] lg:h-[500px] w-full overflow-hidden rounded-lg border border-luxury-gold/15 bg-charcoal/40 shadow-2xl cursor-zoom-in group"
+              className="relative h-[320px] sm:h-[450px] lg:h-[500px] w-full overflow-hidden rounded-lg cursor-zoom-in group"
             >
               {gallery.length > 0 ? (
                 <>

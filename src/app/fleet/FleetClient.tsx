@@ -24,7 +24,7 @@ interface FleetClientProps {
 
 export default function FleetClient({ fleet }: FleetClientProps) {
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 3;
+  const itemsPerPage = 5;
 
   const detailedFleet = fleet.map((car) => {
     // Safely parse rate
@@ -102,7 +102,7 @@ export default function FleetClient({ fleet }: FleetClientProps) {
                       {/* Image Showcase */}
                       <Link
                         href={`/fleet/${car.id}`}
-                        className="w-full lg:w-1/2 relative h-[300px] md:h-[450px] overflow-hidden rounded-lg border border-luxury-gold/15 group shadow-2xl bg-matte-black block cursor-pointer"
+                        className="w-full lg:w-1/2 relative h-[300px] md:h-[450px] overflow-hidden rounded-lg  group  bg-white block cursor-pointer"
                       >
                         <Image
                           src={car.image}

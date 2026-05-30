@@ -254,9 +254,9 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
     return (
       <form
         onSubmit={handleSubmit}
-        className="glass-panel p-6 md:p-8 rounded-lg border border-luxury-gold/20 shadow-2xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 items-end"
+        className="glass-panel p-6 md:p-8 rounded-lg border border-luxury-gold/20 shadow-2xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 items-end"
       >
-        <div className="relative" onClick={(e) => e.stopPropagation()}>
+        <div className="relative lg:col-span-2 md:col-span-1" onClick={(e) => e.stopPropagation()}>
           <label className={labelStyles}>Pickup Location</label>
           <div className="relative">
             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
@@ -295,7 +295,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
           )}
         </div>
 
-        <div className="relative" onClick={(e) => e.stopPropagation()}>
+        <div className="relative lg:col-span-2 md:col-span-1" onClick={(e) => e.stopPropagation()}>
           <label className={labelStyles}>Drop-off Location</label>
           <div className="relative">
             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
@@ -334,7 +334,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
           )}
         </div>
 
-        <div className="relative">
+        <div className="relative lg:col-span-3 md:col-span-1">
           <label className={labelStyles}>Date & Time</label>
           <div className="relative">
             <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
@@ -349,47 +349,45 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="relative lg:col-span-2 md:col-span-1">
+          <label className={labelStyles}>Vehicle</label>
           <div className="relative">
-            <label className={labelStyles}>Vehicle</label>
-            <div className="relative">
-              <Car className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
-              <select
-                name="vehicle"
-                value={formData.vehicle}
-                onChange={handleChange}
-                className={`${inputStyles} pl-10 pr-2 appearance-none cursor-pointer`}
-              >
-                {vehicles.map((vehicle) => (
-                  <option key={vehicle} value={vehicle}>
-                    {vehicle}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-
-          <div className="relative">
-            <label className={labelStyles}>Guests</label>
-            <div className="relative">
-              <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
-              <select
-                name="passengers"
-                value={formData.passengers}
-                onChange={handleChange}
-                className={`${inputStyles} pl-10 pr-2 appearance-none cursor-pointer`}
-              >
-                {[1, 2, 3, 4, 5, 6, 7, 8, "9+"].map((num) => (
-                  <option key={num} value={num}>
-                    {num}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Car className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
+            <select
+              name="vehicle"
+              value={formData.vehicle}
+              onChange={handleChange}
+              className={`${inputStyles} pl-10 pr-2 appearance-none cursor-pointer`}
+            >
+              {vehicles.map((vehicle) => (
+                <option key={vehicle} value={vehicle}>
+                  {vehicle}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
-        <div>
+        <div className="relative lg:col-span-1 md:col-span-1">
+          <label className={labelStyles}>Guests</label>
+          <div className="relative">
+            <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
+            <select
+              name="passengers"
+              value={formData.passengers}
+              onChange={handleChange}
+              className={`${inputStyles} pl-10 pr-2 appearance-none cursor-pointer`}
+            >
+              {[1, 2, 3, 4, 5, 6, 7, 8, "9+"].map((num) => (
+                <option key={num} value={num}>
+                  {num}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        <div className="lg:col-span-2 md:col-span-1 w-full">
           <button
             type="submit"
             className="w-full bg-[#D0A511] text-white hover:brightness-110 font-bold text-xs uppercase tracking-widest cursor-pointer py-3.5 px-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-lg"
@@ -570,41 +568,41 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
         </div>
 
         <div className="grid grid-cols-2 gap-4">
+        <div className="relative">
+          <label className={labelStyles}>Vehicle Selection</label>
           <div className="relative">
-            <label className={labelStyles}>Vehicle Selection</label>
-            <div className="relative">
-              <Car className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
-              <select
-                name="vehicle"
-                value={formData.vehicle}
-                onChange={handleChange}
-                className={`${inputStyles} pl-10 pr-2 appearance-none cursor-pointer`}
-              >
-                {vehicles.map((vehicle) => (
-                  <option key={vehicle} value={vehicle}>
-                    {vehicle}
-                  </option>
-                ))}
-              </select>
-            </div>
+            <Car className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
+            <select
+              name="vehicle"
+              value={formData.vehicle}
+              onChange={handleChange}
+              className={`${inputStyles} pl-10 pr-2 appearance-none cursor-pointer`}
+            >
+              {vehicles.map((vehicle) => (
+                <option key={vehicle} value={vehicle}>
+                  {vehicle}
+                </option>
+              ))}
+            </select>
           </div>
+        </div>
 
+        <div className="relative">
+          <label className={labelStyles}>Passengers</label>
           <div className="relative">
-            <label className={labelStyles}>Passengers</label>
-            <div className="relative">
-              <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
-              <select
-                name="passengers"
-                value={formData.passengers}
-                onChange={handleChange}
-                className={`${inputStyles} pl-10 pr-2 appearance-none cursor-pointer`}
-              >
-                {[1, 2, 3, 4, 5, 6, 7, 8, "9+"].map((num) => (
-                  <option key={num} value={num}>
-                    {num} Guest{num !== 1 && "s"}
-                  </option>
-                ))}
-              </select>
+            <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
+            <select
+              name="passengers"
+              value={formData.passengers}
+              onChange={handleChange}
+              className={`${inputStyles} pl-10 pr-2 appearance-none cursor-pointer`}
+            >
+              {[1, 2, 3, 4, 5, 6, 7, 8, "9+"].map((num) => (
+                <option key={num} value={num}>
+                  {num} Guest{num !== 1 && "s"}
+                </option>
+              ))}
+            </select>
             </div>
           </div>
         </div>

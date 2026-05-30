@@ -32,7 +32,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
   const paginatedServices = services.slice(startIndex, startIndex + itemsPerPage);
 
   return (
-    <div className="bg-matte-black min-h-screen py-16 md:py-24 relative overflow-hidden">
+    <div className="bg-white min-h-screen py-16 md:py-24 relative overflow-hidden">
       {/* Decorative Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-80 bg-luxury-gold/5 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-luxury-gold/5 rounded-full blur-[150px] pointer-events-none" />
