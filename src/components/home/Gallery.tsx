@@ -3,36 +3,30 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 
-const InstagramIcon = (props: React.SVGProps<SVGSVGElement>) => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...props}>
-    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-  </svg>
-);
 
 const galleryImages = [
   {
-    src: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=800",
+    src: "/1.png",
     alt: "Luxury Sedan Silhouette",
     className: "md:col-span-2 md:row-span-2",
   },
   {
-    src: "https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?auto=format&fit=crop&q=80&w=800",
+    src: "/2.png",
     alt: "Prestige Details",
     className: "col-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&q=80&w=800",
+    src: "/3.png",
     alt: "Dashboard Details",
     className: "col-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&q=80&w=800",
+    src: "/4.png",
     alt: "Executive Rear Lounge",
     className: "col-span-1 md:col-span-2",
   },
 ];
+
 
 export default function Gallery() {
   return (
@@ -66,18 +60,9 @@ export default function Gallery() {
                 src={img.src}
                 alt={img.alt}
                 fill
-                sizes="(max-w-768px) 100vw, 33vw"
-                className="object-cover group-hover:scale-110 transition-transform duration-700 brightness-[0.75] group-hover:brightness-100"
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-contain transition-transform duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-matte-black/70 via-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-6">
-                <div>
-                  <p className="text-white font-serif text-base font-semibold">{img.alt}</p>
-                  <p className="text-luxury-gold text-xs uppercase tracking-widest mt-1">@fantasticlimo</p>
-                </div>
-                <div className="w-9 h-9 rounded-full bg-luxury-gold/10 backdrop-blur-sm border border-luxury-gold/30 flex items-center justify-center text-luxury-gold">
-                  <InstagramIcon className="w-4 h-4" />
-                </div>
-              </div>
             </motion.div>
           ))}
         </div>
