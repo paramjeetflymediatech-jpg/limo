@@ -88,7 +88,7 @@ export default function Services({ services }: ServicesProps) {
                     {service.name}
                   </h3>
                   <p className="text-gray-400 text-xs leading-relaxed font-light line-clamp-3">
-                    {service.description}
+                    {service.description.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim()}
                   </p>
                 </div>
 
