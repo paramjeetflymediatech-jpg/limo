@@ -77,12 +77,12 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[0.8] group-hover:brightness-95"
                       />
 
-                      {service.price && (
+                      {/* {service.price && (
                         <div className="absolute bottom-4 right-4 bg-luxury-gold text-matte-black font-bold text-xs px-3.5 py-1 rounded-full shadow-lg flex items-center gap-0.5">
                           <DollarSign className="w-3.5 h-3.5" />
                           <span>{service.price.replace("$", "")}</span>
                         </div>
-                      )}
+                      )} */}
                     </div>
 
                     {/* Details Box */}

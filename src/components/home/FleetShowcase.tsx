@@ -131,9 +131,9 @@ export default function FleetShowcase({ fleet }: { fleet?: ShowcaseFleetItem[] }
                 <div className="absolute top-4 left-4 bg-matte-black/75 backdrop-blur-md px-3 py-1 border border-luxury-gold/20 text-[10px] uppercase tracking-widest text-luxury-gold rounded-full z-20">
                   {car.category}
                 </div>
-                <div className="absolute bottom-4 right-4 bg-luxury-gold text-white font-semibold text-xs px-3 py-1.5 rounded-sm tracking-wider z-20 shadow-md">
+                {/* <div className="absolute bottom-4 right-4 bg-luxury-gold text-white font-semibold text-xs px-3 py-1.5 rounded-sm tracking-wider z-20 shadow-md">
                   {car.price}
-                </div>
+                </div> */}
               </Link>
 
               {/* Details */}

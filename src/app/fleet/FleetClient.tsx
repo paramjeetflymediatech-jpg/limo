@@ -39,8 +39,8 @@ export default function FleetClient({ fleet }: FleetClientProps) {
       { label: "Category", value: car.category },
       { label: "Pax Capacity", value: `${car.passengers} Guests` },
       { label: "Luggage", value: `${car.luggage} Bags` },
-      { label: "Hourly Rate", value: car.price },
-      { label: "Daily Rate", value: `$${hourlyRate * 8}/day` },
+      // { label: "Hourly Rate", value: car.price },
+      // { label: "Daily Rate", value: `$${hourlyRate * 8}/day` },
       { label: "Transmission", value: "Automatic" },
     ];
 

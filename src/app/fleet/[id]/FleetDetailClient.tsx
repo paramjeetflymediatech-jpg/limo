@@ -106,8 +106,8 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
     { label: "Category", value: car.category, icon: Car },
     { label: "Passenger Capacity", value: `${car.passengers} Guests`, icon: Users },
     { label: "Luggage Capacity", value: `${car.luggage} Bags`, icon: Briefcase },
-    { label: "Hourly Rate", value: car.price, icon: Clock },
-    { label: "Daily Rate (8 hrs)", value: `$${hourlyRate * 8}/day`, icon: Clock },
+    // { label: "Hourly Rate", value: car.price, icon: Clock },
+    // { label: "Daily Rate (8 hrs)", value: `$${hourlyRate * 8}/day`, icon: Clock },
     { label: "Status", value: car.available ? "Available" : "Booked Out", icon: Shield },
   ];
 
@@ -337,10 +337,10 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
 
             {/* Description & Cost */}
             <div className="glass-panel rounded-xl p-6 md:p-8 flex flex-col gap-6">
-              <div className="flex justify-between items-baseline border-b border-luxury-gold/10 pb-4">
+              {/* <div className="flex justify-between items-baseline border-b border-luxury-gold/10 pb-4">
                 <span className="text-gray-400 text-xs uppercase tracking-widest">Rate (USD)</span>
                 <span className="text-3xl font-serif text-[#D0A511] font-bold">{car.price}</span>
-              </div>
+              </div> */}
 
               <div className="text-gray-300 text-sm leading-relaxed font-light">
                 <h3 className="text-white text-xs uppercase tracking-widest font-semibold mb-2">Description</h3>
