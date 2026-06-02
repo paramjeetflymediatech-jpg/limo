@@ -9,9 +9,9 @@ export default function Experience() {
       {/* Background Image Parallax */}
       <div className="absolute inset-0 w-full h-full -z-10 bg-matte-black">
         <div
-          className="absolute inset-0 bg-cover bg-center brightness-[1.2] opacity-15"
+          className="absolute inset-0 bg-contain bg-no-repeat bg-center brightness-[1.2] opacity-10"
           style={{
-            backgroundImage: `url('https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&q=80&w=1920')`,
+            backgroundImage: `url('/preload.png')`,
           }}
         />
         {/* Gradients */}
