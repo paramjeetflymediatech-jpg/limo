@@ -23,8 +23,13 @@ interface ServicesClientProps {
 
 export default function ServicesClient({ services }: ServicesClientProps) {
   const router = useRouter();
-  // We will display all services in an elegant scrolling layout
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const itemsPerPage = 4;
+
   const totalItems = services.length;
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedServices = services.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className="bg-white min-h-screen py-16 md:py-24 relative overflow-hidden">
@@ -57,7 +62,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
           <>
             {/* Services Alternating Layout */}
             <div className="flex flex-col gap-24 mb-24 mt-16">
-              {services.map((service, index) => {
+              {paginatedServices.map((service, index) => {
                 const isEven = index % 2 === 0;
                 return (
                   <motion.div
@@ -123,6 +128,45 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                 );
               })}
             </div>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="flex flex-col items-center gap-4 border-t border-luxury-gold/10 pt-10 mt-12 max-w-4xl mx-auto">
+                <span className="text-xs text-gray-500 font-light tracking-wider">
+                  Showing <span className="text-white font-medium">{startIndex + 1}</span>–
+                  <span className="text-white font-medium">{Math.min(startIndex + itemsPerPage, totalItems)}</span> of{" "}
+                  <span className="text-white font-medium">{totalItems}</span> bespoke services
+                </span>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => { setCurrentPage((p) => Math.max(p - 1, 1)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    disabled={currentPage === 1}
+                    className="px-4 py-2 border border-luxury-gold/10 text-luxury-gold hover:border-luxury-gold/30 hover:bg-luxury-gold/5 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:border-luxury-gold/10 text-xs uppercase tracking-widest font-semibold transition-all cursor-pointer rounded"
+                  >
+                    Prev
+                  </button>
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                    <button
+                      key={page}
+                      onClick={() => { setCurrentPage(page); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                      className={`w-9 h-9 flex items-center justify-center border text-xs font-semibold rounded transition-all cursor-pointer ${currentPage === page
+                        ? "bg-luxury-gold border-luxury-gold text-matte-black font-bold shadow-[0_0_15px_rgba(208,165,17,0.2)]"
+                        : "border-luxury-gold/10 text-gray-400 hover:text-white hover:border-luxury-gold/30 hover:bg-luxury-gold/5"
+                        }`}
+                    >
+                      {page}
+                    </button>
+                  ))}
+                  <button
+                    onClick={() => { setCurrentPage((p) => Math.min(p + 1, totalPages)); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+                    disabled={currentPage === totalPages}
+                    className="px-4 py-2 border border-luxury-gold/10 text-luxury-gold hover:border-luxury-gold/30 hover:bg-luxury-gold/5 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:border-luxury-gold/10 text-xs uppercase tracking-widest font-semibold transition-all cursor-pointer rounded"
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
           </>
         )}
 

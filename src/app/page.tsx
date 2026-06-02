@@ -84,7 +84,7 @@ export default async function Home() {
       <Experience />
 
       {/* 8. Instagram / Lifestyle Gallery Section */}
-      <Gallery />
+      <Gallery services={services} />
 
       {/* 9. Booking CTA Banner */}
       <BookingCTA />
