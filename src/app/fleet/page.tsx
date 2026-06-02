@@ -37,5 +37,12 @@ export default async function FleetPage() {
   
   const fleet = fleetModels.map((car) => car.get({ plain: true }));
   
+  // Sort ascending by price (extracting numbers from string)
+  fleet.sort((a, b) => {
+    const priceA = parseInt(a.price.replace(/[^0-9]/g, "")) || 0;
+    const priceB = parseInt(b.price.replace(/[^0-9]/g, "")) || 0;
+    return priceA - priceB;
+  });
+  
   return <FleetClient fleet={fleet} />;
 }

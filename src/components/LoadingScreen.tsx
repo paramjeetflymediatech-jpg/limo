@@ -2,85 +2,91 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 export default function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Check if we already loaded in this session to prevent annoying reload behaviors
-    const hasLoaded = sessionStorage.getItem("hasLoaded");
-    if (hasLoaded) {
-      setIsLoading(false);
-      return;
+    // 1. Force the window to scroll to top immediately
+    window.scrollTo(0, 0);
+    
+    // 2. Disable default browser scroll restoration on refresh
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual';
     }
+
+    // 3. Lock the body so the user cannot scroll while the preloader is active
+    document.body.style.overflow = 'hidden';
 
     const timer = setTimeout(() => {
       setIsLoading(false);
-      sessionStorage.setItem("hasLoaded", "true");
-    }, 2800);
+      // Re-enable scrolling after the preloader finishes
+      document.body.style.overflow = 'auto';
+    }, 3200);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      document.body.style.overflow = 'auto';
+    };
   }, []);
 
   return (
     <AnimatePresence>
       {isLoading && (
         <motion.div
+          key="preloader"
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 z-50 bg-matte-black flex flex-col items-center justify-center pointer-events-auto"
+          exit={{ opacity: 0, y: "-100%", filter: "blur(10px)" }}
+          transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+          className="fixed inset-0 z-[100] bg-matte-black flex flex-col items-center justify-center pointer-events-auto"
         >
           {/* Ambient Glow */}
-          <div className="absolute w-72 h-72 bg-luxury-gold/5 rounded-full blur-[100px] animate-pulse-slow" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-luxury-gold/10 rounded-full blur-[120px] pointer-events-none" />
 
-          <div className="flex flex-col items-center select-none text-center">
-            {/* Logo Mark */}
+          {/* Center Container for Masked Reveal */}
+          <div className="relative flex flex-col items-center justify-center">
+            
+            {/* Top Text (Masked Reveal Up) */}
+            <div className="overflow-hidden mb-3">
+              <motion.h1
+                initial={{ y: "100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.5 }}
+                className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-[0.2em] text-white"
+              >
+                FANTASTIC<span className="text-luxury-gold italic font-light">LIMO</span>
+              </motion.h1>
+            </div>
+
+            {/* Center Animated Line */}
             <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1.2, ease: "easeOut" }}
-              className="w-16 h-16 border-2 border-luxury-gold/30 rounded-full flex items-center justify-center mb-6 relative"
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: "120%", opacity: 1 }}
+              transition={{ duration: 1.5, ease: "easeInOut", delay: 0.2 }}
+              className="h-[1px] bg-gradient-to-r from-transparent via-luxury-gold to-transparent w-64 md:w-96 relative shadow-[0_0_15px_rgba(208,165,17,0.8)]"
             >
-              <div className="w-10 h-10 border border-luxury-gold/60 rounded-full flex items-center justify-center">
-                <span className="font-serif font-bold text-luxury-gold text-lg">F</span>
-              </div>
-              <motion.div
-                initial={{ rotate: 0 }}
-                animate={{ rotate: 360 }}
-                transition={{ duration: 10, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 border-t-2 border-r-2 border-transparent border-luxury-gold rounded-full"
+              {/* Traveling light spec */}
+              <motion.div 
+                initial={{ left: "0%" }}
+                animate={{ left: "100%" }}
+                transition={{ duration: 2, ease: "easeInOut", repeat: Infinity }}
+                className="absolute top-1/2 -translate-y-1/2 w-8 h-[2px] bg-white blur-[1px]"
               />
             </motion.div>
 
-            {/* Logo Text */}
-            <motion.h1
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 1 }}
-              className="text-3xl md:text-4xl font-serif font-bold tracking-widest text-white mb-2"
-            >
-              FANTASTICLIMO
-            </motion.h1>
+            {/* Bottom Text (Masked Reveal Down) */}
+            <div className="overflow-hidden mt-4">
+              <motion.p
+                initial={{ y: "-100%" }}
+                animate={{ y: 0 }}
+                transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.8 }}
+                className="text-[9px] md:text-[11px] uppercase tracking-[0.5em] text-gray-400 font-semibold"
+              >
+                Where Every Ride Is An Experience
+              </motion.p>
+            </div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.8 }}
-              transition={{ delay: 0.8, duration: 0.8 }}
-              className="text-[9px] uppercase tracking-[0.4em] text-luxury-gold font-medium"
-            >
-              Absolute Luxury Chauffeur
-            </motion.p>
-          </div>
-
-          {/* Luxury loading bar */}
-          <div className="absolute bottom-16 left-1/2 -translate-x-1/2 w-48 h-[1px] bg-white/10 overflow-hidden">
-            <motion.div
-              initial={{ x: "-100%" }}
-              animate={{ x: "100%" }}
-              transition={{ duration: 2.2, ease: "easeInOut", repeat: Infinity }}
-              className="w-full h-full bg-gradient-to-r from-transparent via-luxury-gold to-transparent"
-            />
           </div>
         </motion.div>
       )}

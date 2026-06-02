@@ -12,6 +12,7 @@ interface LocationService {
   location: string;
   price: string;
   available: boolean;
+  slug?: string;
 }
 
 interface ServicesProps {
@@ -54,17 +55,19 @@ export default function Services({ services }: ServicesProps) {
 
         {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-          {displayedServices.map((service, index) => (
+          {displayedServices.map((service, index) => {
+            const serviceUrl = `/services/${service.slug || service.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+            return (
             <motion.div
               key={service.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: index * 0.08 }}
-              className="glass-panel rounded-lg overflow-hidden border border-luxury-gold/10 hover:border-luxury-gold/30 hover:shadow-[0_0_25px_rgba(208,165,17,0.1)] hover:bg-dark-gray/40 transition-all duration-300 flex flex-col justify-between h-full group"
+              className="glass-panel rounded-lg overflow-hidden border border-luxury-gold/10 hover:border-luxury-gold/30 hover:shadow-[0_0_25px_rgba(208,165,17,0.1)] hover:bg-dark-gray/40 transition-all duration-300 flex flex-col justify-between h-full group block"
             >
               {/* Card Thumbnail Image */}
-              <div className="relative h-44 bg-matte-black overflow-hidden border-b border-luxury-gold/10 shrink-0">
+              <Link href={serviceUrl} className="relative h-44 bg-matte-black overflow-hidden border-b border-luxury-gold/10 shrink-0 block">
                 <img
                   src={service.image}
                   alt={service.name}
@@ -79,20 +82,20 @@ export default function Services({ services }: ServicesProps) {
                     {service.price}
                   </div>
                 )} */}
-              </div>
+              </Link>
 
               {/* Card content */}
               <div className="p-6 flex-grow flex flex-col justify-between gap-6">
-                <div>
+                <Link href={serviceUrl} className="block cursor-pointer">
                   <h3 className="text-md font-serif text-white mb-2 group-hover:text-luxury-gold transition-colors duration-300 font-bold">
                     {service.name}
                   </h3>
                   <p className="text-gray-400 text-xs leading-relaxed font-light line-clamp-3">
                     {service.description.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim()}
                   </p>
-                </div>
+                </Link>
 
-                <div className="flex items-center justify-between border-t border-luxury-gold/5 pt-4 mt-auto">
+                <div className="flex items-center justify-between border-t border-luxury-gold/5 pt-4 mt-auto relative z-10">
                   <span className="text-[8px] uppercase tracking-widest text-gray-600 font-bold flex items-center gap-1">
                     <Star className="w-3 h-3 text-luxury-gold fill-luxury-gold" />
                     Bespoke Chauffeur
@@ -107,7 +110,7 @@ export default function Services({ services }: ServicesProps) {
                 </div>
               </div>
             </motion.div>
-          ))}
+          )})}
         </div>
       </div>
     </section>

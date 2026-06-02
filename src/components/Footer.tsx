@@ -158,6 +158,7 @@ WHERE EVERY RIDE IS AN EXPERIENCE            </span>
       <div className="max-w-7xl mx-auto px-6 md:px-12 mt-16 pt-8 border-t border-luxury-gold/5 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500 gap-4">
         <p>&copy; {new Date().getFullYear()} FantasticLimo Service. All Rights Reserved.</p>
         <div className="flex gap-6">
+          <Link href="/become-a-partner" className="transition-colors">Become a Partner</Link>
           <a href="#" className="transition-colors">Privacy Policy</a>
           <a href="#" className="transition-colors">Terms of Service</a>
         </div>

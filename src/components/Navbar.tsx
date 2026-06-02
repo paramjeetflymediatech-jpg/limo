@@ -17,6 +17,7 @@ const staticNavLinks = [
   { name: "Home", href: "/" },
   { name: "Fleet", href: "/fleet" },
   { name: "About Us", href: "/about" },
+  { name: "Become a Partner", href: "/become-a-partner" },
   { name: "Contact", href: "/contact" },
 ];
 
@@ -103,7 +104,7 @@ export default function Navbar() {
                   >
                     <Link
                       href={link.href}
-                      className={`flex items-center gap-1 text-sm font-semibold uppercase tracking-widest hover:text-luxury-gold transition-colors py-2 ${pathname === link.href || pathname.startsWith("/services")
+                      className={`flex items-center gap-1 text-sm font-semibold hover:text-luxury-gold transition-colors py-2 ${pathname === link.href || pathname.startsWith("/services")
                           ? "text-luxury-gold"
                           : "text-gray-800"
                         }`}
@@ -116,34 +117,36 @@ export default function Navbar() {
                     </Link>
                     <AnimatePresence>
                       {isDropdownOpen && (
-                        <motion.div
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: 10 }}
-                          className="absolute left-0 mt-1 w-64 bg-white border border-gray-100 rounded-md py-2 shadow-xl"
-                        >
-                          {link.dropdown.map((subLink: any) => (
-                            <Link
-                              key={subLink.name}
-                              href={subLink.href}
-                              className={`block px-4 py-2.5 text-xs uppercase tracking-widest hover:bg-luxury-gold hover:text-white transition-colors ${pathname === subLink.href
-                                  ? "text-luxury-gold"
-                                  : "text-gray-800"
-                                }`}
-                            >
-                              {subLink.name}
-                            </Link>
-                          ))}
-                          {/* View all services link */}
-                          <div className="border-t border-luxury-gold/10 mt-1 pt-1">
-                            <Link
-                              href="/services"
-                              className="block px-4 py-2 text-xs uppercase tracking-widest text-luxury-gold/60 hover:text-luxury-gold transition-colors"
-                            >
-                              View All Services →
-                            </Link>
-                          </div>
-                        </motion.div>
+                          <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: 10 }}
+                            className="absolute left-0 mt-1 w-64 bg-white border border-gray-100 rounded-md shadow-xl overflow-hidden flex flex-col"
+                          >
+                            <div className="max-h-[50vh] overflow-y-auto py-2 custom-scrollbar">
+                              {link.dropdown.map((subLink: any) => (
+                                <Link
+                                  key={subLink.name}
+                                  href={subLink.href}
+                                  className={`block px-4 py-2.5 text-sm hover:bg-luxury-gold hover:text-white transition-colors ${pathname === subLink.href
+                                      ? "text-luxury-gold"
+                                      : "text-gray-800"
+                                    }`}
+                                >
+                                  {subLink.name}
+                                </Link>
+                              ))}
+                            </div>
+                            {/* View all services link */}
+                            <div className="border-t border-gray-100 bg-gray-50/50">
+                              <Link
+                                href="/services"
+                                className="block px-4 py-3 text-sm text-luxury-gold/80 hover:text-luxury-gold hover:bg-gray-100 transition-colors"
+                              >
+                                View All Services →
+                              </Link>
+                            </div>
+                          </motion.div>
                       )}
                     </AnimatePresence>
                   </div>
@@ -156,7 +159,7 @@ export default function Navbar() {
                   <Link
                     key={link.name}
                     href={link.href}
-                    className={`text-sm font-semibold uppercase tracking-widest hover:text-luxury-gold transition-colors relative py-2 ${pathname === link.href || pathname.startsWith("/services")
+                    className={`text-sm font-semibold hover:text-luxury-gold transition-colors relative py-2 ${pathname === link.href || pathname.startsWith("/services")
                         ? "text-luxury-gold"
                         : "text-gray-800"
                       }`}
@@ -176,7 +179,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-sm font-semibold uppercase tracking-widest hover:text-luxury-gold transition-colors relative py-2 ${pathname === link.href ? "text-luxury-gold" : "text-gray-800"
+                  className={`text-sm font-semibold hover:text-luxury-gold transition-colors relative py-2 ${pathname === link.href ? "text-luxury-gold" : "text-gray-800"
                     }`}
                 >
                   {link.name}
@@ -195,7 +198,7 @@ export default function Navbar() {
           <div className="hidden lg:block">
             <Link
               href="/booking"
-              className="relative inline-flex items-center justify-center px-6 py-3 border border-luxury-gold hover:border-luxury-gold text-xs uppercase tracking-widest font-semibold text-gray-900 bg-transparent hover:bg-luxury-gold hover:text-white transition-all duration-300 group overflow-hidden"
+              className="relative inline-flex items-center justify-center px-6 py-3 border border-luxury-gold hover:border-luxury-gold text-sm font-semibold text-gray-900 bg-transparent hover:bg-luxury-gold hover:text-white transition-all duration-300 group overflow-hidden"
             >
               <span className="relative z-10">Book Reservation</span>
               <span className="absolute inset-0 bg-gradient-to-r from-[#D0A511]  opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0" />
@@ -233,7 +236,7 @@ export default function Navbar() {
                 >
                   {link.dropdown && link.dropdown.length > 0 ? (
                     <div className="flex flex-col items-center gap-2">
-                      <span className="text-gray-500 text-xs uppercase tracking-widest mb-1">
+                      <span className="text-gray-500 text-sm mb-1">
                         {link.name}
                       </span>
                       {link.dropdown.map((subLink: any) => (
@@ -248,7 +251,7 @@ export default function Navbar() {
                       ))}
                       <Link
                         href="/services"
-                        className="text-xs uppercase tracking-widest text-luxury-gold/60 hover:text-luxury-gold transition-colors mt-1"
+                        className="text-sm text-luxury-gold/60 hover:text-luxury-gold transition-colors mt-1"
                       >
                         View All →
                       </Link>
@@ -273,7 +276,7 @@ export default function Navbar() {
               >
                 <Link
                   href="/booking"
-                  className="px-8 py-4 border border-luxury-gold text-sm uppercase tracking-widest text-luxury-gold hover:bg-luxury-gold hover:text-white transition-all duration-300 font-semibold"
+                  className="px-8 py-4 border border-luxury-gold text-base text-luxury-gold hover:bg-luxury-gold hover:text-white transition-all duration-300 font-semibold"
                 >
                   Book Reservation
                 </Link>

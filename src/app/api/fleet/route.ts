@@ -5,7 +5,15 @@ import { initDb, FleetItem } from "@/lib/db";
 export async function GET() {
   try {
     await initDb();
-    const fleet = await FleetItem.findAll();
+    let fleet = await FleetItem.findAll();
+    
+    // Sort ascending by price by extracting the numeric value
+    fleet.sort((a, b) => {
+      const priceA = parseInt(a.price.replace(/[^0-9]/g, "")) || 0;
+      const priceB = parseInt(b.price.replace(/[^0-9]/g, "")) || 0;
+      return priceA - priceB;
+    });
+
     return Response.json(fleet);
   } catch (error) {
     console.error("Failed to fetch fleet from MySQL:", error);
