@@ -23,13 +23,8 @@ interface ServicesClientProps {
 
 export default function ServicesClient({ services }: ServicesClientProps) {
   const router = useRouter();
-  const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 4;
-
+  // We will display all services in an elegant scrolling layout
   const totalItems = services.length;
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedServices = services.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className="bg-white min-h-screen py-16 md:py-24 relative overflow-hidden">
@@ -60,100 +55,67 @@ export default function ServicesClient({ services }: ServicesClientProps) {
           </div>
         ) : (
           <>
-            {/* Services Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-                {paginatedServices.map((service, index) => (
-                  <div
+            {/* Services Alternating Layout */}
+            <div className="flex flex-col gap-24 mb-24 mt-16">
+              {services.map((service, index) => {
+                const isEven = index % 2 === 0;
+                return (
+                  <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                     key={service.id}
-                    onClick={() => router.push(`/services/${service.slug}`)}
-                    className="glass-panel rounded-xl overflow-hidden border border-luxury-gold/10 hover:border-luxury-gold/30 hover:bg-matte-black/60 transition-all duration-300 group flex flex-col justify-between h-full cursor-pointer animate-fade-in"
-                    style={{ animationDelay: `${index * 50}ms` }}
+                    className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-12 lg:gap-20`}
                   >
-                    {/* Image Banner */}
-                    <div className="relative h-64 md:h-72 bg-matte-black overflow-hidden border-b border-luxury-gold/10">
-                      <img
-                        src={service.image}
-                        alt={service.name}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 brightness-[0.8] group-hover:brightness-95"
-                      />
-
-                      {/* {service.price && (
-                        <div className="absolute bottom-4 right-4 bg-luxury-gold text-matte-black font-bold text-xs px-3.5 py-1 rounded-full shadow-lg flex items-center gap-0.5">
-                          <DollarSign className="w-3.5 h-3.5" />
-                          <span>{service.price.replace("$", "")}</span>
+                    {/* Image Side */}
+                    <div className="w-full lg:w-1/2">
+                      <div className="relative w-full aspect-[4/3] rounded-sm overflow-hidden group border border-luxury-gold/10 shadow-2xl">
+                        <img
+                          src={service.image}
+                          alt={service.name}
+                          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 brightness-[0.85] group-hover:brightness-100"
+                        />
+                        <div className="absolute inset-0 border border-white/5 pointer-events-none" />
+                        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 bg-matte-black/80 backdrop-blur-md px-4 py-2 border border-luxury-gold/20">
+                          <span className="text-white text-xs uppercase tracking-widest font-semibold flex items-center gap-2">
+                            <MapPin className="w-3.5 h-3.5 text-luxury-gold" />
+                            {service.location || 'Global Coverage'}
+                          </span>
                         </div>
-                      )} */}
+                      </div>
                     </div>
 
-                    {/* Details Box */}
-                    <div className="p-8 md:p-10 flex-grow flex flex-col justify-between gap-6">
-                      <div>
-                        <h2 className="text-2xl font-serif text-white mb-4 group-hover:text-luxury-gold transition-colors duration-300 font-bold">
-                          {service.name}
-                        </h2>
-                        <p className="text-gray-300 text-sm leading-relaxed font-light line-clamp-3">
-                          {service.description.replace(/<[^>]*>/g, "").replace(/&nbsp;/g, " ")}
-                        </p>
-                      </div>
-
-                      {/* Footer Actions */}
-                      <div className="flex items-center justify-between border-t border-luxury-gold/10 pt-6 mt-4">
-                        <span className="text-[9px] uppercase tracking-widest text-gray-500 font-bold flex items-center gap-1.5">
-                          <Star className="w-3.5 h-3.5 text-luxury-gold fill-luxury-gold" />
-                          Bespoke Protocol Included
-                        </span>
+                    {/* Content Side */}
+                    <div className="w-full lg:w-1/2 flex flex-col justify-center">
+                      <span className="text-luxury-gold text-[10px] uppercase tracking-[0.3em] font-semibold mb-4 flex items-center gap-2">
+                        <Star className="w-3.5 h-3.5 fill-luxury-gold text-luxury-gold" />
+                        Premium Offering
+                      </span>
+                      <h2 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold text-white mb-6 leading-tight">
+                        {service.name}
+                      </h2>
+                      
+                      {/* Render full rich text from admin */}
+                      <div 
+                        className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-10 space-y-4 [&>p]:mb-4 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:mb-4 [&>ul>li]:mb-2 [&>h1]:text-2xl [&>h1]:font-serif [&>h1]:text-white [&>h1]:mb-3 [&>h2]:text-xl [&>h2]:font-serif [&>h2]:text-white [&>h2]:mb-3 [&>strong]:text-luxury-gold"
+                        dangerouslySetInnerHTML={{ __html: service.description }}
+                      />
+                      
+                      <div className="flex flex-wrap items-center gap-6">
                         <Link
                           href={`/booking?service=${encodeURIComponent(service.name)}`}
-                          onClick={(e) => e.stopPropagation()}
-                          className="text-xs uppercase tracking-widest text-luxury-gold  font-bold flex items-center gap-2 transition-colors duration-300"
+                          className="px-8 py-4 bg-luxury-gold text-matte-black text-xs uppercase tracking-widest font-bold hover:bg-white transition-colors duration-300 flex items-center gap-2 group"
                         >
-                          <span>Reserve Service</span>
+                          Reserve Now
                           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </Link>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  </motion.div>
+                );
+              })}
             </div>
-
-            {/* Pagination Controls */}
-            {totalPages > 1 && (
-              <div className="flex flex-col items-center gap-4 border-t border-luxury-gold/10 pt-10 mt-12 max-w-4xl mx-auto">
-                <span className="text-xs text-gray-500 font-light tracking-wider">
-                  Showing <span className="text-white font-medium">{startIndex + 1}</span>–
-                  <span className="text-white font-medium">{Math.min(startIndex + itemsPerPage, totalItems)}</span> of{" "}
-                  <span className="text-white font-medium">{totalItems}</span> bespoke services
-                </span>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
-                    disabled={currentPage === 1}
-                    className="px-4 py-2 border border-luxury-gold/10 text-luxury-gold hover:border-luxury-gold/30 hover:bg-luxury-gold/5 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:border-luxury-gold/10 text-xs uppercase tracking-widest font-semibold transition-all cursor-pointer rounded"
-                  >
-                    Prev
-                  </button>
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <button
-                      key={page}
-                      onClick={() => setCurrentPage(page)}
-                      className={`w-9 h-9 flex items-center justify-center border text-xs font-semibold rounded transition-all cursor-pointer ${currentPage === page
-                        ? "bg-luxury-gold border-luxury-gold text-matte-black font-bold shadow-[0_0_15px_rgba(208,165,17,0.2)]"
-                        : "border-luxury-gold/10 text-gray-400 hover:text-white hover:border-luxury-gold/30 hover:bg-luxury-gold/5"
-                        }`}
-                    >
-                      {page}
-                    </button>
-                  ))}
-                  <button
-                    onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-                    disabled={currentPage === totalPages}
-                    className="px-4 py-2 border border-luxury-gold/10 text-luxury-gold hover:border-luxury-gold/30 hover:bg-luxury-gold/5 disabled:opacity-40 disabled:hover:bg-transparent disabled:hover:border-luxury-gold/10 text-xs uppercase tracking-widest font-semibold transition-all cursor-pointer rounded"
-                  >
-                    Next
-                  </button>
-                </div>
-              </div>
-            )}
           </>
         )}
 

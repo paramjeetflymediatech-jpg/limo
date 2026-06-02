@@ -7,11 +7,6 @@ import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-interface ServiceItem {
-  id: number;
-  name: string;
-  slug: string;
-}
 
 const staticNavLinks = [
   { name: "Home", href: "/" },
@@ -25,7 +20,6 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [services, setServices] = useState<ServiceItem[]>([]);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -41,35 +35,12 @@ export default function Navbar() {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
-  // Fetch services dynamically from DB
-  useEffect(() => {
-    fetch("/api/services")
-      .then((res) => res.json())
-      .then((data: ServiceItem[]) => {
-        console.log(data, 'data')
-        if (Array.isArray(data)) {
-          setServices(data);
-        }
-      })
-      .catch(() => {
-        // Fallback: keep empty, Services link still works
-      });
-  }, []);
-
-  // Build nav links with dynamic services dropdown
   const navLinks = [
     staticNavLinks[0], // Home
     staticNavLinks[1], // Fleet
     {
       name: "Services",
       href: "/services",
-      dropdown:
-        services.length > 0
-          ? services.map((s) => ({
-            name: s.name,
-            href: `/services/${s.slug || s.id}`,
-          }))
-          : undefined,
     },
     ...staticNavLinks.slice(2), // About Us, Contact
   ];
@@ -93,105 +64,22 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link: any) => {
-              if (link.dropdown && link.dropdown.length > 0) {
-                return (
-                  <div
-                    key={link.name}
-                    className="relative group"
-                    onMouseEnter={() => setIsDropdownOpen(true)}
-                    onMouseLeave={() => setIsDropdownOpen(false)}
-                  >
-                    <Link
-                      href={link.href}
-                      className={`flex items-center gap-1 text-sm font-semibold hover:text-luxury-gold transition-colors py-2 ${pathname === link.href || pathname.startsWith("/services")
-                          ? "text-luxury-gold"
-                          : "text-gray-800"
-                        }`}
-                    >
-                      {link.name}
-                      <ChevronDown
-                        className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""
-                          }`}
-                      />
-                    </Link>
-                    <AnimatePresence>
-                      {isDropdownOpen && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: 10 }}
-                            className="absolute left-0 mt-1 w-64 bg-white border border-gray-100 rounded-md shadow-xl overflow-hidden flex flex-col"
-                          >
-                            <div className="max-h-[50vh] overflow-y-auto py-2 custom-scrollbar">
-                              {link.dropdown.map((subLink: any) => (
-                                <Link
-                                  key={subLink.name}
-                                  href={subLink.href}
-                                  className={`block px-4 py-2.5 text-sm hover:bg-luxury-gold hover:text-white transition-colors ${pathname === subLink.href
-                                      ? "text-luxury-gold"
-                                      : "text-gray-800"
-                                    }`}
-                                >
-                                  {subLink.name}
-                                </Link>
-                              ))}
-                            </div>
-                            {/* View all services link */}
-                            <div className="border-t border-gray-100 bg-gray-50/50">
-                              <Link
-                                href="/services"
-                                className="block px-4 py-3 text-sm text-luxury-gold/80 hover:text-luxury-gold hover:bg-gray-100 transition-colors"
-                              >
-                                View All Services →
-                              </Link>
-                            </div>
-                          </motion.div>
-                      )}
-                    </AnimatePresence>
-                  </div>
-                );
-              }
-
-              // Services with no dropdown yet (loading state) - show as plain link
-              if (link.name === "Services") {
-                return (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    className={`text-sm font-semibold hover:text-luxury-gold transition-colors relative py-2 ${pathname === link.href || pathname.startsWith("/services")
-                        ? "text-luxury-gold"
-                        : "text-gray-800"
-                      }`}
-                  >
-                    {link.name}
-                    {(pathname === link.href || pathname.startsWith("/services")) && (
-                      <motion.span
-                        layoutId="navActiveLine"
-                        className="absolute bottom-0 left-0 w-full h-[1px] bg-luxury-gold"
-                      />
-                    )}
-                  </Link>
-                );
-              }
-
-              return (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className={`text-sm font-semibold hover:text-luxury-gold transition-colors relative py-2 ${pathname === link.href ? "text-luxury-gold" : "text-gray-800"
-                    }`}
-                >
-                  {link.name}
-                  {pathname === link.href && (
-                    <motion.span
-                      layoutId="navActiveLine"
-                      className="absolute bottom-0 left-0 w-full h-[1px] bg-luxury-gold"
-                    />
-                  )}
-                </Link>
-              );
-            })}
+            {navLinks.map((link: any) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className={`text-sm font-semibold hover:text-luxury-gold transition-colors relative py-2 ${pathname === link.href || (link.name === "Services" && pathname.startsWith("/services")) ? "text-luxury-gold" : "text-gray-800"
+                  }`}
+              >
+                {link.name}
+                {(pathname === link.href || (link.name === "Services" && pathname.startsWith("/services"))) && (
+                  <motion.span
+                    layoutId="navActiveLine"
+                    className="absolute bottom-0 left-0 w-full h-[1px] bg-luxury-gold"
+                  />
+                )}
+              </Link>
+            ))}
           </nav>
 
           {/* Booking CTA Button */}
@@ -234,37 +122,13 @@ export default function Navbar() {
                   transition={{ delay: idx * 0.08 }}
                   className="w-full"
                 >
-                  {link.dropdown && link.dropdown.length > 0 ? (
-                    <div className="flex flex-col items-center gap-2">
-                      <span className="text-gray-500 text-sm mb-1">
-                        {link.name}
-                      </span>
-                      {link.dropdown.map((subLink: any) => (
-                        <Link
-                          key={subLink.name}
-                          href={subLink.href}
-                          className={`text-lg font-serif my-0.5 block hover:text-luxury-gold transition-colors ${pathname === subLink.href ? "text-luxury-gold" : "text-gray-900"
-                            }`}
-                        >
-                          {subLink.name}
-                        </Link>
-                      ))}
-                      <Link
-                        href="/services"
-                        className="text-sm text-luxury-gold/60 hover:text-luxury-gold transition-colors mt-1"
-                      >
-                        View All →
-                      </Link>
-                    </div>
-                  ) : (
-                    <Link
-                      href={link.href}
-                      className={`text-2xl font-serif hover:text-luxury-gold transition-colors ${pathname === link.href ? "text-luxury-gold" : "text-gray-900"
-                        }`}
-                    >
-                      {link.name}
-                    </Link>
-                  )}
+                  <Link
+                    href={link.href}
+                    className={`text-2xl font-serif hover:text-luxury-gold transition-colors ${pathname === link.href || (link.name === "Services" && pathname.startsWith("/services")) ? "text-luxury-gold" : "text-gray-900"
+                      }`}
+                  >
+                    {link.name}
+                  </Link>
                 </motion.div>
               ))}
 
