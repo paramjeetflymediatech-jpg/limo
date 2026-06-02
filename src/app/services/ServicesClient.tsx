@@ -74,7 +74,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                         <img
                           src={service.image}
                           alt={service.name}
-                          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105 brightness-[0.85] group-hover:brightness-100"
+                          className="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-105 brightness-[0.85] group-hover:brightness-100"
                         />
                         <div className="absolute inset-0 border border-white/5 pointer-events-none" />
                         <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 bg-matte-black/80 backdrop-blur-md px-4 py-2 border border-luxury-gold/20">
@@ -96,9 +96,9 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                         {service.name}
                       </h2>
                       
-                      {/* Render full rich text from admin */}
+                      {/* Render full rich text from admin with clamping */}
                       <div 
-                        className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-10 space-y-4 [&>p]:mb-4 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:mb-4 [&>ul>li]:mb-2 [&>h1]:text-2xl [&>h1]:font-serif [&>h1]:text-white [&>h1]:mb-3 [&>h2]:text-xl [&>h2]:font-serif [&>h2]:text-white [&>h2]:mb-3 [&>strong]:text-luxury-gold"
+                        className="text-gray-300 text-sm md:text-base font-light leading-relaxed mb-10 space-y-4 line-clamp-6 [&>p]:mb-4 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:mb-4 [&>ul>li]:mb-2 [&>h1]:text-2xl [&>h1]:font-serif [&>h1]:text-white [&>h1]:mb-3 [&>h2]:text-xl [&>h2]:font-serif [&>h2]:text-white [&>h2]:mb-3 [&>strong]:text-luxury-gold"
                         dangerouslySetInnerHTML={{ __html: service.description }}
                       />
                       
@@ -109,6 +109,13 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                         >
                           Reserve Now
                           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </Link>
+                        
+                        <Link
+                          href={`/services/${service.slug}`}
+                          className="px-8 py-4 border border-luxury-gold/30 text-luxury-gold text-xs uppercase tracking-widest font-bold hover:border-luxury-gold hover:bg-luxury-gold/5 transition-colors duration-300"
+                        >
+                          Read More
                         </Link>
                       </div>
                     </div>
