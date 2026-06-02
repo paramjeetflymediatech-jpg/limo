@@ -57,7 +57,7 @@ export default function Hero() {
                 scale: currentSlide === idx ? 1 : 1.1
               }}
               transition={{ duration: 2, ease: "easeOut" }}
-              className="absolute inset-0 w-full h-full"
+              className="absolute inset-0 w-full h-full "
             >
               <Image
                 src={slide.src}
@@ -79,7 +79,7 @@ export default function Hero() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="text-[10px] uppercase tracking-[0.2em] text-white/90 font-medium"
+                className="text-[10px] uppercase tracking-[0.2em] text-white/90 font-bold"
               >
                 {heroSlides[currentSlide].location}
               </motion.span>
