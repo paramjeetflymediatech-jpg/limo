@@ -24,7 +24,7 @@ interface ServicesClientProps {
 export default function ServicesClient({ services }: ServicesClientProps) {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const itemsPerPage = 4;
+  const itemsPerPage = 6;
 
   const totalItems = services.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -75,7 +75,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                   >
                     {/* Image Side */}
                     <div className="w-full lg:w-1/2">
-                      <div className="relative w-full aspect-[4/3] rounded-sm overflow-hidden group border border-luxury-gold/10 shadow-2xl">
+                      <div className="relative w-full aspect-[4/3] rounded-sm overflow-hidden group ">
                         <img
                           src={service.image}
                           alt={service.name}
@@ -110,7 +110,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                       <div className="flex flex-wrap items-center gap-6">
                         <Link
                           href={`/booking?service=${encodeURIComponent(service.name)}`}
-                          className="px-8 py-4 bg-luxury-gold text-matte-black text-xs uppercase tracking-widest font-bold hover:bg-white transition-colors duration-300 flex items-center gap-2 group"
+                          className="px-8 py-4 bg-luxury-gold text-matte-black text-xs uppercase tracking-widest font-bold hover:bg-luxury-gold transition-colors duration-300 flex items-center gap-2 group"
                         >
                           Reserve Now
                           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
