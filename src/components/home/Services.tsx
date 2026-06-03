@@ -71,7 +71,7 @@ export default function Services({ services }: ServicesProps) {
                 <img
                   src={service.image}
                   alt={service.name}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 brightness-[0.8] group-hover:brightness-95"
+                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105  group-hover:brightness-95"
                 />
                 {/* <div className="absolute top-3 left-3 bg-matte-black/80 backdrop-blur-sm px-2.5 py-0.5 border border-luxury-gold/25 rounded-full text-[9px] uppercase tracking-widest text-luxury-gold font-bold flex items-center gap-1">
                   <MapPin className="w-2.5 h-2.5 text-luxury-gold" />

@@ -38,7 +38,7 @@ export default function VideoSection() {
             fill
             sizes="(max-width: 768px) 100vw, 1200px"
             priority
-            className="object-cover brightness-[0.8] group-hover:brightness-[0.9] group-hover:scale-105 transition-all duration-700 ease-out"
+            className="object-cover  group-hover:brightness-[0.9] group-hover:scale-105 transition-all duration-700 ease-out"
           />
 
           {/* Gradient Overlay for Sleek Styling */}

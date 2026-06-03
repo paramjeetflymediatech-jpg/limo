@@ -56,12 +56,12 @@ export default function Gallery({ services = [] }: GalleryProps) {
                 alt={item.alt}
                 fill
                 sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-contain transition-transform duration-700 group-hover:scale-105 brightness-[0.8] group-hover:brightness-100"
+                className="object-contain transition-transform duration-700 group-hover:scale-105  "
               />
               {/* Optional title overlay on hover */}
               {item.slug && (
-                <div className="absolute inset-0 bg-matte-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
-                  <span className="text-luxury-gold uppercase tracking-widest text-xs font-bold border border-luxury-gold/30 px-4 py-2 bg-matte-black/60 backdrop-blur-sm">
+                <div className="absolute inset-0  opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+                  <span className="text-luxury-gold uppercase tracking-widest text-xs font-bold border border-luxury-gold/10 px-4 py-2 bg-white backdrop-blur-sm">
                     View Detail
                   </span>
                 </div>

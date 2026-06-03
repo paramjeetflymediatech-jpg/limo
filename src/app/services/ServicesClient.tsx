@@ -82,12 +82,12 @@ export default function ServicesClient({ services }: ServicesClientProps) {
                           className="w-full h-full object-contain transition-transform duration-1000 group-hover:scale-105 brightness-[0.85] group-hover:brightness-100"
                         />
                         <div className="absolute inset-0 border border-white/5 pointer-events-none" />
-                        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 bg-matte-black/80 backdrop-blur-md px-4 py-2 border border-luxury-gold/20">
+                        {/* <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 bg-matte-black/80 backdrop-blur-md px-4 py-2 border border-luxury-gold/20">
                           <span className="text-white text-xs uppercase tracking-widest font-semibold flex items-center gap-2">
                             <MapPin className="w-3.5 h-3.5 text-luxury-gold" />
                             {service.location || 'Global Coverage'}
                           </span>
-                        </div>
+                        </div> */}
                       </div>
                     </div>
 

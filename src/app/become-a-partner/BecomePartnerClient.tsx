@@ -81,7 +81,7 @@ export default function BecomePartnerClient() {
           <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-luxury-gold text-xs uppercase tracking-[0.4em] font-bold mb-4 block"
+            className=" text-[10px] md:text-xs uppercase tracking-[0.4em] font-bold mb-6 inline-block bg-luxury-gold border border-luxury-gold/20 px-6 py-2.5 rounded-full backdrop-blur-md shadow-[0_0_15px_rgba(208,165,17,0.15)]"
           >
             B2B Transportation Solutions
           </motion.span>

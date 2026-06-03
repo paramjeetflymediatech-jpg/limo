@@ -110,7 +110,7 @@ export default async function ServiceDetailPage({ params }: RouteParams) {
         {/* Breadcrumb / Back Link */}
         <Link
           href="/services"
-          className="text-xs uppercase tracking-widest text-[#D0A511] hover:text-white mb-8 inline-block transition-colors"
+          className="text-xs uppercase tracking-widest text-[#D0A511] hover:text-luxury-gold mb-8 inline-block transition-colors"
         >
           &larr; Back to Services
         </Link>
