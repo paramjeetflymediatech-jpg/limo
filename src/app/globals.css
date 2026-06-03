@@ -181,6 +181,10 @@ body {
   color: #D0A511 !important;
 }
 
+.theme-dark .hover\:text-black:hover {
+  color: #000000 !important;
+}
+
 .theme-dark .text-gray-300 {
   color: #333333 !important;
 }

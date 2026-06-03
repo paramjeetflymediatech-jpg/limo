@@ -40,7 +40,7 @@ export default function Experience() {
 
           <Link
             href="/about"
-            className="px-8 py-4 border border-luxury-gold text-luxury-gold hover:bg-luxury-gold hover:text-matte-black font-semibold text-xs uppercase tracking-widest transition-all duration-300"
+            className="px-8 py-4 border border-luxury-gold text-luxury-gold hover:bg-luxury-gold hover:text-black font-bold text-xs uppercase tracking-widest transition-all duration-300 "
           >
             Our Philosophy
           </Link>
