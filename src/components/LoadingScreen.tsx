@@ -7,6 +7,7 @@ import Image from "next/image";
 export default function LoadingScreen() {
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
+  const [showLogo, setShowLogo] = useState(false);
 
   useEffect(() => {
     // 1. Force the window to scroll to top immediately
@@ -22,7 +23,7 @@ export default function LoadingScreen() {
 
     // 4. Animate progress from 0 to 100
     const startTime = Date.now();
-    const duration = 2800; // time it takes to reach 100%
+    const duration = 3200; // time it takes to reach 100%
 
     const updateProgress = () => {
       const elapsed = Date.now() - startTime;
@@ -40,13 +41,19 @@ export default function LoadingScreen() {
       setIsLoading(false);
       // Re-enable scrolling after the preloader finishes
       document.body.style.overflow = 'auto';
-    }, 3200);
+    }, 4500);
 
     return () => {
       clearTimeout(timer);
       document.body.style.overflow = 'auto';
     };
   }, []);
+
+  useEffect(() => {
+    if (progress >= 75) {
+      setShowLogo(true);
+    }
+  }, [progress]);
 
   return (
     <AnimatePresence>
@@ -56,91 +63,131 @@ export default function LoadingScreen() {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, y: "-100%", filter: "blur(10px)" }}
           transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
-          className="fixed inset-0 z-[100] bg-matte-black flex flex-col items-center justify-center pointer-events-auto"
+          className="fixed inset-0 z-[100] bg-matte-black flex flex-col items-center justify-center pointer-events-auto select-none"
         >
-          {/* Ambient Glow */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-luxury-gold/10 rounded-full blur-[120px] pointer-events-none" />
+          {/* Ambient Glows */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-luxury-gold/5 rounded-full blur-[150px] pointer-events-none" />
 
-          {/* Center Container */}
-          <div className="relative flex flex-col items-center justify-center w-full max-w-sm px-8">
+          {/* Cinematic Background Lines / Road Grid */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.01)_0%,transparent_80%)] pointer-events-none" />
+
+          {/* Logo / Tagline Area */}
+          <div className="relative flex flex-col items-center justify-center w-full h-full max-w-4xl px-8">
             
-            {/* Logo / Preload Image */}
-            {/* <motion.div
-              initial={{ y: 20, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="mb-14 w-full flex justify-center"
-            >
-              <Image 
-                src="/preload.png"
-                alt="Fantastic Limo Preloader"
-                width={500}
-                height={250}
-                className="object-contain w-full h-auto max-w-[400px] md:max-w-[500px]"
-                priority
-              />
-            </motion.div> */}
-
-            {/* Progress Container */}
-            <div className="w-full flex flex-col items-center gap-2 relative mt-4">
-              
-              {/* Premium Car Animation Track */}
-              <div className="w-full relative h-16 sm:h-20 pointer-events-none mb-2">
+            <AnimatePresence>
+              {showLogo && (
                 <motion.div
-                  className="absolute bottom-0 h-full w-32 sm:w-40 z-10"
-                  style={{ 
-                    left: `${progress}%`, 
-                    transform: `translateX(-${progress}%)` 
-                  }}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, y: -20 }}
+                  transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                  className="flex flex-col items-center justify-center text-center animate-fade-in"
                 >
-                  <Image
-                    src="/images/cadillac_escalade_side.png"
-                    alt="Premium Loading Escalade"
-                    fill
-                    sizes="(max-width: 640px) 128px, 160px"
-                    className="object-contain object-bottom "
-                    priority
-                  />
-                  {/* Underglow Effect */}
-                  <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-3/4 h-3 bg-luxury-gold/30 blur-[8px] rounded-full" />
-                </motion.div>
-                
-                {/* Dynamic Road / Track Line under the car */}
-                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-white/5">
-                  <motion.div 
-                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-transparent via-luxury-gold/50 to-luxury-gold shadow-[0_0_10px_rgba(208,165,17,0.5)]"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-              </div>
+                  {/* Subtle gold glow behind logo */}
+                  <div className="absolute w-[350px] h-[350px] bg-luxury-gold/10 rounded-full blur-[100px] -z-10 animate-pulse pointer-events-none" />
 
-              <div className="w-full flex flex-col gap-3">
-                {/* Progress Text */}
-                <div className="flex justify-between w-full text-[10px] sm:text-[11px] font-bold text-luxury-gold uppercase tracking-[0.2em]">
-                  <span className="flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-luxury-gold rounded-full animate-pulse shadow-[0_0_8px_rgba(208,165,17,0.8)]" />
-                    Preparing your ride
-                  </span>
-                  <span className="font-mono tracking-wider">{progress}%</span>
-                </div>
-                
-                {/* Progress Bar Track */}
-                <div className="w-full h-[2px] bg-white/10 overflow-hidden relative rounded-full">
-                  {/* Progress Bar Fill */}
-                  <motion.div 
-                    className="absolute top-0 left-0 h-full bg-gradient-to-r from-luxury-gold/40 to-luxury-gold shadow-[0_0_15px_rgba(208,165,17,1)]"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-              </div>
-            </div>
+                  {/* Logo Image */}
+                  <div className="relative w-[280px] h-[120px] sm:w-[440px] sm:h-[180px] mb-4">
+                    <Image
+                      src="/preload.png"
+                      alt="Fantastic Limo Logo"
+                      fill
+                      sizes="(max-width: 640px) 280px, 440px"
+                      className="object-contain"
+                      priority
+                    />
+                  </div>
+
+                  {/* Brand Typography */}
+                  <div className="flex flex-col items-center tracking-[0.35em] text-center px-4">
+                    <h1 className="text-xl sm:text-2xl md:text-3xl font-serif font-bold text-white tracking-[0.25em] uppercase">
+                      Fantastic <span className="text-luxury-gold">Limo</span>
+                    </h1>
+                    <p className="text-[9px] sm:text-[10px] md:text-xs uppercase text-gray-400 mt-2 font-light tracking-[0.3em]">
+                      Where Every Ride Is An Experience
+                    </p>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
           </div>
+
+          {/* Road & Driving Car Track Area */}
+          <div className="absolute bottom-[28%] left-0 right-0 w-full h-28 pointer-events-none overflow-hidden">
+            {/* The Road Line */}
+            <div className="absolute bottom-6 left-0 w-full h-[1px] bg-white/10">
+              {/* Active Gold Progress Trail */}
+              <div 
+                className="absolute top-0 left-0 h-full bg-gradient-to-r from-transparent via-luxury-gold/45 to-luxury-gold shadow-[0_0_15px_rgba(208,165,17,0.6)] transition-all duration-300"
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+
+            {/* The Escalade Car container driving across */}
+            <motion.div
+              className="absolute bottom-6 h-14 sm:h-18 w-44 sm:w-56 z-10"
+              style={{
+                left: `calc(-250px + (100% + 250px) * ${progress} / 100)`,
+              }}
+              animate={{
+                y: [0, -0.8, 1.2, -0.4, 0.8, 0],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 0.22,
+                ease: "easeInOut"
+              }}
+            >
+              <div className="relative w-full h-full">
+                {/* The Escalade Side Image */}
+                <Image
+                  src="/images/cadillac_escalade_side.png"
+                  alt="Premium Loading Escalade"
+                  fill
+                  sizes="(max-width: 640px) 176px, 224px"
+                  className="object-contain object-bottom"
+                  priority
+                />
+
+                {/* Headlight Beam */}
+                <div 
+                  className="absolute right-[-100px] top-[40%] w-[120px] h-[40px] bg-gradient-to-r from-white/35 via-luxury-gold/15 to-transparent blur-[3px] pointer-events-none origin-left"
+                  style={{
+                    clipPath: "polygon(0 35%, 100% 0, 100% 100%, 0 65%)"
+                  }}
+                />
+
+                {/* Taillight Red Glow */}
+                <div className="absolute left-[2px] top-[42%] w-2.5 h-2.5 bg-red-600 rounded-full blur-[4px] opacity-90" />
+
+                {/* Golden Underglow */}
+                <div className="absolute bottom-[-2px] left-[15%] w-[70%] h-2.5 bg-gradient-to-r from-luxury-gold/40 via-luxury-gold to-luxury-gold/40 rounded-full blur-[5px] opacity-80" />
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Minimal Bottom loading progress */}
+          <div className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2.5 w-full max-w-[240px] text-center">
+            <span className="text-[9px] tracking-[0.35em] text-gray-500 uppercase font-light">
+              Preparing your journey
+            </span>
+            <div className="flex items-center gap-3">
+              <div className="w-28 h-[1px] bg-white/10 relative overflow-hidden rounded-full">
+                <div 
+                  className="absolute top-0 left-0 h-full bg-luxury-gold shadow-[0_0_8px_rgba(208,165,17,0.8)] transition-all duration-300"
+                  style={{ width: `${progress}%` }}
+                />
+              </div>
+              <span className="font-mono text-[10px] text-luxury-gold tracking-wider font-semibold">
+                {progress.toString().padStart(2, '0')}%
+              </span>
+            </div>
+          </div>
+
         </motion.div>
       )}
     </AnimatePresence>
   );
 }
+
