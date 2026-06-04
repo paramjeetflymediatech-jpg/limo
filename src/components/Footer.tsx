@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Send } from "lucide-react";
 
 // Inline social SVGs for robustness and styling
@@ -46,12 +47,15 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8">
         {/* Brand Column */}
         <div className="flex flex-col gap-6">
-          <Link href="/" className="flex flex-col items-start tracking-widest">
-            <span className="text-2xl font-serif font-bold text-white">
-              FANTASTIC <span className="text-[#D0A511]">LIMO</span>
-            </span>
-            <span className="text-[9px] uppercase   -mt-1">
-              WHERE EVERY RIDE IS AN EXPERIENCE            </span>
+          <Link href="/" className="relative w-48 h-14 flex items-center justify-start">
+            <Image
+              src="/preload.png"
+              alt="Fantastic Limo Logo"
+              fill
+              sizes="192px"
+              className="object-contain object-left"
+              priority
+            />
           </Link>
           <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
             Experience the pinnacle of luxury, privacy, and safety. FantasticLimo provides elite chauffeur services tailored to dignitaries, executives, and VIPs worldwide.

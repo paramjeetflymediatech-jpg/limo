@@ -52,14 +52,15 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex flex-col items-start tracking-widest group">
-            <span className="text-xl md:text-2xl font-serif font-bold text-gray-900 group-hover:text-luxury-gold transition-colors duration-300">
-              FANTASTIC <span className="text-luxury-gold">LIMO</span>
-            </span>
-            <span className="text-[9px] uppercase text-gray-800 -mt-1 font-semibold">
-              WHERE EVERY RIDE IS AN EXPERIENCE
-            </span>
-
+          <Link href="/" className="relative w-44 h-12 flex items-center justify-start group">
+            <Image
+              src="/preload.png"
+              alt="Fantastic Limo Logo"
+              fill
+              sizes="176px"
+              className="object-contain object-left"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}

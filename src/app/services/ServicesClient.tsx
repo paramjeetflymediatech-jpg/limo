@@ -48,7 +48,11 @@ export default function ServicesClient({ services }: ServicesClientProps) {
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const paginatedServices = sortedServices.slice(startIndex, startIndex + itemsPerPage);
+  
 
+  sortedServices.forEach(service => {
+  console.log(service.name, getSortIndex(service.name));
+});
   return (
     <div className="bg-white min-h-screen py-16 md:py-24 relative overflow-hidden">
       {/* Decorative Glow */}
