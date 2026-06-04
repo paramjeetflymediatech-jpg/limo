@@ -30,6 +30,7 @@ export default function ServicesClient({ services }: ServicesClientProps) {
   const getSortIndex = (name: string): number => {
     const normalized = name.toLowerCase();
     if (normalized.includes("private jet")) return 9;
+    if (normalized.includes("cruise") || normalized.includes("port") || normalized.includes("terminal")) return 8;
     if (normalized.includes("airport") || normalized.includes("meet") || normalized.includes("transfer")) return 0;
     if (normalized.includes("corporate") || normalized.includes("roadshow")) return 1;
     if (normalized.includes("whistler")) return 2;
@@ -38,7 +39,6 @@ export default function ServicesClient({ services }: ServicesClientProps) {
     if (normalized.includes("city") || normalized.includes("tour") || normalized.includes("manhattan")) return 5;
     if (normalized.includes("event")) return 6;
     if (normalized.includes("wedding") || normalized.includes("royalty") || normalized.includes("protocol")) return 7;
-    if (normalized.includes("cruise") || normalized.includes("port") || normalized.includes("terminal")) return 8;
     return 100;
   };
 

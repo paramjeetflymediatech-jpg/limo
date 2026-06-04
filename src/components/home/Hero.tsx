@@ -1,32 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import Image from "next/image";
 import BookingForm from "../BookingForm";
 
 export default function Hero() {
-  const [viewMode, setViewMode] = useState<"exterior" | "interior">("exterior");
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  const heroSlides = [
-    { src: "/images/hero/whistler.png", location: "Whistler Mountain" },
-    { src: "/images/hero/sea_to_sky.png", location: "Sea-to-Sky Highway" },
-    { src: "/images/hero/lions_gate.png", location: "Lions Gate Bridge" },
-    { src: "/images/hero/gastown.png", location: "Gastown Steam Clock" },
-    { src: "/images/hero/stanley_park.png", location: "Stanley Park" },
-  ];
-
-  useEffect(() => {
-    if (viewMode === "exterior") {
-      const interval = setInterval(() => {
-        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-      }, 5000);
-      return () => clearInterval(interval);
-    }
-  }, [viewMode, heroSlides.length]);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -39,76 +19,31 @@ export default function Hero() {
   return (
     <section
       onMouseMove={handleMouseMove}
-      className="   relative min-h-[95vh] lg:min-h-screen flex flex-col justify-center items-center overflow-hidden pt-12"
+      className="relative min-h-[95vh] lg:min-h-screen flex flex-col justify-center items-center overflow-hidden pt-12"
     >
-      {/* Video Backgrounds */}
+      {/* Video Background */}
       <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden bg-black">
-        {/* Exterior Cinematic Slideshow */}
-        <div
-          className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${viewMode === "exterior" ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="object-cover w-full h-full filter brightness-[0.6] contrast-[1.05]"
+          poster="/images/hero/sea_to_sky.png"
         >
-          {heroSlides.map((slide, idx) => (
-            <motion.div
-              key={slide.src}
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{
-                opacity: currentSlide === idx ? 1 : 0,
-                scale: currentSlide === idx ? 1 : 1.1
-              }}
-              transition={{ duration: 2, ease: "easeOut" }}
-              className="absolute inset-0 w-full h-full "
-            >
-              <Image
-                src={slide.src}
-                alt={slide.location}
-                fill
-                priority={idx === 0}
-                quality={100}
-                sizes="100vw"
-                className="object-cover w-full h-full filter brightness-[0.75]"
-              />
-            </motion.div>
-          ))}
-          {/* Location Indicator Overlay */}
-          <div className="absolute top-28 right-8 z-20 hidden md:flex items-center gap-3 px-5 py-2.5 bg-black/50 backdrop-blur-md rounded-md border border-white/10 shadow-2xl">
-            <span className="w-2 h-2 rounded-full bg-luxury-gold animate-pulse" />
-            <AnimatePresence mode="wait">
-              <motion.span
-                key={currentSlide}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="text-[10px] uppercase tracking-[0.2em] text-white/90 font-bold"
-              >
-                {heroSlides[currentSlide].location}
-              </motion.span>
-            </AnimatePresence>
-          </div>
-        </div>
+          <source src="/vid1.mp4" type="video/mp4" />
+        </video>
 
-        {/* Interior Video */}
-        <div
-          className={`absolute inset-0 transition-opacity duration-[1200ms] ease-in-out ${viewMode === "interior" ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
-        >
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="object-cover w-full h-full scale-105 filter brightness-[0.5] transition-transform duration-1000"
-            poster="/images/limo_interior.png"
-          >
-            <source
-              src="https://assets.mixkit.co/videos/preview/mixkit-interior-of-a-modern-luxury-car-42297-large.mp4"
-              type="video/mp4"
-            />
-          </video>
+        {/* Location Indicator Overlay */}
+        <div className="absolute top-28 right-8 z-20 hidden md:flex items-center gap-3 px-5 py-2.5 bg-black/50 backdrop-blur-md rounded-md border border-white/10 shadow-2xl">
+          <span className="w-2 h-2 rounded-full bg-luxury-gold animate-pulse" />
+          <span className="text-[10px] uppercase tracking-[0.2em] text-white/90 font-bold">
+            Sea-to-Sky Highway
+          </span>
         </div>
 
         {/* Dark overlays with gold/black gradients for solid text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/55 via-transparent to-black/75 bg-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/65 via-black/25 to-black/80 pointer-events-none" />
       </div>
 
       {/* Mouse Follow Glow Effect */}
@@ -121,41 +56,6 @@ export default function Hero() {
 
       {/* Gold neon top line divider animation */}
       <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-luxury-gold/50 to-transparent animate-pulse-slow" />
-
-      {/* Floating Spec Panel for Interior Cabin */}
-      <AnimatePresence>
-        {viewMode === "interior" && (
-          <motion.div
-            initial={{ opacity: 0, x: -40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -40 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="absolute left-8 bottom-32 hidden xl:flex flex-col gap-4 p-6 glass-panel border border-luxury-gold/30 rounded-lg max-w-xs text-left z-20 shadow-[0_10px_30px_rgba(0,0,0,0.5)]"
-          >
-            <h4 className="text-luxury-gold font-serif font-bold text-sm uppercase tracking-wider flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-luxury-gold animate-ping" />
-              VIP Cabin Lounge
-            </h4>
-            <p className="text-xs text-gray-300 font-light leading-relaxed">
-              Step inside the sound-insulated executive rear compartment featuring climate-regulated massage seating and tailored amenities.
-            </p>
-            <ul className="flex flex-col gap-2 text-[10px] uppercase tracking-widest text-white/90">
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-luxury-gold rounded-full" />
-                Starlight Headliner
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-luxury-gold rounded-full" />
-                Champagne Bar & Glassware
-              </li>
-              <li className="flex items-center gap-2">
-                <span className="w-1.5 h-1.5 bg-luxury-gold rounded-full" />
-                Acoustic Privacy Partition
-              </li>
-            </ul>
-          </motion.div>
-        )}
-      </AnimatePresence>
 
       {/* Hero Content */}
       <div className="mx-auto px-6 md:px-12 w-full flex flex-col items-center text-center relative z-10 pt-20 pb-12 lg:pb-24">
