@@ -89,13 +89,13 @@ export default function Navbar() {
           <div className="hidden lg:block">
 
             <Link
-               href="tel:+17786880333"
-              className="relative inline-flex items-center justify-center px-6 py-3 border border-luxury-gold hover:border-luxury-gold text-sm font-semibold text-gray-900 bg-transparent hover:bg-luxury-gold hover:text-white transition-all duration-300 group overflow-hidden"
+              href="tel:+17786880333"
+              className="relative inline-flex items-center justify-center  text-sm font-semibold text-gray-900 bg-transparent  transition-all duration-300 group overflow-hidden px-2 "
             >
               <Phone className=" w-4 h-4 text-luxury-gold" />
-  
-              <span className="relative z-10"> +1 778 688 0333</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-[#D0A511]  opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0" />
+
+              <span className="relative z-10 p-2 group-hover:text-luxury-gold"> +1 778 688 0333</span>
+
             </Link>
             <Link
               href="/booking"
