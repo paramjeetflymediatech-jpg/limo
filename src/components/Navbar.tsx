@@ -54,7 +54,7 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="relative w-44 h-12 flex items-center justify-start group">
             <Image
-              src="/preload.png"
+              src="/logo.jpeg"
               alt="Fantastic Limo Logo"
               fill
               sizes="176px"

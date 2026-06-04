@@ -27,15 +27,15 @@ export default function Services({ services }: ServicesProps) {
 
   // Custom sort order for services as requested
   const getSortIndex = (name: string): number => {
-    const normalized = name.toLowerCase(); 
+    const normalized = name.toLowerCase();
     if (normalized.includes("private jet")) return 9;
-    if (normalized.includes("cruise") || normalized.includes("port") || normalized.includes("terminal")) return 8;
     if (normalized.includes("airport") || normalized.includes("meet") || normalized.includes("transfer")) return 0;
     if (normalized.includes("corporate") || normalized.includes("roadshow")) return 1;
     if (normalized.includes("whistler")) return 2;
     if (normalized.includes("seattle")) return 3;
     if (normalized.includes("hourly") || normalized.includes("charter")) return 4;
     if (normalized.includes("city") || normalized.includes("tour") || normalized.includes("manhattan")) return 5;
+    if (normalized.includes("cruise") || normalized.includes("port") || normalized.includes("terminal")) return 8;
     if (normalized.includes("event")) return 6;
     if (normalized.includes("wedding") || normalized.includes("royalty") || normalized.includes("protocol")) return 7;
     return 100;
@@ -44,7 +44,7 @@ export default function Services({ services }: ServicesProps) {
   const sortedServices = [...services].sort((a, b) => getSortIndex(a.name) - getSortIndex(b.name));
 
   // Display only the first 8 active services on the home page for clean layout
-  const displayedServices = sortedServices
+  const displayedServices = sortedServices.slice(0, 8);
 
   return (
     <section className="bg-matte-black py-24 relative overflow-hidden">

@@ -47,13 +47,14 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 md:gap-8">
         {/* Brand Column */}
         <div className="flex flex-col gap-6">
-          <Link href="/" className="relative w-48 h-14 flex items-center justify-start">
+          <Link href="/" className="relative w-56 h-28 flex items-center justify-start">
             <Image
-              src="/preload.png"
+              src="/logo1.png"
               alt="Fantastic Limo Logo"
               fill
-              sizes="192px"
+              sizes="224px"
               className="object-contain object-left"
+              style={{ filter: "drop-shadow(0px 2px 8px rgba(0, 0, 0, 0.35))" }}
               priority
             />
           </Link>

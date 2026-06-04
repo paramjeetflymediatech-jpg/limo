@@ -3,13 +3,30 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
+
+let hasShownPreloader = false;
 
 export default function LoadingScreen() {
+  const pathname = usePathname();
+  const [isMounted, setIsMounted] = useState(false);
+  const [shouldRender, setShouldRender] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
   const [showLogo, setShowLogo] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+    if (pathname === "/" && !hasShownPreloader) {
+      setShouldRender(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!shouldRender) return;
+
     // 1. Force the window to scroll to top immediately
     window.scrollTo(0, 0);
     
@@ -39,6 +56,7 @@ export default function LoadingScreen() {
 
     const timer = setTimeout(() => {
       setIsLoading(false);
+      hasShownPreloader = true;
       // Re-enable scrolling after the preloader finishes
       document.body.style.overflow = 'auto';
     }, 4500);
@@ -47,13 +65,18 @@ export default function LoadingScreen() {
       clearTimeout(timer);
       document.body.style.overflow = 'auto';
     };
-  }, []);
+  }, [shouldRender]);
 
   useEffect(() => {
+    if (!shouldRender) return;
     if (progress >= 75) {
       setShowLogo(true);
     }
-  }, [progress]);
+  }, [progress, shouldRender]);
+
+  if (!isMounted || !shouldRender) {
+    return null;
+  }
 
   return (
     <AnimatePresence>
@@ -94,6 +117,7 @@ export default function LoadingScreen() {
                       fill
                       sizes="(max-width: 640px) 280px, 440px"
                       className="object-contain"
+                      style={{ filter: "drop-shadow(0px 3px 10px rgba(0, 0, 0, 0.35))" }}
                       priority
                     />
                   </div>
