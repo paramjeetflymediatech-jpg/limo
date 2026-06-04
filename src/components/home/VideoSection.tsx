@@ -1,9 +1,27 @@
 "use client";
-
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
 export default function VideoSection() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+   const heroSlides = [
+    { src: "/images/hero/whistler1.png", location: "Whistler Mountain" },
+    { src: "/images/hero/sea_to_sky1.png", location: "Sea-to-Sky Highway" },
+    { src: "/images/hero/lions_gate1.png", location: "Lions Gate Bridge" },
+    { src: "/images/hero/gastown.jpeg", location: "Gastown Steam Clock" },
+    { src: "/images/hero/stanley_park1.png", location: "Stanley Park" },
+  ];
+  
+   useEffect(() => {
+   
+      const interval = setInterval(() => {
+        setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+      }, 5000);
+      return () => clearInterval(interval);
+   
+  }, [heroSlides.length]);
+  
   return (
     <section className="bg-matte-black theme-dark py-24 relative overflow-hidden">
       {/* Background Accent glow */}
@@ -23,32 +41,58 @@ export default function VideoSection() {
           </p>
         </div>
 
-        {/* Image Container */}
+        {/* Image Slideshow Container */}
         <motion.div
           initial={{ opacity: 0, scale: 0.98 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="relative w-full h-[300px] md:h-[550px] rounded-xl overflow-hidden border border-luxury-gold/15 group shadow-2xl bg-dark-gray"
+          className="relative w-full h-[300px] md:h-[550px] rounded-xl overflow-hidden border border-luxury-gold/15 group shadow-2xl bg-dark-gray"  
+          
         >
-          {/* Bridge Day Image */}
-          <Image
-            src="/bridge/day.jpg"
-            alt="FantasticLimo Bridge Day Experience"
-            fill
-            sizes="(max-width: 768px) 100vw, 1200px"
-            priority
-            className="object-cover  group-hover:brightness-[0.9] group-hover:scale-105 transition-all duration-700 ease-out"
-          />
+          {heroSlides.map((slide, idx) => (
+            <motion.div
+              key={slide.src}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{
+                opacity: currentSlide === idx ? 1 : 0,
+                scale: currentSlide === idx ? 1 : 1.05
+              }}
+              transition={{ duration: 1.5, ease: "easeInOut" }}
+              className="absolute inset-0 w-full h-full"
+            >
+              <Image
+                src={slide.src}
+                alt={slide.location}
+                width={1200}
+                height={800}
+                priority={idx === 0}
+                quality={100}
+                sizes="(max-width: 768px) 100vw, 1200px"
+                className="object-fit w-full h-full  transition-all duration-700 ease-out group-hover:scale-105"
+              />
+            </motion.div>
+          ))}
 
-          {/* Gradient Overlay for Sleek Styling */}
-          <div className="absolute inset-0 bg-gradient-to-t from-matte-black/50 via-transparent to-matte-black/20 pointer-events-none" />
+     
 
-          {/* Elegant Accent Border */}
-          <div className="absolute inset-0 border border-luxury-gold/10 rounded-xl pointer-events-none" />
+          {/* Location Indicator Overlay */}
+          <div className="absolute top-6 right-6 z-20 hidden md:flex items-center gap-3 px-4 py-2 bg-matte-black/60 backdrop-blur-md rounded-md border border-white/10 shadow-2xl">
+            <span className="w-2 h-2 rounded-full bg-luxury-gold animate-pulse" />
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={currentSlide}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="text-[10px] uppercase tracking-[0.25em] text-white font-bold"
+              >
+                {heroSlides[currentSlide].location}
+              </motion.span>
+            </AnimatePresence>
+          </div>
         </motion.div>
       </div>
     </section>
   );
 }
-

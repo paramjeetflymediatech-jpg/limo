@@ -100,6 +100,7 @@ export default function LoadingScreen() {
                     src="/images/cadillac_escalade_side.png"
                     alt="Premium Loading Escalade"
                     fill
+                    sizes="(max-width: 640px) 128px, 160px"
                     className="object-contain object-bottom "
                     priority
                   />

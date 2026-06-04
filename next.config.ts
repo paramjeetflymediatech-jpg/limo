@@ -26,6 +26,7 @@ if (serverUrl) {
 const nextConfig: NextConfig = {
   images: {
     remotePatterns,
+    qualities: [70, 75, 100],
   },
   serverExternalPackages: ["sequelize"],
 };
