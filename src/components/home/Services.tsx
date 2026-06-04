@@ -44,7 +44,7 @@ export default function Services({ services }: ServicesProps) {
   const sortedServices = [...services].sort((a, b) => getSortIndex(a.name) - getSortIndex(b.name));
 
   // Display only the first 8 active services on the home page for clean layout
-  const displayedServices = sortedServices.slice(0, 8);
+  const displayedServices = sortedServices
 
   return (
     <section className="bg-matte-black py-24 relative overflow-hidden">
