@@ -28,6 +28,7 @@ export default function Services({ services }: ServicesProps) {
   // Custom sort order for services as requested
   const getSortIndex = (name: string): number => {
     const normalized = name.toLowerCase();
+    console.log(normalized,'normalized')
     if (normalized.includes("private jet")) return 9;
     if (normalized.includes("airport") || normalized.includes("meet") || normalized.includes("transfer")) return 0;
     if (normalized.includes("corporate") || normalized.includes("roadshow")) return 1;
