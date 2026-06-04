@@ -26,10 +26,28 @@ export default function ServicesClient({ services }: ServicesClientProps) {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const itemsPerPage = 6;
 
-  const totalItems = services.length;
+  // Custom sort order for services as requested
+  const getSortIndex = (name: string): number => {
+    const normalized = name.toLowerCase();
+    if (normalized.includes("private jet")) return 9;
+    if (normalized.includes("airport") || normalized.includes("meet") || normalized.includes("transfer")) return 0;
+    if (normalized.includes("corporate") || normalized.includes("roadshow")) return 1;
+    if (normalized.includes("whistler")) return 2;
+    if (normalized.includes("seattle")) return 3;
+    if (normalized.includes("hourly") || normalized.includes("charter")) return 4;
+    if (normalized.includes("city") || normalized.includes("tour") || normalized.includes("manhattan")) return 5;
+    if (normalized.includes("event")) return 6;
+    if (normalized.includes("wedding") || normalized.includes("royalty") || normalized.includes("protocol")) return 7;
+    if (normalized.includes("cruise") || normalized.includes("port") || normalized.includes("terminal")) return 8;
+    return 100;
+  };
+
+  const sortedServices = [...services].sort((a, b) => getSortIndex(a.name) - getSortIndex(b.name));
+
+  const totalItems = sortedServices.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedServices = services.slice(startIndex, startIndex + itemsPerPage);
+  const paginatedServices = sortedServices.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className="bg-white min-h-screen py-16 md:py-24 relative overflow-hidden">
