@@ -232,7 +232,7 @@ export default function Hero() {
                 FIFA World Cup Chauffeur Services
               </h3>
               <p className="text-gray-700 text-xs font-light mt-1">
-                Luxury stadium transfers to BMO Field (Toronto) & BC Place (Vancouver). Bypass traffic with VIP stadium drop-offs.
+                Luxury stadium transfers to Lumen Field (Seattle) & BC Place (Vancouver). Bypass traffic with VIP stadium drop-offs.
               </p>
             </div>
           </div>
@@ -248,7 +248,7 @@ export default function Hero() {
               href="/booking?dropoff=BMO+Field,+Toronto,+ON&vehicle=VIP+Executive+Sprinter"
               className="px-4 py-2.5 bg-red-600 hover:bg-red-700 border border-red-600 hero-text-white font-bold text-xs uppercase tracking-widest transition-all duration-300 rounded-sm text-center flex-1 sm:flex-initial"
             >
-              BMO Field (Seattle Venue)
+              Lumen Field (Seattle)
             </Link>
           </div>
         </motion.div>

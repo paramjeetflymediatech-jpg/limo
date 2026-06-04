@@ -58,14 +58,16 @@ WHERE EVERY RIDE IS AN EXPERIENCE            </span>
           </p>
           <div className="flex gap-4">
             {[
-              { icon: FacebookIcon, label: "Facebook" },
-              { icon: TwitterIcon, label: "Twitter" },
-              { icon: InstagramIcon, label: "Instagram" },
-              { icon: LinkedinIcon, label: "LinkedIn" },
-            ].map(({ icon: Icon, label }) => (
+              { icon: FacebookIcon, label: "Facebook",href:"https://www.facebook.com" },
+              { icon: TwitterIcon, label: "Twitter",href:"https://twitter.com" },
+              { icon: InstagramIcon, label: "Instagram",href:"https://www.instagram.com" },
+              { icon: LinkedinIcon, label: "LinkedIn",href:"https://www.linkedin.com" },
+            ].map(({ icon: Icon, label, href }) => (
               <a
                 key={label}
-                href="#"
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full border border-luxury-gold/20 flex items-center justify-center text-[#D0A511] hover:border-luxury-gold hover:bg-luxury-gold/10 transition-all duration-300"
                 aria-label={label}
               >

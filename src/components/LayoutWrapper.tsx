@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Chatbot from "@/components/Chatbot";
 import SmoothScroll from "@/components/SmoothScroll";
 
 interface LayoutWrapperProps {
@@ -30,6 +31,7 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
       
       {/* Float Contact Link */}
       <WhatsAppButton />
+      <Chatbot />
     </>
   );
 }
