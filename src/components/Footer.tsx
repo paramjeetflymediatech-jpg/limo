@@ -51,17 +51,17 @@ export default function Footer() {
               FANTASTIC <span className="text-[#D0A511]">LIMO</span>
             </span>
             <span className="text-[9px] uppercase   -mt-1">
-WHERE EVERY RIDE IS AN EXPERIENCE            </span>
+              WHERE EVERY RIDE IS AN EXPERIENCE            </span>
           </Link>
           <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
             Experience the pinnacle of luxury, privacy, and safety. FantasticLimo provides elite chauffeur services tailored to dignitaries, executives, and VIPs worldwide.
           </p>
           <div className="flex gap-4">
             {[
-              { icon: FacebookIcon, label: "Facebook",href:"https://www.facebook.com" },
-              { icon: TwitterIcon, label: "Twitter",href:"https://twitter.com" },
-              { icon: InstagramIcon, label: "Instagram",href:"https://www.instagram.com" },
-              { icon: LinkedinIcon, label: "LinkedIn",href:"https://www.linkedin.com" },
+              { icon: FacebookIcon, label: "Facebook", href: "https://www.facebook.com" },
+              { icon: TwitterIcon, label: "Twitter", href: "https://twitter.com" },
+              { icon: InstagramIcon, label: "Instagram", href: "https://www.instagram.com" },
+              { icon: LinkedinIcon, label: "LinkedIn", href: "https://www.linkedin.com" },
             ].map(({ icon: Icon, label, href }) => (
               <a
                 key={label}
@@ -114,7 +114,7 @@ WHERE EVERY RIDE IS AN EXPERIENCE            </span>
           <ul className="flex flex-col gap-4 text-sm text-gray-400">
             <li className="flex flex-col">
               <span className="text-xs uppercase text-gray-500 tracking-wider">Address</span>
-              <span>Vancouver, BC, Canada</span>
+              <span>Seattle, WA, USA</span>
             </li>
             <li className="flex flex-col">
               <span className="text-xs uppercase text-gray-500 tracking-wider">Phone</span>

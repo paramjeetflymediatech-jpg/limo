@@ -212,7 +212,7 @@ export default function Chatbot() {
                 className="w-8 h-8 relative flex items-center justify-center"
               >
                 <Image
-                  src="/images/chatbot-icon-2.png"
+                  src="/images/chatbot-icon.png"
                   alt="Chatbot Logo"
                   fill
                   sizes="32px"
@@ -241,7 +241,7 @@ export default function Chatbot() {
                 <div className="relative">
                   <div className="w-8 h-8 rounded-full bg-black border border-luxury-gold/40 overflow-hidden relative shadow-[0_0_10px_rgba(208,165,17,0.15)] flex items-center justify-center">
                     <Image
-                      src="/images/chatbot-icon-2.png"
+                      src="/images/chatbot-icon.png"
                       alt="FantasticLimo Logo"
                       fill
                       sizes="32px"

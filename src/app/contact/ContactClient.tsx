@@ -85,7 +85,7 @@ export default function ContactClient() {
               {[
                 { icon: Phone, title: "Phone", details: "+1 (306) 240‑4000", href: "tel:+1234567890" },
                 { icon: Mail, title: "Email", details: "info@fantasticlimo.ca", href: "mailto: info@fantasticlimo.ca" },
-                { icon: MapPin, title: "Address", details: "Vancouver", href: "#" },
+                { icon: MapPin, title: "Address", details: "Seattle", href: "#" },
                 { icon: Clock, title: "Hours", details: "24/7 Dispatch Availability", href: "#" },
               ].map(({ icon: Icon, title, details, href }) => (
                 <div key={title} className="glass-panel p-6 rounded-lg border border-luxury-gold/10">
@@ -107,9 +107,8 @@ export default function ContactClient() {
             {/* Google Maps Embed */}
             <div className="relative rounded-lg overflow-hidden border border-luxury-gold/20 shadow-[0_0_30px_rgba(208,165,17,0.08)]" style={{ height: "320px" }}>
 
-              <iframe
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d154444.51322058612!2d-122.504607027423!3d47.60882845850354!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5490102c93e83355%3A0x102565466944d59a!2sSeattle%2C%20WA%2C%20USA!5e1!3m2!1sen!2sin!4v1780576426689!5m2!1sen!2sin"
                 title="FantasticLimo Location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d74647.56209391438!2d-123.123904!3d49.25773545!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548673f143a94fb3%3A0xbb9196ea9b81f38b!2sVancouver%2C%20BC%2C%20Canada!5e1!3m2!1sen!2sin!4v1779789010405!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: "invert(90%) hue-rotate(180deg) saturate(0.8) brightness(0.85)" }}
@@ -120,10 +119,10 @@ export default function ContactClient() {
               {/* Gold overlay badge */}
               <div className="absolute bottom-3 left-3 bg-matte-black/80 backdrop-blur-sm border border-luxury-gold/30 rounded px-3 py-1.5 flex items-center gap-2 pointer-events-none">
                 <MapPin className="w-3.5 h-3.5 text-luxury-gold shrink-0" />
-                <span className="text-[10px] uppercase tracking-widest text-gray-300 font-medium">FantasticLimo Vancouver Hub</span>
+                <span className="text-[10px] uppercase tracking-widest text-gray-300 font-medium">FantasticLimo Seattle Hub</span>
               </div>
               <a
-                href="https://maps.google.com/?q=Vancouver"
+                href="https://maps.google.com/?q=Seattle"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute top-3 right-3 bg-matte-black/80 backdrop-blur-sm border border-luxury-gold/30 rounded px-3 py-1.5 text-[10px] uppercase tracking-widest text-luxury-gold hover:bg-luxury-gold hover:text-matte-black transition-all duration-200"
