@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const url = new URL(request.url);
     const location = url.searchParams.get("location");
 
-    const queryOptions: any = {};
+    const queryOptions: any = {available: true};
     if (location) {
       queryOptions.where = { location };
     }
