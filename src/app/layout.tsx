@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import LayoutWrapper from "@/components/LayoutWrapper";
-import LoadingScreen from "@/components/LoadingScreen";
 export const dynamic = "force-dynamic";
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -50,8 +49,7 @@ export default function RootLayout({
       className={`${cormorant.variable} ${plusJakarta.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-matte-black text-white relative">
-        {/* Loading Screen */}
-        <LoadingScreen />
+
 
         {/* Cinematic Film Grain / Noise Overlay */}
         <div className="noise-overlay" />

@@ -1,12 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import BookingForm from "../BookingForm";
 
 export default function Hero() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+ 
+  // Cache safety check: If video is already loaded from cache before event listeners mount
+  useEffect(() => {
+    if (videoRef.current && videoRef.current.readyState >= 3) {
+      setVideoLoaded(true);
+    }
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -24,15 +33,29 @@ export default function Hero() {
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden bg-black">
         <video
+          ref={videoRef}
           autoPlay
           loop
           muted
           playsInline
-          className="object-cover w-full h-full filter brightness-[0.6] contrast-[1.05]"
+          preload="auto"
+          onLoadedData={() => setVideoLoaded(true)}
+          onCanPlay={() => setVideoLoaded(true)}
+          className={`object-cover w-full h-full filter brightness-[0.6] contrast-[1.05] transition-opacity duration-1000 ${
+            videoLoaded ? "opacity-100" : "opacity-0"
+          }`}
           poster="/images/hero/sea_to_sky.png"
         >
-          <source src="/vid1.mp4" type="video/mp4" />
+          <source src="/vid3.mp4" type="video/mp4" />
         </video>
+
+        {/* Fallback poster background shown while the large video buffers */}
+        {!videoLoaded && (
+          <div 
+            className="absolute inset-0 w-full h-full bg-cover bg-center filter brightness-[0.6] contrast-[1.05]"
+            style={{ backgroundImage: "url('/images/hero/sea_to_sky.png')" }}
+          />
+        )}
 
         {/* Location Indicator Overlay */}
         <div className="absolute top-28 right-8 z-20 hidden md:flex items-center gap-3 px-5 py-2.5 bg-black/50 backdrop-blur-md rounded-md border border-white/10 shadow-2xl">
@@ -89,7 +112,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.5 }}
           className="hero-text-white-muted text-sm md:text-lg uppercase tracking-[0.25em] font-light max-w-2xl mb-10 leading-relaxed"
         >
-          Elite Chauffeur & Limousine Services For VIP Clients
+          Elite Chauffeur & Limousine Services For VIP Clients 
         </motion.p>
 
         {/* Action Buttons */}

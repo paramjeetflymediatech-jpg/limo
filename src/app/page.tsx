@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 import Hero from "@/components/home/Hero";
+import LoadingScreen from "@/components/LoadingScreen";
 import Stats from "@/components/home/Stats";
 import FleetShowcase from "@/components/home/FleetShowcase";
 import Services from "@/components/home/Services";
@@ -58,6 +59,7 @@ export default async function Home() {
 
   return (
     <div className="overflow-x-hidden">
+      <LoadingScreen />
       {/* 1. Cinematic Hero Section */}
       <Hero />
 
