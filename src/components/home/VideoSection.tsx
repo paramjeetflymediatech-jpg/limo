@@ -9,7 +9,7 @@ export default function VideoSection() {
     { src: "/images/hero/whistler1.png", location: "Whistler Mountain" },
     { src: "/images/hero/sea_to_sky1.png", location: "Sea-to-Sky Highway" },
     { src: "/images/hero/lions_gate1.png", location: "Lions Gate Bridge" },
-    { src: "/images/hero/gastown.jpeg", location: "Gastown Steam Clock" },
+    { src: "/images/hero/gastown2.jpeg", location: "Gastown Steam Clock" },
     { src: "/images/hero/stanley_park1.png", location: "Stanley Park" },
   ];
   
@@ -17,7 +17,7 @@ export default function VideoSection() {
    
       const interval = setInterval(() => {
         setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-      }, 5000);
+      }, 3000);
       return () => clearInterval(interval);
    
   }, [heroSlides.length]);

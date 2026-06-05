@@ -19,9 +19,9 @@ export default function BookingMap({ pickupCoords, dropoffCoords }: BookingMapPr
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
 
-    // Centered initially at Toronto, Canada
+    // Centered initially at Seattle, WA, USA
     const map = L.map(mapContainerRef.current, {
-      center: [43.6532, -79.3832],
+      center: [47.6062, -122.3321],
       zoom: 11,
       zoomControl: false,
     });

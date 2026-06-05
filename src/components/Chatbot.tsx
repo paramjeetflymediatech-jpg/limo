@@ -96,10 +96,21 @@ export default function Chatbot() {
     setIsTyping(true);
 
     try {
+      // Map active conversation messages for multi-turn history, excluding the static welcome prompt
+      const conversationHistory = [...messages, newMsg]
+        .filter((m) => m.id !== "welcome")
+        .map((m) => ({
+          role: m.sender === "bot" ? "model" : "user",
+          text: m.text,
+        }));
+
       const response = await fetch("/api/chatbot/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: userMsgText }),
+        body: JSON.stringify({
+          message: userMsgText,
+          history: conversationHistory,
+        }),
       });
       const data = await response.json();
 

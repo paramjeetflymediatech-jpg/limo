@@ -126,7 +126,7 @@ export default function Hero() {
             </div>
             <div>
               <span className="text-[10px] uppercase tracking-[0.25em] text-red-600 font-bold block mb-1">
-                Canada 2026 Special Event Chauffeur
+                USA & Canada 2026 Special Event Chauffeur
               </span>
               <h3 className="text-black text-base md:text-lg font-serif font-bold">
                 FIFA World Cup Chauffeur Services
@@ -145,7 +145,7 @@ export default function Hero() {
               BC Place (Vancouver)
             </Link>
             <Link
-              href="/booking?dropoff=BMO+Field,+Toronto,+ON&vehicle=VIP+Executive+Sprinter"
+              href="/booking?dropoff=Lumen+Field,+Seattle,+WA&vehicle=VIP+Executive+Sprinter"
               className="px-4 py-2.5 bg-red-600 hover:bg-red-700 border border-red-600 hero-text-white font-bold text-xs uppercase tracking-widest transition-all duration-300 rounded-sm text-center flex-1 sm:flex-initial"
             >
               Lumen Field (Seattle)

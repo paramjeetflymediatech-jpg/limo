@@ -49,7 +49,7 @@ export default function Footer() {
         <div className="flex flex-col gap-6">
           <Link href="/" className="relative w-56 h-28 flex items-center justify-start">
             <Image
-              src="/logo1.png"
+              src="/logos.png"
               alt="Fantastic Limo Logo"
               fill
               sizes="224px"
@@ -119,12 +119,12 @@ export default function Footer() {
           <ul className="flex flex-col gap-4 text-sm text-gray-400">
             <li className="flex flex-col">
               <span className="text-xs uppercase text-gray-500 tracking-wider">Address</span>
-              <span>Seattle, WA, USA</span>
+              <span>Vancouver,BC, Canada</span>
             </li>
             <li className="flex flex-col">
               <span className="text-xs uppercase text-gray-500 tracking-wider">Phone</span>
-              <a href="tel:+13062404000" className="transition-colors">
-                +1 (306) 240-4000
+              <a href="tel:+17786880333" className="transition-colors">
+                +1 (778) 688-0333
               </a>
             </li>
             <li className="flex flex-col">
