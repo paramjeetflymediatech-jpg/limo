@@ -107,13 +107,16 @@ export default function LoadingScreen() {
               muted
               playsInline
               preload="auto"
+              crossOrigin="anonymous"
               onLoadedData={() => setVideoLoaded(true)}
               onCanPlay={() => setVideoLoaded(true)}
+              onError={(e) => console.error("LoadingScreen video failed to load", e)}
               className={`object-cover w-full h-full transition-opacity duration-1000 ${videoLoaded ? "opacity-100" : "opacity-0"
                 }`}
             >
+              {/* Cloudinary auto-optimized: q_auto=quality, f_auto=best format */}
               <source
-                src="/CarDriving.mp4"
+                src="https://res.cloudinary.com/dlgxzwuyv/video/upload/q_auto:good,f_auto/v1780661201/0_Car_Driving_1920x1080_czk3t7.mp4"
                 type="video/mp4"
               />
             </video>

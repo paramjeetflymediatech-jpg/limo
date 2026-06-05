@@ -39,14 +39,20 @@ export default function Hero() {
           muted
           playsInline
           preload="auto"
+          crossOrigin="anonymous"
           onLoadedData={() => setVideoLoaded(true)}
           onCanPlay={() => setVideoLoaded(true)}
+          onError={(e) => console.error("Hero video failed to load", e)}
           className={`object-cover w-full h-full filter brightness-[0.6] contrast-[1.05] transition-opacity duration-1000 ${
             videoLoaded ? "opacity-100" : "opacity-0"
           }`}
           poster="/images/hero/sea_to_sky.png"
         >
-          <source src="/vid3.mp4" type="video/mp4" />
+          {/* Cloudinary auto-optimized: q_auto=quality, w_1920=max width, f_auto=best format */}
+          <source
+            src="https://res.cloudinary.com/dlgxzwuyv/video/upload/q_auto:good,w_1920,c_scale,f_auto/v1780661115/0_Aerial_Drone_Lakeshore_3840x2160_siwtik.mp4"
+            type="video/mp4"
+          />
         </video>
 
         {/* Fallback poster background shown while the large video buffers */}
