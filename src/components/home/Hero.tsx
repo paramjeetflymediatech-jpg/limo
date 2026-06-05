@@ -20,7 +20,7 @@ export default function Hero() {
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setMousePos({
-      x: e.clientX - rect.left,
+      x: e.clientX - rect.left, 
       y: e.clientY - rect.top,
     });
   };
