@@ -2,7 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Upload, Plus, Trash2, X, CheckCircle2, AlertCircle, ArrowLeft } from "lucide-react";
+import { Upload, Plus, Trash2, X, CheckCircle2, AlertCircle, ArrowLeft, ArrowDown, ArrowUp } from "lucide-react";
 import Link from "next/link";
 
 type Vehicle = {
@@ -248,13 +248,28 @@ export default function FleetForm({ initialData, isEdit }: FleetFormProps) {
               {form.images.map((img, idx) => (
                 <div key={idx} className="relative w-24 h-24 rounded-md overflow-hidden border border-gray-200 group bg-gray-50 shadow-sm">
                   <img src={img} className="w-full h-full object-cover" alt="Exterior thumbnail" />
-                  <button
-                    type="button"
-                    onClick={() => setForm(f => ({ ...f, images: f.images.filter((_, i) => i !== idx) }))}
-                    className="absolute inset-0 bg-red-500/80 text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
-                  >
-                    <Trash2 className="w-5 h-5" />
-                  </button>
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                    <button
+                      type="button"
+                      title="Move to Interior"
+                      onClick={() => setForm(f => ({
+                        ...f,
+                        images: f.images.filter((_, i) => i !== idx),
+                        interiorImages: [...f.interiorImages, img]
+                      }))}
+                      className="p-1.5 bg-blue-500/90 text-white rounded-full hover:bg-blue-600 transition-transform hover:scale-110"
+                    >
+                      <ArrowDown className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      title="Delete Image"
+                      onClick={() => setForm(f => ({ ...f, images: f.images.filter((_, i) => i !== idx) }))}
+                      className="p-1.5 bg-red-500/90 text-white rounded-full hover:bg-red-600 transition-transform hover:scale-110"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               ))}
               <button
@@ -309,13 +324,28 @@ export default function FleetForm({ initialData, isEdit }: FleetFormProps) {
               {form.interiorImages.map((img, idx) => (
                 <div key={idx} className="relative w-24 h-24 rounded-md overflow-hidden border border-blue-100 group bg-gray-50 shadow-sm">
                   <img src={img} className="w-full h-full object-cover" alt="Interior thumbnail" />
-                  <button
-                    type="button"
-                    onClick={() => setForm(f => ({ ...f, interiorImages: f.interiorImages.filter((_, i) => i !== idx) }))}
-                    className="absolute inset-0 bg-red-500/80 text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
-                  >
-                    <Trash2 className="w-5 h-5" />
-                  </button>
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-3">
+                    <button
+                      type="button"
+                      title="Move to Exterior"
+                      onClick={() => setForm(f => ({
+                        ...f,
+                        interiorImages: f.interiorImages.filter((_, i) => i !== idx),
+                        images: [...f.images, img]
+                      }))}
+                      className="p-1.5 bg-amber-500/90 text-white rounded-full hover:bg-amber-600 transition-transform hover:scale-110"
+                    >
+                      <ArrowUp className="w-4 h-4" />
+                    </button>
+                    <button
+                      type="button"
+                      title="Delete Image"
+                      onClick={() => setForm(f => ({ ...f, interiorImages: f.interiorImages.filter((_, i) => i !== idx) }))}
+                      className="p-1.5 bg-red-500/90 text-white rounded-full hover:bg-red-600 transition-transform hover:scale-110"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
                 </div>
               ))}
               <button
