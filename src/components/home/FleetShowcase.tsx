@@ -125,16 +125,14 @@ function VehicleCard({ car, index }: { car: ShowcaseFleetItem; index: number }) 
       className="bg-white rounded-xl overflow-hidden group border border-gray-200/80 hover:border-luxury-gold/50 hover:shadow-[0_10px_35px_rgba(208,165,17,0.18)] transition-all duration-500 shadow-[0_4px_20px_rgba(0,0,0,0.04)] flex flex-col h-full"
     >
       {/* Image Area */}
-      <div className="relative aspect-[16/10] w-full overflow-hidden bg-matte-black block group/image">
+      <div className="relative aspect-[16/10] w-full overflow-hidden bg-white block group/image">
         <Link href={`/fleet/${car.id}`} className="absolute inset-0 w-full h-full block">
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60 z-10 pointer-events-none" />
-          
           <Image
             src={images[currentImgIndex]}
             alt={`${car.name} - View ${currentImgIndex + 1}`}
             fill
             sizes="(max-width: 728px) 100vw, 33vw"
-            className="object-contain group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-100"
+            className="object-contain group-hover:scale-105 transition-transform duration-700"
           />
         </Link>
 
