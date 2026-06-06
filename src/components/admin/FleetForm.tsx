@@ -13,7 +13,8 @@ type Vehicle = {
 };
 
 type FormState = Omit<Vehicle, "id"> & {
-  images: string[];
+  images: string[];      // exterior
+  interiorImages: string[];
   amenities: string[];
 };
 
@@ -30,6 +31,7 @@ const EMPTY: FormState = {
   name: "", category: "", image: "", description: "",
   price: "", passengers: 4, luggage: 2, available: true,
   images: [],
+  interiorImages: [],
   amenities: ["High-Speed Wi-Fi", "Discreet Privacy Glass", "Premium Audio System", "Chilled Mineral Water", "Professional Chauffeur"],
 };
 
@@ -49,6 +51,7 @@ export default function FleetForm({ initialData, isEdit }: FleetFormProps) {
 
   const fileRef = useRef<HTMLInputElement>(null);
   const multiFileRef = useRef<HTMLInputElement>(null);
+  const interiorFileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (initialData) {
@@ -68,6 +71,12 @@ export default function FleetForm({ initialData, isEdit }: FleetFormProps) {
         parsedAmenities = [...STANDARD_AMENITIES.slice(0, 5)];
       }
 
+      let parsedInteriorImages: string[] = [];
+      try {
+        if ((initialData as any).interiorImagesJson)
+          parsedInteriorImages = JSON.parse((initialData as any).interiorImagesJson);
+      } catch (e) { }
+
       setForm({
         name: initialData.name,
         category: initialData.category,
@@ -78,6 +87,7 @@ export default function FleetForm({ initialData, isEdit }: FleetFormProps) {
         luggage: initialData.luggage,
         available: initialData.available,
         images: parsedImages,
+        interiorImages: parsedInteriorImages,
         amenities: parsedAmenities,
       });
     }
@@ -123,9 +133,11 @@ export default function FleetForm({ initialData, isEdit }: FleetFormProps) {
       const payload = {
         ...form,
         imagesJson: JSON.stringify(form.images),
+        interiorImagesJson: JSON.stringify(form.interiorImages),
         amenitiesJson: JSON.stringify(form.amenities),
       };
       delete (payload as any).images;
+      delete (payload as any).interiorImages;
       delete (payload as any).amenities;
 
       const url = isEdit && initialData ? `/api/fleet/${initialData.id}` : "/api/fleet";
@@ -196,16 +208,16 @@ export default function FleetForm({ initialData, isEdit }: FleetFormProps) {
             {form.image && <img src={form.image} alt="preview" className="mt-3 h-32 w-auto object-cover rounded-md border border-gray-200 shadow-sm" />}
           </div>
 
-          {/* Multiple photos uploads */}
+          {/* Exterior Images */}
           <div>
-            <label className={labelCls}>Additional Gallery Images</label>
-            
+            <label className={labelCls}>Exterior Gallery Images</label>
+
             <div className="flex gap-2 mt-2 mb-4">
-              <input 
+              <input
                 id="gallery-url-input"
-                type="text" 
-                className={`${inputCls} flex-1`} 
-                placeholder="Paste image URL here..." 
+                type="text"
+                className={`${inputCls} flex-1`}
+                placeholder="Paste exterior image URL here..."
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                      e.preventDefault();
@@ -217,7 +229,7 @@ export default function FleetForm({ initialData, isEdit }: FleetFormProps) {
                   }
                 }}
               />
-              <button 
+              <button
                 type="button"
                 onClick={() => {
                   const input = document.getElementById("gallery-url-input") as HTMLInputElement;
@@ -235,7 +247,7 @@ export default function FleetForm({ initialData, isEdit }: FleetFormProps) {
             <div className="flex flex-wrap gap-4 mt-2">
               {form.images.map((img, idx) => (
                 <div key={idx} className="relative w-24 h-24 rounded-md overflow-hidden border border-gray-200 group bg-gray-50 shadow-sm">
-                  <img src={img} className="w-full h-full object-cover" alt="Gallery thumbnail" />
+                  <img src={img} className="w-full h-full object-cover" alt="Exterior thumbnail" />
                   <button
                     type="button"
                     onClick={() => setForm(f => ({ ...f, images: f.images.filter((_, i) => i !== idx) }))}
@@ -255,6 +267,87 @@ export default function FleetForm({ initialData, isEdit }: FleetFormProps) {
               </button>
             </div>
             <input ref={multiFileRef} type="file" accept="image/*" multiple className="hidden" onChange={handleUploadAdditional} />
+          </div>
+
+          {/* Interior Images */}
+          <div>
+            <label className={labelCls}>Interior Gallery Images</label>
+
+            <div className="flex gap-2 mt-2 mb-4">
+              <input
+                id="interior-url-input"
+                type="text"
+                className={`${inputCls} flex-1`}
+                placeholder="Paste interior image URL here..."
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                     e.preventDefault();
+                     const input = e.target as HTMLInputElement;
+                     if (input.value.trim()) {
+                       setForm(f => ({ ...f, interiorImages: [...f.interiorImages, input.value.trim()] }));
+                       input.value = "";
+                     }
+                  }
+                }}
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  const input = document.getElementById("interior-url-input") as HTMLInputElement;
+                  if (input && input.value.trim()) {
+                    setForm(f => ({ ...f, interiorImages: [...f.interiorImages, input.value.trim()] }));
+                    input.value = "";
+                  }
+                }}
+                className="px-4 py-2 border border-blue-400 text-blue-600 rounded-md hover:bg-blue-50 text-sm font-semibold transition-colors"
+              >
+                Add URL
+              </button>
+            </div>
+
+            <div className="flex flex-wrap gap-4 mt-2">
+              {form.interiorImages.map((img, idx) => (
+                <div key={idx} className="relative w-24 h-24 rounded-md overflow-hidden border border-blue-100 group bg-gray-50 shadow-sm">
+                  <img src={img} className="w-full h-full object-cover" alt="Interior thumbnail" />
+                  <button
+                    type="button"
+                    onClick={() => setForm(f => ({ ...f, interiorImages: f.interiorImages.filter((_, i) => i !== idx) }))}
+                    className="absolute inset-0 bg-red-500/80 text-white opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center cursor-pointer"
+                  >
+                    <Trash2 className="w-5 h-5" />
+                  </button>
+                </div>
+              ))}
+              <button
+                type="button"
+                onClick={() => interiorFileRef.current?.click()}
+                className="w-24 h-24 rounded-md border border-dashed border-blue-200 hover:border-blue-400 flex flex-col items-center justify-center text-blue-400 hover:text-blue-600 transition-colors text-xs gap-1 cursor-pointer bg-blue-50/30 hover:bg-blue-50"
+              >
+                <Plus className="w-5 h-5" />
+                <span>Upload</span>
+              </button>
+            </div>
+            <input
+              ref={interiorFileRef}
+              type="file"
+              accept="image/*"
+              multiple
+              className="hidden"
+              onChange={async (e) => {
+                const files = e.target.files;
+                if (!files || files.length === 0) return;
+                const uploadedUrls: string[] = [];
+                for (let i = 0; i < files.length; i++) {
+                  const fd = new FormData();
+                  fd.append("file", files[i]);
+                  const res = await fetch("/api/upload", { method: "POST", body: fd });
+                  if (res.ok) { const d = await res.json(); uploadedUrls.push(d.url); }
+                }
+                if (uploadedUrls.length > 0) {
+                  setForm(f => ({ ...f, interiorImages: [...f.interiorImages, ...uploadedUrls] }));
+                }
+              }}
+            />
           </div>
 
           <hr className="border-gray-100 my-2" />

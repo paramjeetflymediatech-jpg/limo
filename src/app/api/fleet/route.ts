@@ -29,7 +29,7 @@ export async function POST(request: NextRequest) {
   try {
     await initDb();
     const data = await request.json();
-    const { name, category, image, description, price, passengers, luggage, imagesJson, amenitiesJson } = data;
+    const { name, category, image, description, price, passengers, luggage, imagesJson, interiorImagesJson, amenitiesJson } = data;
 
     if (!name || !category || !image || !description || !price || passengers === undefined || luggage === undefined) {
       return Response.json(
@@ -62,6 +62,7 @@ export async function POST(request: NextRequest) {
       luggage: Number(luggage),
       available: true,
       imagesJson: imagesJson || "[]",
+      interiorImagesJson: interiorImagesJson || "[]",
       amenitiesJson: amenitiesJson || "[]",
     });
 
