@@ -1,15 +1,29 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import BookingForm from "../BookingForm";
 
+const VIDEOS = [
+  {
+    src: "https://res.cloudinary.com/dlgxzwuyv/video/upload/q_auto:good,w_1920,c_scale,f_auto/v1780661115/0_Aerial_Drone_Lakeshore_3840x2160_siwtik.mp4",
+    label: "Sea-to-Sky Highway",
+  },
+  {
+    src: "https://res.cloudinary.com/dlgxzwuyv/video/upload/q_auto:good,w_1920,c_scale,f_auto/v1780735988/5313304_Lions_Gate_Bridge_First_Narrows_Bridge_1920x1080_fcsgnc.mp4",
+    label: "Lions Gate Bridge",
+  },
+];
+
+const VIDEO_DURATION_MS = 15000; // switch every 15 seconds
+
 export default function Hero() {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [activeIndex, setActiveIndex] = useState(0);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
- 
+
   // Cache safety check: If video is already loaded from cache before event listeners mount
   useEffect(() => {
     if (videoRef.current && videoRef.current.readyState >= 3) {
@@ -17,10 +31,18 @@ export default function Hero() {
     }
   }, []);
 
+  // Cycle videos on a timer
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % VIDEOS.length);
+    }, VIDEO_DURATION_MS);
+    return () => clearInterval(timer);
+  }, []);
+
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = e.currentTarget.getBoundingClientRect();
     setMousePos({
-      x: e.clientX - rect.left, 
+      x: e.clientX - rect.left,
       y: e.clientY - rect.top,
     });
   };
@@ -32,32 +54,36 @@ export default function Hero() {
     >
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden bg-black">
-        <video
-          ref={videoRef}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          crossOrigin="anonymous"
-          onLoadedData={() => setVideoLoaded(true)}
-          onCanPlay={() => setVideoLoaded(true)}
-          onError={(e) => console.error("Hero video failed to load", e)}
-          className={`object-cover w-full h-full filter brightness-[0.6] contrast-[1.05] transition-opacity duration-1000 ${
-            videoLoaded ? "opacity-100" : "opacity-0"
-          }`}
-          poster="/images/hero/sea_to_sky.png"
-        >
-          {/* Cloudinary auto-optimized: q_auto=quality, w_1920=max width, f_auto=best format */}
-          <source
-            src="https://res.cloudinary.com/dlgxzwuyv/video/upload/q_auto:good,w_1920,c_scale,f_auto/v1780661115/0_Aerial_Drone_Lakeshore_3840x2160_siwtik.mp4"
-            type="video/mp4"
-          />
-        </video>
 
-        {/* Fallback poster background shown while the large video buffers */}
-        {!videoLoaded && (
-          <div 
+        {/* Render both videos stacked; only the active one is visible */}
+        {VIDEOS.map((video, index) => (
+          <video
+            key={video.src}
+            ref={index === 0 ? videoRef : undefined}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload={index === 0 ? "auto" : "none"}
+            onLoadedData={() => { if (index === 0) setVideoLoaded(true); }}
+            onCanPlay={() => { if (index === 0) setVideoLoaded(true); }}
+            onError={(e) => console.error(`Hero video ${index} failed to load`, e)}
+            className={`absolute inset-0 object-cover w-full h-full filter brightness-[0.6] contrast-[1.05] transition-opacity duration-[1500ms] ${
+              index === activeIndex
+                ? videoLoaded || index !== 0
+                  ? "opacity-100"
+                  : "opacity-0"
+                : "opacity-0"
+            }`}
+            poster={index === 0 ? "/images/hero/sea_to_sky.png" : undefined}
+          >
+            <source src={video.src} type="video/mp4" />
+          </video>
+        ))}
+
+        {/* Fallback poster background shown while the first video buffers */}
+        {!videoLoaded && activeIndex === 0 && (
+          <div
             className="absolute inset-0 w-full h-full bg-cover bg-center filter brightness-[0.6] contrast-[1.05]"
             style={{ backgroundImage: "url('/images/hero/sea_to_sky.png')" }}
           />
@@ -66,9 +92,34 @@ export default function Hero() {
         {/* Location Indicator Overlay */}
         <div className="absolute top-28 right-8 z-20 hidden md:flex items-center gap-3 px-5 py-2.5 bg-black/50 backdrop-blur-md rounded-md border border-white/10 shadow-2xl">
           <span className="w-2 h-2 rounded-full bg-luxury-gold animate-pulse" />
-          <span className="text-[10px] uppercase tracking-[0.2em] text-white/90 font-bold">
-            Sea-to-Sky Highway
-          </span>
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={VIDEOS[activeIndex].label}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.4 }}
+              className="text-[10px] uppercase tracking-[0.2em] text-white/90 font-bold"
+            >
+              {VIDEOS[activeIndex].label}
+            </motion.span>
+          </AnimatePresence>
+        </div>
+
+        {/* Video progress dots */}
+        <div className="absolute bottom-6 right-8 z-20 hidden md:flex items-center gap-2">
+          {VIDEOS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveIndex(i)}
+              className={`rounded-full transition-all duration-500 cursor-pointer ${
+                i === activeIndex
+                  ? "w-5 h-1.5 bg-luxury-gold"
+                  : "w-1.5 h-1.5 bg-white/40 hover:bg-white/70"
+              }`}
+              aria-label={`Switch to video ${i + 1}`}
+            />
+          ))}
         </div>
 
         {/* Dark overlays with gold/black gradients for solid text contrast */}
