@@ -134,7 +134,7 @@ function VehicleCard({ car, index }: { car: ShowcaseFleetItem; index: number }) 
             alt={`${car.name} - View ${currentImgIndex + 1}`}
             fill
             sizes="(max-width: 728px) 100vw, 33vw"
-            className="object-cover group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-100"
+            className="object-contain group-hover:scale-105 transition-transform duration-700 brightness-[0.9] group-hover:brightness-100"
           />
         </Link>
 
