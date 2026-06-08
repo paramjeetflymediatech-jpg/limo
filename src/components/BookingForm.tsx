@@ -247,16 +247,16 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
     }
   };
 
-  const inputStyles = "w-full bg-matte-black border border-luxury-gold/15 focus:border-luxury-gold/50 text-white placeholder-gray-500 rounded-md py-3 pl-10 pr-4 text-sm outline-none transition-all duration-300";
-  const labelStyles = "block text-xs uppercase tracking-widest  font-medium mb-2";
+  const inputStyles = "w-full min-w-0 bg-matte-black border border-luxury-gold/15 focus:border-luxury-gold/50 text-white placeholder-gray-500 rounded-md py-3 pl-10 pr-3 text-xs md:text-sm outline-none transition-all duration-300";
+  const labelStyles = "block text-xs uppercase tracking-widest font-medium mb-2";
 
   if (horizontal) {
     return (
       <form
         onSubmit={handleSubmit}
-        className="glass-panel p-6 md:p-8 rounded-lg border border-luxury-gold/20 shadow-2xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 items-end"
+        className="glass-panel p-4 md:p-8 rounded-lg border border-luxury-gold/20 shadow-2xl w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-12 gap-5 md:gap-6 items-end"
       >
-        <div className="relative lg:col-span-2 md:col-span-1" onClick={(e) => e.stopPropagation()}>
+        <div className="relative xl:col-span-2" onClick={(e) => e.stopPropagation()}>
           <label className={labelStyles}>Pickup Location</label>
           <div className="relative">
             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
@@ -295,7 +295,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
           )}
         </div>
 
-        <div className="relative lg:col-span-2 md:col-span-1" onClick={(e) => e.stopPropagation()}>
+        <div className="relative xl:col-span-2" onClick={(e) => e.stopPropagation()}>
           <label className={labelStyles}>Drop-off Location</label>
           <div className="relative">
             <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
@@ -334,7 +334,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
           )}
         </div>
 
-        <div className="relative lg:col-span-3 md:col-span-1">
+        <div className="relative xl:col-span-3">
           <label className={labelStyles}>Date & Time</label>
           <div className="relative">
             <Calendar className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
@@ -343,13 +343,13 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
               name="dateTime"
               value={formData.dateTime}
               onChange={handleChange}
-              className={`${inputStyles} cursor-pointer [color-scheme:light]`}
+              className={`${inputStyles} cursor-pointer [color-scheme:dark] md:[color-scheme:light]`}
               required
             />
           </div>
         </div>
 
-        <div className="relative lg:col-span-2 md:col-span-1">
+        <div className="relative xl:col-span-2">
           <label className={labelStyles}>Vehicle</label>
           <div className="relative">
             <Car className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
@@ -368,7 +368,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
           </div>
         </div>
 
-        <div className="relative lg:col-span-1 md:col-span-1">
+        <div className="relative xl:col-span-1">
           <label className={labelStyles}>Guests</label>
           <div className="relative">
             <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
@@ -387,7 +387,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
           </div>
         </div>
 
-        <div className="lg:col-span-2 md:col-span-1 w-full">
+        <div className="xl:col-span-2 w-full">
           <button
             type="submit"
             className="w-full bg-[#D0A511] text-white hover:brightness-110 font-bold text-xs uppercase tracking-widest cursor-pointer py-3.5 px-4 rounded-md transition-all duration-300 flex items-center justify-center gap-2 group shadow-lg"
@@ -403,7 +403,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="glass-panel p-8 rounded-lg border border-luxury-gold/20  w-full flex flex-col gap-6"
+      className="glass-panel p-5 md:p-8 rounded-lg border border-luxury-gold/20 w-full flex flex-col gap-6"
     >
       {/* Contact Details (Name, Email, Phone) */}
       <div className="border-b border-luxury-gold/10 pb-6 mb-2">
@@ -561,7 +561,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
               name="dateTime"
               value={formData.dateTime}
               onChange={handleChange}
-              className={`${inputStyles} cursor-pointer [color-scheme:light]`}
+              className={`${inputStyles} cursor-pointer [color-scheme:dark] md:[color-scheme:light]`}
               required
             />
           </div>

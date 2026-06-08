@@ -64,7 +64,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden xl:flex items-center gap-6">
             {navLinks.map((link: any) => (
               <Link
                 key={link.name}
@@ -87,7 +87,7 @@ export default function Navbar() {
           </nav>
 
           {/* Booking CTA Button */}
-          <div className="hidden lg:block">
+          <div className="hidden xl:block">
 
             <Link
               href="tel:+17786880333"
@@ -110,7 +110,7 @@ export default function Navbar() {
           {/* Mobile Menu Trigger */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden text-gray-900 hover:text-luxury-gold transition-colors z-50"
+            className="xl:hidden text-gray-900 hover:text-luxury-gold transition-colors z-50"
             aria-label="Toggle menu"
           >
             {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -138,7 +138,7 @@ export default function Navbar() {
                 >
                   <Link
                     href={link.href}
-                    className={`text-2xl font-serif hover:text-luxury-gold transition-colors ${pathname === link.href || (link.name === "Services" && pathname.startsWith("/services")) ? "text-luxury-gold" : "text-gray-900"
+                    className={`text-2xl font-serif hover:text-luxury-gold transition-colors ${pathname === link.href || (link.name === "Services" && pathname.startsWith("/services")) ? "text-luxury-gold" : "text-white"
                       }`}
                   >
                     {link.name}

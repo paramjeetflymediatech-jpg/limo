@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import Chatbot from "@/components/Chatbot";
 import SmoothScroll from "@/components/SmoothScroll";
+import Preloader from "@/components/Preloader";
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
@@ -21,6 +22,9 @@ export default function LayoutWrapper({ children }: LayoutWrapperProps) {
 
   return (
     <>
+      {/* Preloader */}
+      <Preloader />
+
       {/* Dynamic Navigation */}
       <Navbar />
       

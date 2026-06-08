@@ -2,26 +2,30 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
-
-interface GalleryProps {
-  services?: any[];
-}
-
-export default function Gallery({ services = [] }: GalleryProps) {
-  const router = useRouter();
-
-  if (!services || services.length === 0) {
-    return null;
-  }
-
-  const displayItems = services.slice(0, 4).map((s, i) => ({
-    src: s.image,
-    alt: s.name,
-    slug: s.slug,
-    className: i === 0 ? "md:col-span-2 md:row-span-2" : (i === 3 ? "col-span-1 md:col-span-2" : "col-span-1")
-  }));
+export default function Gallery() {
+  const displayItems = [
+    {
+      src: "/Artoftravel/50fb9df2-31dc-462f-a348-f9251b4c5202.png",
+      alt: "Airport Transfers",
+      href: "https://demo.socialflymediatech.com/services/airport-transfers",
+    },
+    {
+      src: "/Artoftravel/b1cb5216-aba9-45c3-8418-de92307bef41.png",
+      alt: "Private Jet Charters",
+      href: "https://demo.socialflymediatech.com/services/private-jet-charters",
+    },
+    {
+      src: "/Artoftravel/d15e7675-8d5f-4824-9b11-1a51632fa9e2.png",
+      alt: "Corporate Transportation",
+      href: "https://demo.socialflymediatech.com/services/corporate-transportation",
+    },
+    {
+      src: "/Artoftravel/e8c72561-afb8-480e-af56-4d5626234911.png",
+      alt: "Event Transportation",
+      href: "https://demo.socialflymediatech.com/services/event-transportation",
+    }
+  ];
 
   return (
     <section className=" py-24 relative overflow-hidden">
@@ -40,7 +44,7 @@ export default function Gallery({ services = [] }: GalleryProps) {
         </div>
 
         {/* Mosaic Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[250px]">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
           {displayItems.map((item, idx) => (
             <motion.div
               key={idx}
@@ -48,19 +52,19 @@ export default function Gallery({ services = [] }: GalleryProps) {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.8, delay: idx * 0.1 }}
-              onClick={() => item.slug && router.push(`/services/${item.slug}`)}
-              className={`relative overflow-hidden rounded-lg group border border-luxury-gold/5 hover:border-luxury-gold/20 ${item.className} ${item.slug ? 'cursor-pointer' : ''}`}
+              onClick={() => item.href && window.location.assign(item.href)}
+              className={`relative overflow-hidden group aspect-video rounded-lg ${item.href ? 'cursor-pointer' : ''}`}
             >
               <Image
                 src={item.src}
                 alt={item.alt}
                 fill
-                sizes="(max-width: 768px) 100vw, 33vw"
-                className="object-contain transition-transform duration-700 group-hover:scale-105  "
+                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
               {/* Optional title overlay on hover */}
-              {item.slug && (
-                <div className="absolute inset-0  opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
+              {item.href && (
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
                   <span className="text-luxury-gold uppercase tracking-widest text-xs font-bold border border-luxury-gold/10 px-4 py-2 bg-white backdrop-blur-sm">
                     View Detail
                   </span>
