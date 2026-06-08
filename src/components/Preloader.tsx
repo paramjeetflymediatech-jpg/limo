@@ -29,7 +29,7 @@ export default function Preloader() {
             muted
             playsInline
             onEnded={() => setShow(false)}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-contain lg:object-cover"
           >
             <source src="/preloarder.mp4" type="video/mp4" />
           </video>
