@@ -68,13 +68,12 @@ export default function Hero() {
             onLoadedData={() => { if (index === 0) setVideoLoaded(true); }}
             onCanPlay={() => { if (index === 0) setVideoLoaded(true); }}
             onError={(e) => console.error(`Hero video ${index} failed to load`, e)}
-            className={`absolute inset-0 object-cover w-full h-full filter brightness-[0.6] contrast-[1.05] transition-opacity duration-[1500ms] ${
-              index === activeIndex
+            className={`absolute inset-0 object-cover w-full h-full filter brightness-[0.6] contrast-[1.05] transition-opacity duration-[1500ms] ${index === activeIndex
                 ? videoLoaded || index !== 0
                   ? "opacity-100"
                   : "opacity-0"
                 : "opacity-0"
-            }`}
+              }`}
             poster={index === 0 ? "/images/hero/sea_to_sky.png" : undefined}
           >
             <source src={video.src} type="video/mp4" />
@@ -112,11 +111,10 @@ export default function Hero() {
             <button
               key={i}
               onClick={() => setActiveIndex(i)}
-              className={`rounded-full transition-all duration-500 cursor-pointer ${
-                i === activeIndex
+              className={`rounded-full transition-all duration-500 cursor-pointer ${i === activeIndex
                   ? "w-5 h-1.5 bg-luxury-gold"
                   : "w-1.5 h-1.5 bg-white/40 hover:bg-white/70"
-              }`}
+                }`}
               aria-label={`Switch to video ${i + 1}`}
             />
           ))}
@@ -169,7 +167,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.5 }}
           className="hero-text-white-muted text-sm md:text-lg uppercase tracking-[0.25em] font-light max-w-2xl mb-10 leading-relaxed"
         >
-          Elite Chauffeur & Limousine Services For VIP Clients 
+          Elite Chauffeur & Limousine Services For VIP Clients
         </motion.p>
 
         {/* Action Buttons */}
