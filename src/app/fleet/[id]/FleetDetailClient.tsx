@@ -176,8 +176,8 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
   return (
     <div className="bg-white min-h-screen py-12 md:py-20 relative">
       {/* Decorative Glow Elements */}
-      <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[200px] pointer-events-none" />
-      <div className="absolute bottom-10 right-1/4 w-[600px] h-[600px] bg-luxury-gold/5 rounded-full blur-[200px] pointer-events-none" />
+      <div className="absolute top-0 left-1/4 max-w-[600px] max-h-[600px] bg-luxury-gold/5 rounded-full blur-[200px] pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 max-w-[600px] max-h-[600px] bg-luxury-gold/5 rounded-full blur-[200px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
 
