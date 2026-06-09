@@ -12,7 +12,7 @@ export default function Preloader() {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
+    setIsMobile(window.innerWidth < 991);
     setMounted(true);
   }, []);
 
