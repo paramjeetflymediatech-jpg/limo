@@ -43,7 +43,7 @@ export default function Preloader() {
   if (!mounted) return null;
   if (pathname !== "/") return null;
 
-  const videoSrc = isMobile ? "/fanrtastic.mp4" : "/fanrtastic1.mp4";
+  const videoSrc = isMobile ? "/fanrtastic2.mp4" : "/fanrtastic1.mp4";
 
   return (
     <AnimatePresence>
