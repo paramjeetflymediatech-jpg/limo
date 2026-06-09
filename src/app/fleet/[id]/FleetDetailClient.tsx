@@ -272,7 +272,7 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
                       alt={`${car.name} thumbnail ${idx + 1}`}
                       fill
                       sizes="100px"
-                      className="object-cover"
+                      className="object-contain"
                     />
                   </button>
                 ))}
@@ -427,9 +427,9 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
               <div className="flex flex-col gap-2 text-center text-xs text-gray-500 py-3 border-t border-luxury-gold/10">
                 <span className="uppercase tracking-widest text-[9px] text-gray-600">Secure Direct Booking Concierge</span>
                 <div className="flex flex-wrap items-center justify-center gap-4 text-gray-400 mt-1">
-                  <a href="tel:+13062404000" className="flex items-center gap-1.5 hover:text-[#D0A511] transition-colors">
+                  <a href="tel:+17786880333" className="flex items-center gap-1.5 hover:text-[#D0A511] transition-colors">
                     <Phone className="w-3.5 h-3.5 text-[#D0A511]" />
-                    <span>+1 (306) 240-4000</span>
+                    <span>+1 (778) 688-0333</span>
                   </a>
                   <a href="mailto:info@fantasticlimo.ca" className="flex items-center gap-1.5 hover:text-[#D0A511] transition-colors">
                     <Mail className="w-3.5 h-3.5 text-[#D0A511]" />
