@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -89,6 +89,7 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -255,27 +256,55 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
               )}
             </div>
 
-            {/* Thumbnails Row */}
+            {/* Thumbnails Row with Scroll Arrows */}
             {gallery.length > 1 && (
-              <div className="grid grid-cols-4 sm:grid-cols-6 gap-3">
-                {gallery.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveImageIndex(idx)}
-                    className={`relative aspect-video rounded overflow-hidden border bg-charcoal/60 transition-all cursor-pointer ${activeImageIndex === idx
-                      ? "border-luxury-gold shadow-[0_0_12px_rgba(212,175,55,0.25)] scale-[1.03]"
-                      : "border-luxury-gold/15 opacity-60 hover:opacity-100"
-                      }`}
-                  >
-                    <Image
-                      src={img}
-                      alt={`${car.name} thumbnail ${idx + 1}`}
-                      fill
-                      sizes="100px"
-                      className="object-contain"
-                    />
-                  </button>
-                ))}
+              <div className="relative group/thumbs flex items-center mt-2">
+                {/* Left Scroll Button (Desktop) */}
+                <button
+                  onClick={() => {
+                    if (scrollRef.current) scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
+                  }}
+                  className="absolute left-2 z-10 p-2 bg-gray-100/80 border border-gray-200 text-gray-600 hover:bg-gray-200 rounded-full opacity-0 group-hover/thumbs:opacity-100 transition-opacity hidden md:block"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+
+                <div 
+                  ref={scrollRef}
+                  className="flex overflow-x-auto gap-3 pb-4 px-1 w-full snap-x scroll-smooth [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-gray-400 [&::-webkit-scrollbar-thumb]:rounded-full"
+                >
+                  {gallery.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={(e) => {
+                        setActiveImageIndex(idx);
+                        e.currentTarget.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+                      }}
+                      className={`relative shrink-0 w-24 sm:w-32 aspect-video snap-center rounded overflow-hidden border bg-charcoal/60 transition-all cursor-pointer ${activeImageIndex === idx
+                        ? "border-luxury-gold shadow-[0_0_12px_rgba(212,175,55,0.25)] scale-[1.03]"
+                        : "border-luxury-gold/15 opacity-60 hover:opacity-100"
+                        }`}
+                    >
+                      <Image
+                        src={img}
+                        alt={`${car.name} thumbnail ${idx + 1}`}
+                        fill
+                        sizes="128px"
+                        className="object-contain"
+                      />
+                    </button>
+                  ))}
+                </div>
+
+                {/* Right Scroll Button (Desktop) */}
+                <button
+                  onClick={() => {
+                    if (scrollRef.current) scrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
+                  }}
+                  className="absolute right-2 z-10 p-2 bg-gray-100/80 border border-gray-200 text-gray-600 hover:bg-gray-200 rounded-full opacity-0 group-hover/thumbs:opacity-100 transition-opacity hidden md:block"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
               </div>
             )}
 
