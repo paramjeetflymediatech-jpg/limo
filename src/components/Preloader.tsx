@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
 
@@ -9,9 +9,10 @@ export default function Preloader() {
   const [isMobile, setIsMobile] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    setIsMobile(window.innerWidth < 768);
+    setIsMobile(window.innerWidth < 991);
     setMounted(true);
   }, []);
 
@@ -25,8 +26,24 @@ export default function Preloader() {
     }
   }, [show, mounted]);
 
+  // Programmatically handle autoplay block / failures to avoid stuck preloader screen in Safari
+  useEffect(() => {
+    if (mounted && videoRef.current) {
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise.catch((error) => {
+          console.warn("Preloader video autoplay was prevented or failed:", error);
+          // If autoplay is blocked by Safari/browser policies, hide preloader immediately so site is accessible
+          setShow(false);
+        });
+      }
+    }
+  }, [mounted]);
+
   if (!mounted) return null;
   if (pathname !== "/") return null;
+
+  const videoSrc = isMobile ? "/fanrtastic.mp4" : "/preloarder.mp4";
 
   return (
     <AnimatePresence>
@@ -39,16 +56,15 @@ export default function Preloader() {
           className="fixed inset-0 z-[10000] bg-black flex items-center justify-center overflow-hidden"
         >
           <video
+            ref={videoRef}
+            key={videoSrc}
+            src={videoSrc}
             autoPlay
             muted
             playsInline
             onEnded={() => setShow(false)}
             className="w-full h-full object-cover"
-          >
-            {/* We dynamically switch the source based on screen size */}
-            <source src={isMobile ? "/fanrtastic.webm" : "/preloarder.webm"} type="video/webm" />
-            <source src={isMobile ? "/fanrtastic.mp4" : "/preloarder.mp4"} type="video/mp4" />
-          </video>
+          />
         </motion.div>
       )}
     </AnimatePresence>
