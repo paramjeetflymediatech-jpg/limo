@@ -84,8 +84,7 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
   const exteriorGallery = Array.from(new Set([car.image, ...exteriorImages].filter(Boolean)));
   const interiorGallery = Array.from(new Set([...interiorImages].filter(Boolean)));
 
-  const [activeTab, setActiveTab] = useState<"exterior" | "interior">("exterior");
-  const gallery = activeTab === "exterior" ? exteriorGallery : interiorGallery;
+  const gallery = [...exteriorGallery, ...interiorGallery];
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
@@ -208,38 +207,6 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
           {/* LEFT COLUMN: Gallery Viewport & Thumbnails */}
           <div className="lg:col-span-7 flex flex-col gap-6 lg:sticky lg:top-28 h-fit">
 
-            {/* Gallery Tabs (Exterior / Interior) */}
-            <div className="flex gap-4 border-b border-luxury-gold/20 pb-2">
-              <button
-                onClick={() => {
-                  setActiveTab("exterior");
-                  setActiveImageIndex(0);
-                }}
-                className={`pb-2 text-xs uppercase tracking-widest font-semibold transition-all duration-300 relative ${
-                  activeTab === "exterior" ? "text-[#D0A511]" : "text-gray-500 hover:text-gray-300"
-                }`}
-              >
-                Exterior
-                {activeTab === "exterior" && (
-                  <motion.div layoutId="activeTab" className="absolute bottom-[-9px] left-0 right-0 h-0.5 bg-[#D0A511]" />
-                )}
-              </button>
-              <button
-                onClick={() => {
-                  setActiveTab("interior");
-                  setActiveImageIndex(0);
-                }}
-                className={`pb-2 text-xs uppercase tracking-widest font-semibold transition-all duration-300 relative ${
-                  activeTab === "interior" ? "text-[#D0A511]" : "text-gray-500 hover:text-gray-300"
-                }`}
-              >
-                Interior
-                {activeTab === "interior" && (
-                  <motion.div layoutId="activeTab" className="absolute bottom-[-9px] left-0 right-0 h-0.5 bg-[#D0A511]" />
-                )}
-              </button>
-            </div>
-
             {/* Active Display Screen */}
             <div
               onClick={() => {
@@ -253,7 +220,7 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
                 <>
                   <AnimatePresence mode="wait">
                     <motion.div
-                      key={`${activeTab}-${activeImageIndex}`}
+                      key={activeImageIndex}
                       initial={{ opacity: 0, scale: 0.98 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 1.02 }}
@@ -262,7 +229,7 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
                     >
                       <Image
                         src={gallery[activeImageIndex]}
-                        alt={`${car.name} ${activeTab} image ${activeImageIndex + 1}`}
+                        alt={`${car.name} image ${activeImageIndex + 1}`}
                         fill
                         priority
                         sizes="(max-w-1024px) 100vw, 60vw"
@@ -282,7 +249,7 @@ export default function FleetDetailClient({ car }: FleetDetailClientProps) {
                 <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-zinc-900 to-zinc-800 rounded-lg border border-white/5">
                   <span className="text-[#D0A511] text-xs uppercase tracking-widest opacity-50 flex flex-col items-center gap-2">
                     <Car className="w-8 h-8 opacity-40" />
-                    No {activeTab} images available
+                    No images available
                   </span>
                 </div>
               )}

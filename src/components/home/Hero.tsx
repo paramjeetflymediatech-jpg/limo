@@ -197,7 +197,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="w-full max-w-7xl mt-6"
+          className="w-full max-w-4xl mt-2 transform scale-[0.85] md:scale-[0.8] origin-top"
         >
           <BookingForm horizontal={true} />
         </motion.div>

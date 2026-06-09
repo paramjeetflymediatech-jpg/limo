@@ -16,7 +16,8 @@ export const fleetItems = [
     price: "$350/hr",
     passengers: 4,
     luggage: 3,
-    imagesJson: '["/images/luxury_rolls_interior.png","https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&q=80&w=800"]',
+    imagesJson: '["https://images.unsplash.com/photo-1617531653332-bd46c24f2068?auto=format&fit=crop&q=80&w=800"]',
+    interiorImagesJson: '["/images/luxury_rolls_interior.png"]',
   },
   {
     id: "mercedes-s",
@@ -38,7 +39,8 @@ export const fleetItems = [
     price: "$280/hr",
     passengers: 4,
     luggage: 3,
-    imagesJson: '["/images/limo_interior.png","https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=800"]',
+    imagesJson: '["https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&q=80&w=800"]',
+    interiorImagesJson: '["/images/limo_interior.png"]',
   },
   {
     id: "cadillac-escalade",
@@ -49,7 +51,8 @@ export const fleetItems = [
     price: "$180/hr",
     passengers: 6,
     luggage: 6,
-    imagesJson: '["/images/luxury_limo_lounge.png","https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&q=80&w=800"]',
+    imagesJson: '["https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&q=80&w=800"]',
+    interiorImagesJson: '["/images/luxury_limo_lounge.png"]',
   },
   {
     id: "stretch-limo",
@@ -60,7 +63,8 @@ export const fleetItems = [
     price: "$220/hr",
     passengers: 10,
     luggage: 5,
-    imagesJson: '["/images/limo_interior.png","/images/luxury_limo_lounge.png"]',
+    imagesJson: '[]',
+    interiorImagesJson: '["/images/limo_interior.png","/images/luxury_limo_lounge.png"]',
   },
   {
     id: "vip-sprinter",
@@ -71,7 +75,8 @@ export const fleetItems = [
     price: "$250/hr",
     passengers: 12,
     luggage: 10,
-    imagesJson: '["/images/luxury_limo_lounge.png","/images/private_jet_interior.png"]',
+    imagesJson: '[]',
+    interiorImagesJson: '["/images/luxury_limo_lounge.png","/images/private_jet_interior.png"]',
   },
 ];
 
@@ -86,23 +91,33 @@ interface ShowcaseFleetItem {
   luggage: number;
   available?: boolean;
   imagesJson?: string;
+  interiorImagesJson?: string;
 }
 
 function VehicleCard({ car, index }: { car: ShowcaseFleetItem; index: number }) {
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
 
   // Parse gallery images
-  let gallery: string[] = [];
+  let exteriorGallery: string[] = [];
   try {
     if (car.imagesJson) {
-      gallery = JSON.parse(car.imagesJson);
+      exteriorGallery = JSON.parse(car.imagesJson);
     }
   } catch (e) {
     console.error("Error parsing imagesJson:", e);
   }
 
-  // Combine primary image and gallery
-  const images = [car.image, ...gallery].filter(Boolean);
+  let interiorGallery: string[] = [];
+  try {
+    if (car.interiorImagesJson) {
+      interiorGallery = JSON.parse(car.interiorImagesJson);
+    }
+  } catch (e) {
+    console.error("Error parsing interiorImagesJson:", e);
+  }
+
+  // Combine primary image, exterior gallery, and interior gallery
+  const images = Array.from(new Set([car.image, ...exteriorGallery, ...interiorGallery].filter(Boolean)));
 
   const handlePrev = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -146,17 +161,17 @@ function VehicleCard({ car, index }: { car: ShowcaseFleetItem; index: number }) 
           <>
             <button
               onClick={handlePrev}
-              className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/85 border border-white/10 text-white flex items-center justify-center z-20 cursor-pointer md:opacity-0 group-hover/image:opacity-100 transition-all duration-300 hover:scale-105 focus:outline-none"
+              className="absolute left-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-gray-100/80 hover:bg-gray-200 border border-gray-200 flex items-center justify-center z-20 cursor-pointer md:opacity-0 group-hover/image:opacity-100 transition-all duration-300 hover:scale-105 focus:outline-none"
               aria-label="Previous image"
             >
-              <ChevronLeft className="w-5 h-5 text-white" />
+              <ChevronLeft className="w-5 h-5 text-gray-600" />
             </button>
             <button
               onClick={handleNext}
-              className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/85 border border-white/10 text-white flex items-center justify-center z-20 cursor-pointer md:opacity-0 group-hover/image:opacity-100 transition-all duration-300 hover:scale-105 focus:outline-none"
+              className="absolute right-3 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-gray-100/80 hover:bg-gray-200 border border-gray-200 flex items-center justify-center z-20 cursor-pointer md:opacity-0 group-hover/image:opacity-100 transition-all duration-300 hover:scale-105 focus:outline-none"
               aria-label="Next image"
             >
-              <ChevronRight className="w-5 h-5 text-white" />
+              <ChevronRight className="w-5 h-5 text-gray-600" />
             </button>
 
             {/* Indicator Dots */}
@@ -166,8 +181,8 @@ function VehicleCard({ car, index }: { car: ShowcaseFleetItem; index: number }) 
                   key={i}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
                     i === currentImgIndex
-                      ? "w-4 bg-luxury-gold"
-                      : "w-1.5 bg-white/50"
+                      ? "w-4 bg-[#D0A511]"
+                      : "w-1.5 bg-gray-300"
                   }`}
                 />
               ))}
