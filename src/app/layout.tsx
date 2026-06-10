@@ -48,12 +48,24 @@ export default function RootLayout({
       lang="en"
       className={`${cormorant.variable} ${plusJakarta.variable} h-full antialiased`}
     >
+      <head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-R6V64J25WJ"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){'dataLayer.push(arguments);'}
+        gtag('js', new Date());
+
+        gtag('config', 'G-R6V64J25WJ');
+        `}}></script>
+
+        <meta name="google-site-verification" content="sKlkoI-0OMEIeTQEzqOmsaVntbhI5PgdAd247fVsTJU" /></head>
       <body className="min-h-full flex flex-col bg-matte-black text-white relative">
 
 
         {/* Cinematic Film Grain / Noise Overlay */}
         <div className="noise-overlay" />
-        
+
         {/* Conditional Layout Wrapper */}
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
