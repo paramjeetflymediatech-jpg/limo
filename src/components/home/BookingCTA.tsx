@@ -43,7 +43,7 @@ export default function BookingCTA() {
               <span>Reserve Online</span>
             </Link>
             <a
-              href="tel:+1234567890"
+              href="tel:+17786880333"
               className="flex items-center justify-center gap-2 px-8 py-4 border border-luxury-gold/40 text-luxury-gold hover:text-black hover:border-luxury-gold hover:bg-luxury-gold/10 font-semibold text-xs uppercase tracking-widest transition-all duration-300 w-full sm:w-auto rounded-sm"
             >
               <PhoneCall className="w-4 h-4" />
