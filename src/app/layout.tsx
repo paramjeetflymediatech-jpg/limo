@@ -49,14 +49,13 @@ export default function RootLayout({
       className={`${cormorant.variable} ${plusJakarta.variable} h-full antialiased`}
     >
       <head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-R6V64J25WJ"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18230429386"></script>
         <script dangerouslySetInnerHTML={{
           __html: `
         window.dataLayer = window.dataLayer || [];
-        function gtag(){'dataLayer.push(arguments);'}
-        gtag('js', new Date());
-
-        gtag('config', 'G-R6V64J25WJ');
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'AW-18230429386');
         `}}></script>
 
         <meta name="google-site-verification" content="sKlkoI-0OMEIeTQEzqOmsaVntbhI5PgdAd247fVsTJU" /></head>
