@@ -324,6 +324,82 @@ LocationService.init(
 );
 
 
+// 6. BlogPost Model
+export class BlogPost extends Model {
+  declare id: number;
+  declare title: string;
+  declare slug: string;
+  declare excerpt: string;
+  declare content: string;
+  declare coverImage: string;
+  declare author: string;
+  declare published: boolean;
+  declare seoTitle: string;
+  declare seoDescription: string;
+  declare seoKeywords: string;
+  declare createdAt: Date;
+  declare updatedAt: Date;
+}
+
+BlogPost.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    slug: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true,
+    },
+    excerpt: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    content: {
+      type: DataTypes.TEXT('long'),
+      allowNull: false,
+    },
+    coverImage: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    author: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'Admin',
+    },
+    published: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,
+    },
+    seoTitle: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    seoDescription: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+    seoKeywords: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+  },
+  {
+    sequelize,
+    modelName: "BlogPost",
+    tableName: "blog_posts",
+    timestamps: true,
+  }
+);
+
+
 // Database Seeding Logic for empty instances
 async function seedDatabase() {
   // Seed Admins
@@ -670,7 +746,7 @@ export async function initDb() {
 
     // Connect & Sync database structures
     await sequelize.authenticate();
-    await sequelize.sync({ alter: true });
+    await sequelize.sync();
     
     // Seed default settings if empty
     await seedDatabase();

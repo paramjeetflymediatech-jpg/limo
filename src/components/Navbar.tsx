@@ -13,6 +13,7 @@ const staticNavLinks = [
   { name: "Fleet", href: "/fleet" },
   { name: "About Us", href: "/about" },
   { name: "Become a Partner", href: "/become-a-partner" },
+  { name: "Blog", href: "/blog" },
   { name: "Contact", href: "/contact" },
 ];
 

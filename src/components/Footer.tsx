@@ -189,7 +189,7 @@ export default function Footer() {
               />
               <button
                 type="submit"
-                className="bg-luxury-gold text-matte-black px-4 py-3 hover:bg-soft-gold transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-luxury-gold text-matte-black px-4 py-3  transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 aria-label="Subscribe"
                 disabled={status === "loading" || status === "success"}
               >
