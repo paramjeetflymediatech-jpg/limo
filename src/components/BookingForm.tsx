@@ -51,6 +51,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
   const [lastSelectedDropoff, setLastSelectedDropoff] = useState("");
 
   // Fetch suggestions from OpenStreetMap Nominatim
+  // Clears the opposite dropdown to ensure only one is open at a time
   const fetchSuggestions = async (query: string, type: "pickup" | "dropoff") => {
     if (!query || query.trim().length < 3) {
       if (type === "pickup") setPickupSuggestions([]);
@@ -59,13 +60,15 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
     }
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1`
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5&addressdetails=1&countrycodes=ca`
       );
       if (response.ok) {
         const data = await response.json();
         if (type === "pickup") {
+          setDropoffSuggestions([]);
           setPickupSuggestions(data);
         } else {
+          setPickupSuggestions([]);
           setDropoffSuggestions(data);
         }
       }
@@ -167,7 +170,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
     const geocodeInitialAddress = async (address: string, type: "pickup" | "dropoff") => {
       try {
         const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1`
+          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(address)}&limit=1&countrycodes=ca`
         );
         if (response.ok) {
           const data = await response.json();
@@ -265,6 +268,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
               name="pickup"
               value={formData.pickup}
               onChange={handleChange}
+              onFocus={() => setDropoffSuggestions([])}
               placeholder="Airport, Hotel, Address"
               className={inputStyles}
               required
@@ -272,7 +276,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
             />
           </div>
           {pickupSuggestions.length > 0 && formData.pickup !== lastSelectedPickup && (
-            <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-[1005] max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
+            <div className="absolute left-0 mt-1 min-w-[340px] bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-[1005] max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
               {pickupSuggestions.map((suggestion: any) => (
                 <button
                   key={suggestion.place_id}
@@ -304,6 +308,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
               name="dropoff"
               value={formData.dropoff}
               onChange={handleChange}
+              onFocus={() => setPickupSuggestions([])}
               placeholder="Destination Address"
               className={inputStyles}
               required
@@ -311,7 +316,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
             />
           </div>
           {dropoffSuggestions.length > 0 && formData.dropoff !== lastSelectedDropoff && (
-            <div className="absolute left-0 right-0 mt-1 bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-[1005] max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
+            <div className="absolute left-0 mt-1 min-w-[340px] bg-matte-black/95 border border-luxury-gold/25 rounded-md shadow-2xl z-[1005] max-h-60 overflow-y-auto divide-y divide-luxury-gold/10 backdrop-blur-md">
               {dropoffSuggestions.map((suggestion: any) => (
                 <button
                   key={suggestion.place_id}
@@ -475,6 +480,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
             name="pickup"
             value={formData.pickup}
             onChange={handleChange}
+            onFocus={() => setDropoffSuggestions([])}
             placeholder="Airport, Hotel, Address"
             className={inputStyles}
             required
@@ -514,6 +520,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
             name="dropoff"
             value={formData.dropoff}
             onChange={handleChange}
+            onFocus={() => setPickupSuggestions([])}
             placeholder="Destination Address"
             className={inputStyles}
             required

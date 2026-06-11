@@ -50,7 +50,7 @@ export default function Hero() {
   return (
     <section
       onMouseMove={handleMouseMove}
-      className="relative min-h-[95vh] lg:min-h-screen flex flex-col justify-center items-center overflow-hidden pt-12"
+      className="relative min-h-[95vh] lg:min-h-screen flex flex-col justify-center items-center pt-12"
     >
       {/* Video Background */}
       <div className="absolute inset-0 w-full h-full -z-10 overflow-hidden bg-black">
@@ -197,7 +197,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 1 }}
-          className="w-full max-w-4xl mt-2 transform scale-[0.85] md:scale-[0.8] origin-top"
+          className="relative w-full max-w-4xl mt-2 transform scale-[0.85] md:scale-[0.8] origin-top overflow-visible"
         >
           <BookingForm horizontal={true} />
         </motion.div>
