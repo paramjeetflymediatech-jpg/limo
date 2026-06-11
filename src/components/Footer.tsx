@@ -44,16 +44,31 @@ export default function Footer() {
 
     setStatus("loading");
     
-    // Simulate API call for newsletter subscription
-    setTimeout(() => {
-      setStatus("success");
-      setEmail("");
-      
-      // Reset success message after 3 seconds
-      setTimeout(() => {
-        setStatus("idle");
-      }, 3000);
-    }, 1000);
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setEmail("");
+        
+        setTimeout(() => {
+          setStatus("idle");
+        }, 3000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 3000);
+      }
+    } catch (error) {
+      console.error("Newsletter error:", error);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 3000);
+    }
   };
 
   return (
@@ -111,17 +126,17 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/services/corporate-travel" className="transition-colors">
+              <Link href="/services/corporate-transportation" className="transition-colors">
                 Corporate Executive Travel
               </Link>
             </li>
             <li>
-              <Link href="/services/wedding-chauffeur" className="transition-colors">
+              <Link href="/services/wedding-transportation" className="transition-colors">
                 Wedding Limousine
               </Link>
             </li>
             <li>
-              <Link href="/services" className="transition-colors">
+              <Link href="/services/event-transportation" className="transition-colors">
                 VIP Event Transportation
               </Link>
             </li>
@@ -187,6 +202,9 @@ export default function Footer() {
             </div>
             {status === "success" && (
               <p className="text-[#D0A511] text-xs">Thank you for subscribing!</p>
+            )}
+            {status === "error" && (
+              <p className="text-red-500 text-xs">Something went wrong. Please try again.</p>
             )}
           </form>
         </div>
