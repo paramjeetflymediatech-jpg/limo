@@ -746,7 +746,7 @@ export async function initDb() {
 
     // Connect & Sync database structures
     await sequelize.authenticate();
-    await sequelize.sync({ alter: true });
+    await sequelize.sync();
     
     // Seed default settings if empty
     await seedDatabase();
