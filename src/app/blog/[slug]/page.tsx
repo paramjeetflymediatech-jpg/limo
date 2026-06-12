@@ -55,11 +55,18 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-matte-black pb-24">
       {/* Golden Banner */}
-      <div className="bg-[#D0A511] pt-32 pb-16 px-6 lg:px-8 mb-8">
-        <div className="max-w-7xl mx-auto">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-matte-black font-black tracking-wide leading-tight break-words [word-break:break-word] text-center lg:text-left">
+      <div className="bg-[#D0A511] pt-10 pb-12 px-6 lg:px-8 mb-8">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-serif text-matte-black font-black tracking-wide leading-tight break-words [word-break:break-word] text-left flex-1">
             {post.title}
           </h1>
+          <Link 
+            href="/blog" 
+            className="inline-flex items-center text-matte-black hover:bg-black/10 px-4 py-2 rounded-md text-xs font-bold uppercase tracking-widest transition-colors shrink-0"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to Journal
+          </Link>
         </div>
       </div>
 
@@ -67,13 +74,6 @@ export default async function BlogPostPage({ params }: Props) {
         
         {/* Main Content */}
         <main className="w-full">
-          <Link 
-            href="/blog" 
-            className="inline-flex items-center text-[#D0A511] text-xs font-bold uppercase tracking-widest transition-colors mb-8"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Journal
-          </Link>
 
         {/* Header */}
         <header className="mb-12">

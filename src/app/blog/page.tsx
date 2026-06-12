@@ -30,7 +30,7 @@ export default async function BlogIndexPage(props: { searchParams: Promise<{ [ke
   return (
     <div className="min-h-screen bg-matte-black pb-24 overflow-hidden">
       {/* Golden Banner */}
-      <div className="bg-[#D0A511] pt-32 pb-16 px-6 lg:px-8 mb-16">
+      <div className="bg-[#D0A511] pt-10 pb-12 px-6 lg:px-8 mb-16">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-4xl md:text-5xl font-serif text-matte-black font-black tracking-wide text-center lg:text-left">
             Blog
