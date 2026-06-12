@@ -106,7 +106,7 @@ export default function AdminBlogPage() {
                             )}
                           </div>
                           <div>
-                            <div className="font-serif font-bold text-gray-900 line-clamp-1">{p.title}</div>
+                            <div className="font-serif font-bold text-gray-900 line-clamp-1 break-all">{p.title}</div>
                             <div className="text-[10px] text-luxury-gold uppercase tracking-widest mt-0.5">{p.slug}</div>
                           </div>
                         </div>

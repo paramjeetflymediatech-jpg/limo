@@ -349,7 +349,7 @@ BlogPost.init(
       primaryKey: true,
     },
     title: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: false,
     },
     slug: {
@@ -379,7 +379,7 @@ BlogPost.init(
       defaultValue: true,
     },
     seoTitle: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
     seoDescription: {
@@ -387,7 +387,7 @@ BlogPost.init(
       allowNull: true,
     },
     seoKeywords: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true,
     },
   },
@@ -746,7 +746,7 @@ export async function initDb() {
 
     // Connect & Sync database structures
     await sequelize.authenticate();
-    await sequelize.sync();
+    await sequelize.sync({ alter: true });
     
     // Seed default settings if empty
     await seedDatabase();

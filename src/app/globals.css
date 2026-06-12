@@ -37,20 +37,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
-::-webkit-scrollbar-track {
-  background: #fdfbf7;
-}
-::-webkit-scrollbar-thumb {
-  background: #D0A511;
-  border-radius: 4px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #b08c0e;
-}
+
 
 /* Noise overlay - reduced opacity for clean light mode */
 .noise-overlay {
