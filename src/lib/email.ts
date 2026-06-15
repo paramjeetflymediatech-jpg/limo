@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
 interface EmailPayload {
-  to?: string;
+  to?: string | string[];
   subject: string;
   text: string;
   html: string;
@@ -16,8 +16,9 @@ export async function sendEmail({ to, subject, text, html }: EmailPayload) {
   const from = process.env.SMTP_FROM || user || "info@fantasticlimo.ca";
   const defaultTo = process.env.SMTP_TO || "info@fantasticlimo.ca";
   const recipient = to || defaultTo;
+  const recipientString = Array.isArray(recipient) ? recipient.join(", ") : recipient;
 
-  console.log(`[Email Dispatcher] Attempting to send email. Subject: "${subject}", To: "${recipient}"`);
+  console.log(`[Email Dispatcher] Attempting to send email. Subject: "${subject}", To: "${recipientString}"`);
 
   // Check if SMTP is configured. If not, log to console.
   if (!host || !user || !pass) {
@@ -27,7 +28,7 @@ export async function sendEmail({ to, subject, text, html }: EmailPayload) {
     );
     console.log("------------------ EMAIL CONTENT START ------------------");
     console.log(`FROM:    ${from}`);
-    console.log(`TO:      ${recipient}`);
+    console.log(`TO:      ${recipientString}`);
     console.log(`SUBJECT: ${subject}`);
     console.log(`TEXT:\n${text}`);
     console.log(`HTML:\n${html}`);
