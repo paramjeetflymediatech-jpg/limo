@@ -12,6 +12,7 @@ import {
   LogOut,
   ChevronRight,
   X,
+  BookOpen,
 } from "lucide-react";
 
 const NAV = [
@@ -20,6 +21,7 @@ const NAV = [
   { href: "/admin/fleet",     label: "Fleet",      icon: Car             },
   { href: "/admin/services",  label: "Services",   icon: MapPin          },
   { href: "/admin/seo",       label: "SEO Pages",  icon: Globe           },
+  { href: "/admin/blog",      label: "Blog",       icon: BookOpen        },
   { href: "/admin/settings",  label: "Settings",   icon: Settings        },
 ];
 

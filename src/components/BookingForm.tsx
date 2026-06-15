@@ -23,7 +23,7 @@ export const vehicleCategories = [
   "VIP Executive Sprinter",
 ];
 
-function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
+function BookingFormInner({ horizontal = false, compact = false }: { horizontal?: boolean; compact?: boolean }) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
@@ -415,7 +415,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
         <h3 className="text-sm font-serif text-luxury-gold uppercase tracking-widest font-semibold mb-4">
           Contact Details
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className={`grid gap-6 ${compact ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-3'}`}>
           <div className="relative">
             <label className={labelStyles}>Your Name</label>
             <div className="relative">
@@ -558,7 +558,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className={`grid gap-6 ${compact ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2'}`}>
         <div className="relative">
           <label className={labelStyles}>Date & Time</label>
           <div className="relative">
@@ -574,7 +574,7 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className={`grid gap-4 ${compact ? 'grid-cols-1' : 'grid-cols-2'}`}>
         <div className="relative">
           <label className={labelStyles}>Vehicle Selection</label>
           <div className="relative">
@@ -638,14 +638,14 @@ function BookingFormInner({ horizontal = false }: { horizontal?: boolean }) {
 
 import { Suspense } from "react";
 
-export default function BookingForm({ horizontal = false }: { horizontal?: boolean }) {
+export default function BookingForm({ horizontal = false, compact = false }: { horizontal?: boolean; compact?: boolean }) {
   return (
     <Suspense fallback={
       <div className="w-full bg-matte-black/50 border border-luxury-gold/10 p-6 rounded-lg animate-pulse h-[100px] flex items-center justify-center">
         <span className="text-xs uppercase tracking-widest text-luxury-gold">Loading Dispatch Form...</span>
       </div>
     }>
-      <BookingFormInner horizontal={horizontal} />
+      <BookingFormInner horizontal={horizontal} compact={compact} />
     </Suspense>
   );
 }

@@ -136,7 +136,7 @@ function BookingContent() {
           </p>
           <a
             href="tel:+17786880333"
-            className="text-xs uppercase tracking-widest text-luxury-gold hover:text-white font-bold transition-colors"
+            className="text-xs uppercase tracking-widest text-luxury-gold  font-bold transition-colors"
           >
             Call Dispatch (+1 778 688 0333)
           </a>

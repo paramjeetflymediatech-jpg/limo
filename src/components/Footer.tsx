@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Send } from "lucide-react";
+import { useState } from "react";
 
 // Inline social SVGs for robustness and styling
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -34,9 +35,40 @@ const LinkedinIcon = (props: React.SVGProps<SVGSVGElement>) => (
 );
 
 export default function Footer() {
-  const handleSubmit = (e: React.FormEvent) => {
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Newsletter submission logic
+    if (!email) return;
+
+    setStatus("loading");
+    
+    try {
+      const response = await fetch("/api/newsletter", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setStatus("success");
+        setEmail("");
+        
+        setTimeout(() => {
+          setStatus("idle");
+        }, 3000);
+      } else {
+        setStatus("error");
+        setTimeout(() => setStatus("idle"), 3000);
+      }
+    } catch (error) {
+      console.error("Newsletter error:", error);
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 3000);
+    }
   };
 
   return (
@@ -94,17 +126,17 @@ export default function Footer() {
               </Link>
             </li>
             <li>
-              <Link href="/services/corporate-travel" className="transition-colors">
+              <Link href="/services/corporate-transportation" className="transition-colors">
                 Corporate Executive Travel
               </Link>
             </li>
             <li>
-              <Link href="/services/wedding-chauffeur" className="transition-colors">
+              <Link href="/services/wedding-transportation" className="transition-colors">
                 Wedding Limousine
               </Link>
             </li>
             <li>
-              <Link href="/services" className="transition-colors">
+              <Link href="/services/event-transportation" className="transition-colors">
                 VIP Event Transportation
               </Link>
             </li>
@@ -144,20 +176,36 @@ export default function Footer() {
           <p className="text-gray-400 text-sm mb-4">
             Subscribe to receive exclusive travel updates and fleet additions.
           </p>
-          <form onSubmit={handleSubmit} className="flex gap-2">
-            <input
-              type="email"
-              placeholder="Your email address"
-              className="flex-1 bg-dark-gray border border-luxury-gold/20 focus:border-luxury-gold/50 text-white placeholder-gray-500 px-4 py-3 text-xs outline-none transition-colors"
-              required
-            />
-            <button
-              type="submit"
-              className="bg-luxury-gold text-matte-black px-4 py-3 hover:bg-soft-gold transition-colors flex items-center justify-center"
-              aria-label="Subscribe"
-            >
-              <Send className="w-4 h-4" />
-            </button>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+            <div className="flex gap-2">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Your email address"
+                className="flex-1 bg-dark-gray border border-luxury-gold/20 focus:border-luxury-gold/50 text-white placeholder-gray-500 px-4 py-3 text-xs outline-none transition-colors disabled:opacity-50"
+                required
+                disabled={status === "loading" || status === "success"}
+              />
+              <button
+                type="submit"
+                className="bg-luxury-gold text-matte-black px-4 py-3  transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Subscribe"
+                disabled={status === "loading" || status === "success"}
+              >
+                {status === "loading" ? (
+                  <div className="w-4 h-4 border-2 border-matte-black border-t-transparent rounded-full animate-spin" />
+                ) : (
+                  <Send className="w-4 h-4" />
+                )}
+              </button>
+            </div>
+            {status === "success" && (
+              <p className="text-[#D0A511] text-xs">Thank you for subscribing!</p>
+            )}
+            {status === "error" && (
+              <p className="text-red-500 text-xs">Something went wrong. Please try again.</p>
+            )}
           </form>
         </div>
       </div>
@@ -166,8 +214,8 @@ export default function Footer() {
         <p>&copy; {new Date().getFullYear()} FantasticLimo Service. All Rights Reserved.</p>
         <div className="flex gap-6">
           <Link href="/become-a-partner" className="transition-colors">Become a Partner</Link>
-          <a href="#" className="transition-colors">Privacy Policy</a>
-          <a href="#" className="transition-colors">Terms of Service</a>
+          <Link href="/privacy-policy" className="transition-colors">Privacy Policy</Link>
+          <Link href="/terms-of-service" className="transition-colors">Terms of Service</Link>
         </div>
       </div>
     </footer>
