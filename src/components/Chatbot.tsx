@@ -188,10 +188,10 @@ export default function Chatbot() {
   return (
     <>
       {/* Floating Action Button */}
-      <div className="fixed bottom-8 right-8 z-50 flex items-center justify-center">
+      <div className="fixed top-5 right-16 md:right-22 xl:top-auto xl:bottom-8 xl:right-8 z-50 flex items-center justify-center">
         <button
           onClick={() => setIsOpen((prev) => !prev)}
-          className="w-14 h-14   border border-luxury-gold/60 rounded-full shadow-[0_4px_25px_rgba(208,165,17,0.4)] hover:shadow-[0_4px_35px_rgba(208,165,17,0.65)] hover:scale-105 transition-all duration-300 flex items-center justify-center group relative cursor-pointer"
+          className="w-10 h-10 xl:w-14 xl:h-14 border border-luxury-gold/60 rounded-full shadow-[0_4px_25px_rgba(208,165,17,0.4)] hover:shadow-[0_4px_35px_rgba(208,165,17,0.65)] hover:scale-105 transition-all duration-300 flex items-center justify-center group relative cursor-pointer"
           aria-label="Toggle Concierge Chatbot"
         >
           <span className="absolute inset-0 rounded-full bg-luxury-gold animate-ping opacity-25 group-hover:opacity-40" />
@@ -209,7 +209,7 @@ export default function Chatbot() {
                 viewBox="0 0 24 24"
                 strokeWidth={2.5}
                 stroke="white"
-                className="w-6 h-6"
+                className="w-5 h-5 xl:w-6 xl:h-6"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
               </motion.svg>
@@ -220,7 +220,7 @@ export default function Chatbot() {
                 animate={{ rotate: 0, opacity: 1, scale: 1 }}
                 exit={{ rotate: -90, opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.2 }}
-                className="w-8 h-8 relative flex items-center justify-center"
+                className="w-6 h-6 xl:w-8 xl:h-8 relative flex items-center justify-center"
               >
                 <Image
                   src="/images/chatbot-icon.png"
