@@ -348,7 +348,7 @@ function BookingFormInner({ horizontal = false, compact = false }: { horizontal?
               name="dateTime"
               value={formData.dateTime}
               onChange={handleChange}
-              className={`${inputStyles} cursor-pointer   appearance-none [color-scheme:dark] md:[color-scheme:light]`}
+              className={`${inputStyles} cursor-pointer   appearance-none  [color-scheme:dark] md:[color-scheme:light]`}
               required
             />
           </div>
@@ -568,48 +568,48 @@ function BookingFormInner({ horizontal = false, compact = false }: { horizontal?
               name="dateTime"
               value={formData.dateTime}
               onChange={handleChange}
-              className={`${inputStyles} cursor-pointer [color-scheme:dark] md:[color-scheme:light]`}
+              className={`${inputStyles} cursor-pointer appearance-none [color-scheme:dark] md:[color-scheme:light]`}
               required
             />
           </div>
         </div>
 
         <div className={`grid gap-4 ${compact ? 'grid-cols-1' : 'grid-cols-2'}`}>
-        <div className="relative">
-          <label className={labelStyles}>Vehicle Selection</label>
           <div className="relative">
-            <Car className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
-            <select
-              name="vehicle"
-              value={formData.vehicle}
-              onChange={handleChange}
-              className={`${inputStyles} pl-10 pr-2 appearance-none cursor-pointer`}
-            >
-              {vehicles.map((vehicle) => (
-                <option key={vehicle} value={vehicle}>
-                  {vehicle}
-                </option>
-              ))}
-            </select>
+            <label className={labelStyles}>Vehicle Selection</label>
+            <div className="relative">
+              <Car className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
+              <select
+                name="vehicle"
+                value={formData.vehicle}
+                onChange={handleChange}
+                className={`${inputStyles} pl-10 pr-2 appearance-none cursor-pointer`}
+              >
+                {vehicles.map((vehicle) => (
+                  <option key={vehicle} value={vehicle}>
+                    {vehicle}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-        </div>
 
-        <div className="relative">
-          <label className={labelStyles}>Passengers</label>
           <div className="relative">
-            <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
-            <select
-              name="passengers"
-              value={formData.passengers}
-              onChange={handleChange}
-              className={`${inputStyles} pl-10 pr-2 appearance-none cursor-pointer`}
-            >
-              {[1, 2, 3, 4, 5, 6, 7, 8, "9+"].map((num) => (
-                <option key={num} value={num}>
-                  {num} Guest{num !== 1 && "s"}
-                </option>
-              ))}
-            </select>
+            <label className={labelStyles}>Passengers</label>
+            <div className="relative">
+              <Users className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-luxury-gold" />
+              <select
+                name="passengers"
+                value={formData.passengers}
+                onChange={handleChange}
+                className={`${inputStyles} pl-10 pr-2 appearance-none cursor-pointer`}
+              >
+                {[1, 2, 3, 4, 5, 6, 7, 8, "9+"].map((num) => (
+                  <option key={num} value={num}>
+                    {num} Guest{num !== 1 && "s"}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
         </div>
