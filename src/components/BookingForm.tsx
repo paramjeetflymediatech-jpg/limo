@@ -348,7 +348,7 @@ function BookingFormInner({ horizontal = false, compact = false }: { horizontal?
               name="dateTime"
               value={formData.dateTime}
               onChange={handleChange}
-              className={`${inputStyles} cursor-pointer [color-scheme:dark] md:[color-scheme:light]`}
+              className={`${inputStyles} cursor-pointer   appearance-none [color-scheme:dark] md:[color-scheme:light]`}
               required
             />
           </div>
