@@ -2,6 +2,7 @@
 
 import { Suspense, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Check, Calendar, Shield, Users, Clock, Star } from "lucide-react";
 import BookingForm, { vehicleCategories } from "@/components/BookingForm";
@@ -121,7 +122,13 @@ function BookingContent() {
             </li>
             <li className="flex gap-3">
               <Calendar className="w-5 h-5 text-luxury-gold shrink-0" />
-              <span>Complimentary cancellation up to 24 hours prior</span>
+              <span>
+                Complimentary cancellation up to 48 hours prior (view{" "}
+                <Link href="/cancellation-policy" className="text-luxury-gold hover:underline">
+                  policy
+                </Link>
+                )
+              </span>
             </li>
           </ul>
         </div>

@@ -216,6 +216,7 @@ export default function Footer() {
           <Link href="/become-a-partner" className="transition-colors">Become a Partner</Link>
           <Link href="/privacy-policy" className="transition-colors">Privacy Policy</Link>
           <Link href="/terms-of-service" className="transition-colors">Terms of Service</Link>
+          <Link href="/cancellation-policy" className="transition-colors">Cancellation Policy</Link>
         </div>
       </div>
     </footer>
