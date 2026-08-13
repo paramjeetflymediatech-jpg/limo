@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone } from "lucide-react";
+import { triggerPhoneGtagConversion } from "@/lib/gtag";
 
 const staticNavLinks = [
   { name: "Home", href: "/" },
@@ -88,34 +89,43 @@ export default function Navbar() {
           </nav>
 
           {/* Booking CTA Button */}
-          <div className="hidden xl:block">
-
-            <Link
+          <div className="hidden xl:flex items-center gap-4">
+            <a
               href="tel:+17786880333"
-              className="relative inline-flex items-center justify-center  text-sm font-semibold text-gray-900 bg-transparent  transition-all duration-300 group overflow-hidden px-2 "
+              onClick={triggerPhoneGtagConversion}
+              className="relative inline-flex items-center justify-center text-sm font-semibold text-gray-900 bg-transparent transition-all duration-300 group overflow-hidden px-2 py-1"
             >
-              <Phone className=" w-4 h-4 text-luxury-gold" />
-
-              <span className="relative z-10 p-2 group-hover:text-luxury-gold"> +1 778 688 0333</span>
-
-            </Link>
+              <Phone className="w-4 h-4 text-luxury-gold group-hover:scale-110 transition-transform duration-200" />
+              <span className="relative z-10 p-2 group-hover:text-luxury-gold">+1 778 688 0333</span>
+            </a>
             <Link
               href="/booking"
               className="relative inline-flex items-center justify-center px-6 py-3 border border-luxury-gold hover:border-luxury-gold text-sm font-semibold text-gray-900 bg-transparent hover:bg-luxury-gold hover:text-white transition-all duration-300 group overflow-hidden"
             >
               <span className="relative z-10">Book Reservation</span>
-              <span className="absolute inset-0 bg-gradient-to-r from-[#D0A511]  opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0" />
+              <span className="absolute inset-0 bg-gradient-to-r from-[#D0A511] opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-0" />
             </Link>
           </div>
 
-          {/* Mobile Menu Trigger */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="xl:hidden text-gray-900 hover:text-luxury-gold transition-colors z-50"
-            aria-label="Toggle menu"
-          >
-            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          {/* Mobile Right Controls: Phone Trigger + Mobile Menu Trigger */}
+          <div className="flex xl:hidden items-center gap-3">
+            <a
+              href="tel:+17786880333"
+              onClick={triggerPhoneGtagConversion}
+              className="flex items-center justify-center w-9 h-9 rounded-full bg-luxury-gold/10 text-luxury-gold hover:bg-luxury-gold hover:text-white transition-all duration-300 border border-luxury-gold/30 shadow-sm"
+              aria-label="Call +1 778 688 0333"
+              title="Call Concierge"
+            >
+              <Phone className="w-4 h-4" />
+            </a>
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="text-gray-900 hover:text-luxury-gold transition-colors z-50 p-1"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -151,11 +161,19 @@ export default function Navbar() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: navLinks.length * 0.08 }}
-                className="mt-4"
+                className="mt-4 flex flex-col gap-3 w-full"
               >
+                <a
+                  href="tel:+17786880333"
+                  onClick={triggerPhoneGtagConversion}
+                  className="flex items-center justify-center gap-2 px-8 py-3.5 border border-luxury-gold text-base text-luxury-gold hover:bg-luxury-gold hover:text-white transition-all duration-300 font-semibold"
+                >
+                  <Phone className="w-5 h-5 text-luxury-gold" />
+                  <span>Call +1 778 688 0333</span>
+                </a>
                 <Link
                   href="/booking"
-                  className="px-8 py-4 border border-luxury-gold text-base text-luxury-gold hover:bg-luxury-gold hover:text-white transition-all duration-300 font-semibold"
+                  className="flex items-center justify-center px-8 py-3.5 bg-luxury-gold text-white text-base font-semibold hover:brightness-110 transition-all duration-300"
                 >
                   Book Reservation
                 </Link>

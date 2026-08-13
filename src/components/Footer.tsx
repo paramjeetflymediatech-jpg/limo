@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Send } from "lucide-react";
 import { useState } from "react";
+import { triggerPhoneGtagConversion } from "@/lib/gtag";
 
 // Inline social SVGs for robustness and styling
 const FacebookIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -155,7 +156,11 @@ export default function Footer() {
             </li>
             <li className="flex flex-col">
               <span className="text-xs uppercase text-gray-500 tracking-wider">Phone</span>
-              <a href="tel:+17786880333" className="transition-colors">
+              <a
+                href="tel:+17786880333"
+                onClick={triggerPhoneGtagConversion}
+                className="transition-colors hover:text-[#D0A511]"
+              >
                 +1 (778) 688-0333
               </a>
             </li>
