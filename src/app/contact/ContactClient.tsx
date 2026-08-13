@@ -31,6 +31,13 @@ export default function ContactClient() {
 
       if (response.ok) {
         setSubmitted(true);
+        if (typeof window !== "undefined" && typeof (window as any).gtag === "function") {
+          (window as any).gtag("event", "conversion", {
+            send_to: "AW-18232168688/O0CqCPrZ5t8cEPCh4_VD",
+            value: 1.0,
+            currency: "CAD",
+          });
+        }
       } else {
         const err = await response.json();
         setError(err.error || "Failed to send inquiry. Please try again.");
